@@ -181,9 +181,9 @@ class Topbar_LocationSelect extends Component {
     const initialSearchFormValues = {
       location: locationFieldsPresent
         ? {
-            search: address,
-            selectedPlace: { address, origin, bounds },
-          }
+          search: address,
+          selectedPlace: { address, origin, bounds },
+        }
         : null,
     };
 
@@ -346,8 +346,8 @@ Topbar_LocationSelectComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const Topbar_LocationSelect = compose(withViewport, injectIntl)(Topbar_LocationSelectComponent);
+const Topbar_LocationSelects = compose(withViewport, injectIntl)(Topbar_LocationSelectComponent);
 
-Topbar_LocationSelect.displayName = 'Topbar';
+Topbar_LocationSelects.displayName = 'Topbar';
 
 export default Topbar_LocationSelect;
