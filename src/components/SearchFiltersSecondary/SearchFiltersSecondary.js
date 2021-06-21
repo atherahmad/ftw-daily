@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { func, object, string } from 'prop-types';
+import { func, object, string, number } from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from '../../util/reactIntl';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { withRouter } from 'react-router-dom';
 
 import { InlineTextButton } from '../../components';
-import css from './SearchFiltersSecondary.module.css';
+import css from './SearchFiltersSecondary.css';
 
 class SearchFiltersSecondaryComponent extends Component {
   constructor(props) {
@@ -57,8 +58,14 @@ class SearchFiltersSecondaryComponent extends Component {
   }
 
   render() {
-    const { rootClassName, className, children } = this.props;
+    const { rootClassName, className, children, resultsCount, intl } = this.props;
+
     const classes = classNames(rootClassName || css.root, className);
+
+    const showListingsLabel = intl.formatMessage(
+      { id: 'SearchFiltersMobile.showListings' },
+      { count: resultsCount }
+    );
 
     return (
       <div className={classes}>
@@ -71,7 +78,8 @@ class SearchFiltersSecondaryComponent extends Component {
             <FormattedMessage id={'SearchFiltersSecondary.cancel'} />
           </InlineTextButton>
           <InlineTextButton rootClassName={css.applyButton} onClick={this.applyFilters}>
-            <FormattedMessage id={'SearchFiltersSecondary.apply'} />
+            {/* <FormattedMessage id={'SearchFiltersSecondary.apply'} /> */}
+            {showListingsLabel}
           </InlineTextButton>
         </div>
       </div>
@@ -82,6 +90,7 @@ class SearchFiltersSecondaryComponent extends Component {
 SearchFiltersSecondaryComponent.defaultProps = {
   rootClassName: null,
   className: null,
+  resultsCount: null,
 };
 
 SearchFiltersSecondaryComponent.propTypes = {
@@ -91,8 +100,10 @@ SearchFiltersSecondaryComponent.propTypes = {
   applyFilters: func.isRequired,
   resetAll: func.isRequired,
   onClosePanel: func.isRequired,
+  resultsCount: number,
+  intl: intlShape.isRequired,
 };
 
-const SearchFiltersSecondary = SearchFiltersSecondaryComponent;
+const SearchFiltersSecondary = injectIntl(withRouter(SearchFiltersSecondaryComponent));
 
 export default SearchFiltersSecondary;

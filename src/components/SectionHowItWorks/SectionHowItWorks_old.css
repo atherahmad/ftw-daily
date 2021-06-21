@@ -1,0 +1,383 @@
+@import '../../marketplace.css';
+
+.wrapper {
+  /* @apply --marketplacePaperBackground;
+
+  background-color: var(--marketplaceColor); */
+  background-color: transparent;
+  height: auto;
+  position: relative;
+  border-radius: 11px;
+  z-index: 2;
+
+  @media (--viewportMedium) {
+    margin-top: 100px;
+    flex-direction: row;
+    padding-bottom: 0px;
+    margin-left: 100px;
+    width: calc(100vw - 200px);
+
+    border-radius: 11px;
+    height: auto;
+    transition: 0.5s;
+    margin-top: 10vh;
+  }
+}
+
+.lowerMenu {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  top: -40px;
+
+  /* @apply --marketplacePaperBackground;
+  background-color: #fafafa; */
+
+  @media (--viewportMedium) {
+    top: -40px;
+  }
+}
+
+.lowerMenuText {
+  position: relative;
+  @apply --TopbarDesktop_linkHover;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0 12px 0 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  line-height: 35px;
+  text-decoration: none;
+
+  &:hover {
+    padding-bottom: 11px;
+  }
+
+  /* @media (--viewportMedium) {
+
+    color: var(--marketplaceColor);
+
+
+  } */
+}
+
+.active {
+  /* color: var(--marketplaceColor); */
+  font-weight: 600;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 11px;
+  line-height: 35px;
+
+  text-decoration: none;
+  @apply --marketplacePaperBackground;
+
+  background-color: var(--marketplaceColor);
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  color: white;
+
+  /* @media (--viewportMedium) {
+
+    color: var(--marketplaceColor);
+    background-color: #fafafa;
+    border-bottom: 4px solid var(--marketplaceColor); 
+
+
+
+  } */
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  text-align: left;
+  padding-bottom: 50px;
+
+  transition: 0.2s;
+  opacity: 1;
+  width: 100%;
+  margin: 0;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+    margin-top: -40px;
+    padding-bottom: 20px;
+  }
+
+  @media (--viewportMLarge) {
+    margin-top: 4vh;
+  }
+}
+
+.items_hide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  text-align: left;
+  padding-bottom: 100px;
+  position: absolute;
+  height: 80vh;
+  width: 100vw;
+  transition: 0.2s;
+  opacity: 0;
+
+  margin: 0;
+
+  display: none;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+
+    margin-top: 7vh;
+  }
+}
+
+.item {
+  min-height: 60vh;
+  margin: 0 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  @media (--viewportMedium) {
+    /* max-width: 400px; */
+
+    width: 30%;
+  }
+}
+
+.iconWrapper {
+  height: 22vh;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media (--viewportMedium) {
+    height: 20vh;
+  }
+}
+
+.item_Header {
+  margin-top: 0;
+  color: var(--marketplaceColor);
+  font-size: 26px;
+  line-height: 34px;
+  min-height: 6vh;
+  margin-top: 0px;
+
+  /* @media (--viewportMedium) {
+    font-size: 34px;
+    line-height: 44px;
+  } */
+
+  @media (--viewportMLarge) {
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+.item_Subtitle {
+  text-align: left;
+  color: var(--marketplaceColor);
+  min-height: 17vh;
+
+  @apply --marketplaceMediumTextStyles;
+
+  @media (--viewportMedium) {
+    min-height: 22vh;
+  }
+  @media (--viewportMLarge) {
+    min-height: 17vh;
+  }
+}
+
+.itemButton {
+  padding: 1rem 2.5rem 1.125rem;
+
+  position: relative;
+
+  text-align: center;
+  border-radius: 11px;
+  border: 1px solid white;
+  color: white;
+  margin-top: 3vh;
+
+  &:hover {
+    /* border-color: var(--color-focus); */
+    background-color: white;
+    color: var(--marketplaceColor);
+  }
+
+  &:focus {
+    /* border-color: var(--color-focus); */
+    outline: none;
+  }
+}
+
+.drawer {
+  height: auto;
+  min-height: 100vh;
+  @apply --marketplacePaperBackground;
+  overflow: scroll;
+  background-color: var(--marketplaceColor);
+
+  width: 100vw;
+
+  @media (--viewportMedium) {
+    width: 700px;
+  }
+}
+
+.backgroundContainer {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  backdrop-filter: blur(5px);
+  z-index: 0;
+  animation: backgroundstartanimation 1s;
+
+  width: 0vw;
+
+  @media (--viewportMedium) {
+    width: 15vw;
+    width: calc(100% - 700px);
+  }
+}
+
+@keyframes backgroundstartanimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.closeButton {
+  float: right;
+  position: fixed;
+  right: 30px;
+  top: 0px;
+  z-index: 999;
+  color: white;
+  margin-top: 20px;
+}
+
+.about {
+  @apply --marketplaceH5FontStyles;
+  @apply --TopbarDesktop_label;
+}
+
+.criteriaList {
+  margin-left: 5vw;
+
+  margin-top: 10vh;
+
+  @media (--viewportMedium) {
+    margin-left: 100px;
+  }
+}
+
+.criteriaItemOuter {
+  min-height: 20vh;
+  /* margin: 0 20px; */
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 95%;
+
+  @media (--viewportMedium) {
+    width: 90%;
+  }
+}
+
+.criteriaItemInner {
+  width: 70%;
+
+  @media (--viewportMedium) {
+    width: 80%;
+  }
+}
+
+.criteriaIconWrapper {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 30%;
+  margin-left: 0px;
+  padding-right: 20px;
+
+  @media (--viewportMedium) {
+    width: 20%;
+  }
+}
+
+.criteriaItem_Header {
+  margin-top: 0;
+  color: white;
+  font-size: 22px;
+  line-height: 24px;
+
+  margin-top: 0px;
+}
+
+.criteriaItem_Subtitle {
+  text-align: left;
+  color: white;
+  @apply --marketplaceMediumTextStyles;
+}
+
+.partnersLink {
+  text-align: left;
+  color: white;
+  @apply --marketplaceMediumTextStyles;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.heroWrapper {
+}
+
+.cloudsOuter {
+  will-change: auto;
+  /* margin-left: -35%; */
+  animation: cloudsanimation 50s ease-in-out infinite;
+  transform: translate3d(-35vw, 0px, 0px);
+  width: 150%;
+}
+
+.clouds {
+}
+
+@keyframes cloudsanimation {
+  0% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+
+  50% {
+    transform: translate3d(-40vw, 0px, 0px);
+  }
+
+  100% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { RoutesProvider } from '../../components';
 import { renderShallow, renderDeep } from '../../util/test-helpers';
 import {
   fakeIntl,
@@ -8,6 +9,7 @@ import {
   createBooking,
 } from '../../util/test-data';
 import { InboxPageComponent, InboxItem, txState } from './InboxPage';
+import routeConfiguration from '../../routeConfiguration';
 import { TRANSITION_CONFIRM_PAYMENT } from '../../util/transaction';
 import { LINE_ITEM_NIGHT } from '../../util/types';
 

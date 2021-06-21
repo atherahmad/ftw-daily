@@ -7,36 +7,68 @@ const URL_PARAM = 'pub_amenities';
 
 const options = [
   {
+    key: 'light',
+    label: 'Licht/Lampe',
+  },
+  {
+    key: 'electricity',
+    label: 'Elektrizität',
+  },
+  {
+    key: 'wardrobe',
+    label: 'Kleiderschrank',
+  },
+  {
+    key: 'safe',
+    label: 'Safe',
+  },
+  {
     key: 'towels',
-    label: 'Towels',
+    label: 'Handtücher',
   },
   {
-    key: 'bathroom',
-    label: 'Bathroom',
+    key: 'internet',
+    label: 'WiFi / Internet',
   },
   {
-    key: 'swimming_pool',
-    label: 'Swimming pool',
+    key: 'mosquito_net',
+    label: 'Moskitonetz',
   },
   {
-    key: 'own_drinks',
-    label: 'Own drinks allowed',
+    key: 'air_conditioning',
+    label: 'Klimaanlage',
   },
   {
-    key: 'jacuzzi',
-    label: 'Jacuzzi',
+    key: 'fan',
+    label: 'Ventilator',
   },
   {
-    key: 'audiovisual_entertainment',
-    label: 'Audiovisual entertainment',
+    key: 'parking',
+    label: 'Parkplatz',
   },
   {
-    key: 'barbeque',
-    label: 'Barbeque',
+    key: 'bedsheets',
+    label: 'Bettwäsche',
   },
   {
-    key: 'own_food_allowed',
-    label: 'Own food allowed',
+    key: 'shower',
+    label: 'Dusche',
+  },
+  {
+    key: 'toilet',
+    label: 'Toilette',
+  },
+  {
+    key: 'sink',
+    label: 'Waschbecken',
+  },
+  {
+    key: 'private_kitchen',
+    label: 'Private Küche',
+  },
+  {
+    key: 'shared_kitchen',
+    label: 'Geteilte Küche',
   },
 ];
 

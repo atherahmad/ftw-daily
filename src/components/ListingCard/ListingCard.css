@@ -1,0 +1,235 @@
+@import '../../marketplace.css';
+
+.root {
+  /* Layout */
+  display: flex;
+  flex-direction: row;
+  border-radius: 11px;
+  overflow: hidden;
+
+  box-shadow: var(--boxShadowListingCard);
+  transition: 0.1s;
+
+  /* Remove link's hover effect */
+  &:hover {
+    text-decoration: none;
+    transition: 0.1s;
+    transform: scale(1.01);
+  }
+}
+
+.threeToTwoWrapper {
+  /* Layout */
+  display: block;
+  width: 42%;
+  min-width: 42%;
+  position: relative;
+  transition: var(--transitionStyleButton);
+  height: 100%;
+  min-height: 200px;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    width: 35%;
+  }
+}
+
+/* Firefox doesn't support image aspect ratio inside flexbox */
+.aspectWrapper {
+  /* padding-bottom: 66.6667%; */
+  /* 3:2 Aspect Ratio */
+  background: var(--matterColorNegative);
+
+  /* Loading BG color */
+}
+
+.rootForImage {
+  /* Layout - image will take space defined by aspect ratio wrapper */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: var(--borderRadius);
+}
+
+.info {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  padding: 6px 6px 0px 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.location {
+  font-size: 14px;
+  /* line-height: 32px; */
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #353535;
+
+  @media (--viewportMedium) {
+  }
+}
+
+.price_wrapper {
+  margin-top: auto;
+
+  margin-right: 40px;
+  @media (--viewportMedium) {
+    text-align: right;
+  }
+}
+.price {
+  /* Layout */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  margin-right: 18px; */
+  position: relative;
+  float: right;
+  right: 0;
+  justify-content: flex-end;
+}
+
+.priceValue {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.perUnit {
+  /* Font */
+  @apply --marketplaceTinyFontStyles;
+  color: var(--matterColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.mainInfo {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.title {
+  /* Font */
+  
+  @apply --marketplaceH3FontStyles;
+  color: var(--marketplaceColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  font-size: 18px;
+
+  @media (--viewportMedium) {
+    margin-top: 0px;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+}
+.titleText {
+  
+  @apply --marketplaceH1FontStyles;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--marketplaceColorDark);
+  text-align: left;
+  font-size: 18px;
+  margin-top: 0px;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    line-height: 32px;
+    font-size: 22px;
+  }
+}
+
+.authorInfo {
+  /* Font */
+  @apply --marketplaceTinyFontStyles;
+  color: var(--matterColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.longWord {
+  /* fallback option */
+  /* word-break: break-all; */
+  /* use break-word if available */
+  /* word-break: break-word; */
+  /* hyphens: auto; */
+}
+
+.labelWrapper {
+  display: inline-block;
+}
+
+.selectedLabel,
+.notSelectedLabel {
+  margin: 0;
+}
+
+.notSelectedLabel {
+  display: none;
+}
+
+.labelText {
+  font-size: 0;
+}
+.labelText img {
+  margin-top: 10px;
+  width: 30px;
+  @media (--viewportMedium) {
+    width: 40px;
+  }
+}
+.labelTextRoomtype {
+  font-size: 0;
+}
+.labelTextRoomtype img {
+  width: 45px;
+}
+.roomtype_wrapper {
+  margin-top: auto;
+  margin-top: -35px;
+  margin-right: 35px;
+  text-align: right;
+  display: none;
+  @media (--viewportMLarge) {
+    display: block;
+    text-align: right;
+    margin-top: -65px;
+    margin-right: 65px;
+  }
+}

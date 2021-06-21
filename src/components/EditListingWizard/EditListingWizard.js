@@ -21,13 +21,14 @@ import { StripeConnectAccountForm } from '../../forms';
 import EditListingWizardTab, {
   AVAILABILITY,
   DESCRIPTION,
+  CHARACTERISTICS,
   FEATURES,
-  POLICY,
+  OFFERS,
   LOCATION,
   PRICING,
   PHOTOS,
 } from './EditListingWizardTab';
-import css from './EditListingWizard.module.css';
+import css from './EditListingWizard.css';
 
 // Show availability calendar only if environment variable availabilityEnabled is true
 const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
@@ -38,12 +39,13 @@ const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 // and listing publishing happens after last panel.
 export const TABS = [
   DESCRIPTION,
+  CHARACTERISTICS,
   FEATURES,
-  POLICY,
+  OFFERS,
   LOCATION,
-  PRICING,
-  ...availabilityMaybe,
+  // PRICING,
   PHOTOS,
+  ...availabilityMaybe,
 ];
 
 // Tabs are horizontal in small screens
@@ -56,18 +58,22 @@ const tabLabel = (intl, tab) => {
   let key = null;
   if (tab === DESCRIPTION) {
     key = 'EditListingWizard.tabLabelDescription';
+  } else if (tab === CHARACTERISTICS) {
+    key = 'EditListingWizard.tabLabelCharacteristics';
   } else if (tab === FEATURES) {
     key = 'EditListingWizard.tabLabelFeatures';
-  } else if (tab === POLICY) {
-    key = 'EditListingWizard.tabLabelPolicy';
+  } else if (tab === OFFERS) {
+    key = 'EditListingWizard.tabLabelOffers';
   } else if (tab === LOCATION) {
     key = 'EditListingWizard.tabLabelLocation';
-  } else if (tab === PRICING) {
-    key = 'EditListingWizard.tabLabelPricing';
+  }
+  // else if (tab === PRICING) {
+  //   key = 'EditListingWizard.tabLabelPricing';
+  // }
+  else if (tab === PHOTOS) {
+    key = 'EditListingWizard.tabLabelPhotos';
   } else if (tab === AVAILABILITY) {
     key = 'EditListingWizard.tabLabelAvailability';
-  } else if (tab === PHOTOS) {
-    key = 'EditListingWizard.tabLabelPhotos';
   }
 
   return intl.formatMessage({ id: key });
@@ -86,7 +92,7 @@ const tabCompleted = (tab, listing) => {
     availabilityPlan,
     description,
     geolocation,
-    price,
+    // price,
     title,
     publicData,
   } = listing.attributes;
@@ -95,18 +101,21 @@ const tabCompleted = (tab, listing) => {
   switch (tab) {
     case DESCRIPTION:
       return !!(description && title);
+    case CHARACTERISTICS:
+      return !!(publicData && publicData.characteristics);
     case FEATURES:
       return !!(publicData && publicData.amenities);
-    case POLICY:
-      return !!(publicData && typeof publicData.rules !== 'undefined');
+    case OFFERS:
+      return !!(publicData && publicData.food && publicData.surroundings && publicData.activities);
     case LOCATION:
       return !!(geolocation && publicData && publicData.location && publicData.location.address);
-    case PRICING:
-      return !!price;
-    case AVAILABILITY:
-      return !!availabilityPlan;
+    // case PRICING:
+    //   return !!price;
+
     case PHOTOS:
       return images && images.length > 0;
+    case AVAILABILITY:
+      return !!availabilityPlan;
     default:
       return false;
   }
@@ -198,6 +207,8 @@ class EditListingWizard extends Component {
     this.handlePublishListing = this.handlePublishListing.bind(this);
     this.handlePayoutModalClose = this.handlePayoutModalClose.bind(this);
     this.handlePayoutSubmit = this.handlePayoutSubmit.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -214,25 +225,30 @@ class EditListingWizard extends Component {
 
   handlePublishListing(id) {
     const { onPublishListingDraft, currentUser, stripeAccount } = this.props;
+    onPublishListingDraft(id);
 
-    const stripeConnected =
-      currentUser && currentUser.stripeAccount && !!currentUser.stripeAccount.id;
+    // const stripeConnected =
+    //   currentUser && currentUser.stripeAccount && !!currentUser.stripeAccount.id;
 
-    const stripeAccountData = stripeConnected ? getStripeAccountData(stripeAccount) : null;
+    // const stripeAccountData = stripeConnected ? getStripeAccountData(stripeAccount) : null;
 
-    const requirementsMissing =
-      stripeAccount &&
-      (hasRequirements(stripeAccountData, 'past_due') ||
-        hasRequirements(stripeAccountData, 'currently_due'));
+    // const requirementsMissing =
+    //   stripeAccount &&
+    //   (hasRequirements(stripeAccountData, 'past_due') ||
+    //     hasRequirements(stripeAccountData, 'currently_due'));
 
-    if (stripeConnected && !requirementsMissing) {
-      onPublishListingDraft(id);
-    } else {
-      this.setState({
-        draftId: id,
-        showPayoutDetails: true,
-      });
-    }
+    // if (stripeConnected && !requirementsMissing) {
+    //   onPublishListingDraft(id);
+    // } else {
+    //   this.setState({
+    //     draftId: id,
+    //     showPayoutDetails: true,
+    //   });
+    // }
+  }
+
+  handleChange() {
+    // alert('hi');
   }
 
   handlePayoutModalClose() {
@@ -367,7 +383,7 @@ class EditListingWizard extends Component {
     }
 
     return (
-      <div className={classes}>
+      <div className={classes} onClick={this.handleChange}>
         <Tabs
           rootClassName={css.tabsContainer}
           navRootClassName={css.nav}
@@ -392,11 +408,12 @@ class EditListingWizard extends Component {
                 handleCreateFlowTabScrolling={this.handleCreateFlowTabScrolling}
                 handlePublishListing={this.handlePublishListing}
                 fetchInProgress={fetchInProgress}
+                currentUser={currentUser}
               />
             );
           })}
         </Tabs>
-        <Modal
+        {/* <Modal
           id="EditListingWizard.payoutModal"
           isOpen={this.state.showPayoutDetails}
           onClose={this.handlePayoutModalClose}
@@ -460,7 +477,7 @@ class EditListingWizard extends Component {
               </>
             )}
           </div>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
@@ -538,7 +555,4 @@ EditListingWizard.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default compose(
-  withViewport,
-  injectIntl
-)(EditListingWizard);
+export default compose(withViewport, injectIntl)(EditListingWizard);

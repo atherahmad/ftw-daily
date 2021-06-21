@@ -7,7 +7,7 @@ import { AvatarLarge, NamedLink, InlineTextButton } from '../../components';
 import { ensureUser, ensureCurrentUser } from '../../util/data';
 import { propTypes } from '../../util/types';
 
-import css from './UserCard.module.css';
+import css from './UserCard.css';
 
 // Approximated collapsed size so that there are ~three lines of text
 // in the desktop layout in the host section of the ListingPage.
@@ -86,11 +86,7 @@ const UserCard = props => {
   const separator = isCurrentUser ? null : <span className={css.linkSeparator}>•</span>;
 
   const contact = (
-    <InlineTextButton
-      rootClassName={css.contact}
-      onClick={handleContactUserClick}
-      enforcePagePreloadFor="SignupPage"
-    >
+    <InlineTextButton rootClassName={css.contact} onClick={handleContactUserClick}>
       <FormattedMessage id="UserCard.contactUser" />
     </InlineTextButton>
   );
@@ -111,31 +107,35 @@ const UserCard = props => {
   ) : null;
 
   const links = ensuredUser.id ? (
-    <p className={linkClasses}>
-      <NamedLink className={css.link} name="ProfilePage" params={{ id: ensuredUser.id.uuid }}>
+    <>
+      {/* <NamedLink className={css.link} name="ProfilePage" params={{ id: ensuredUser.id.uuid }}>
         <FormattedMessage id="UserCard.viewProfileLink" />
-      </NamedLink>
-      {separator}
-      {isCurrentUser ? editProfileMobile : contact}
-    </p>
+      </NamedLink> */}
+
+      {!isCurrentUser ? editProfileMobile : contact}
+    </>
   ) : null;
 
   return (
     <div className={classes}>
       <div className={css.content}>
-        <AvatarLarge className={css.avatar} user={user} />
+        {/* <AvatarLarge className={css.avatar} user={user} /> */}
         <div className={css.info}>
           <div className={css.headingRow}>
-            <h3 className={css.heading}>
-              <FormattedMessage id="UserCard.heading" values={{ name: displayName }} />
-            </h3>
+            <p className={css.heading}>
+              <FormattedMessage
+                id="UserCard.heading"
+                values={{ name: displayName }}
+                style={{ color: '#353535' }}
+              />{' '}
+              {contact}
+            </p>
             {editProfileDesktop}
           </div>
-          {hasBio ? <ExpandableBio className={css.desktopBio} bio={bio} /> : null}
-          {links}
+          {/* {hasBio ? <ExpandableBio className={css.desktopBio} bio={bio} /> : null} */}
         </div>
       </div>
-      {hasBio ? <ExpandableBio className={css.mobileBio} bio={bio} /> : null}
+      {/* {hasBio ? <ExpandableBio className={css.mobileBio} bio={bio} /> : null} */}
     </div>
   );
 };

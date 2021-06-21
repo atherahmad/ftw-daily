@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { ResponsiveImage, IconSpinner } from '../../components';
 import { propTypes } from '../../util/types';
 
-import css from './ImageCarousel.module.css';
+import css from './ImageCarousel.css';
 
 const KEY_CODE_LEFT_ARROW = 37;
 const KEY_CODE_RIGHT_ARROW = 39;
@@ -51,6 +51,18 @@ class ImageCarousel extends Component {
       return { selectedImageIndex: newIndex, selectedImageLoaded: false };
     });
   }
+  markIt(index) {
+    console.log('loaded');
+    if (this.state.selectedImageIndex === index && !this.state.selectedImageLoaded) {
+      this.setState(prevState => {
+        // Only mark the image loaded if the current index hasn't
+        // changed, i.e. user hasn't already changed to another
+        // image index.
+        console.log('Image is loaded');
+        return { ...this.state, selectedImageLoaded: true };
+      });
+    }
+  }
   render() {
     const { rootClassName, className, images, intl } = this.props;
     const classes = classNames(rootClassName || css.root, className);
@@ -78,11 +90,13 @@ class ImageCarousel extends Component {
     );
 
     const markImageLoaded = index => () => {
+      console.log('loaded');
       this.setState(prevState => {
         if (prevState.selectedImageIndex === index) {
           // Only mark the image loaded if the current index hasn't
           // changed, i.e. user hasn't already changed to another
           // image index.
+          console.log('Image is loaded');
           return { selectedImageLoaded: true };
         }
         return {};
@@ -105,9 +119,14 @@ class ImageCarousel extends Component {
             className={imageClasses}
             alt={imageAltText}
             image={images[this.state.selectedImageIndex]}
-            onLoad={markImageLoaded(this.state.selectedImageIndex)}
-            onError={markImageLoaded(this.state.selectedImageIndex)}
-            variants={['scaled-small', 'scaled-medium', 'scaled-large', 'scaled-xlarge']}
+            onLoad={this.markIt(this.state.selectedImageIndex)}
+            //onError={markImageLoaded(this.state.selectedImageIndex).bind(this)}
+            variants={[
+              'landscape-crop',
+              'landscape-crop2x',
+              'landscape-crop2x',
+              'landscape-crop2x',
+            ]}
             sizes="(max-width: 767px) 100vw, 80vw"
           />
         </div>

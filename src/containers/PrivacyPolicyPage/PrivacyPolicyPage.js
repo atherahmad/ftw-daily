@@ -17,12 +17,19 @@ import {
 } from '../../components';
 import config from '../../config';
 
-import css from './PrivacyPolicyPage.module.css';
+import css from './PrivacyPolicyPage.css';
 
 const PrivacyPolicyPageComponent = props => {
   const { scrollingDisabled, intl } = props;
 
   const tabs = [
+    {
+      text: intl.formatMessage({ id: 'TermsOfServicePage.Imprint' }),
+      selected: false,
+      linkProps: {
+        name: 'Imprint',
+      },
+    },
     {
       text: intl.formatMessage({ id: 'PrivacyPolicyPage.privacyTabTitle' }),
       selected: true,
@@ -83,9 +90,6 @@ const mapStateToProps = state => {
   };
 };
 
-const PrivacyPolicyPage = compose(
-  connect(mapStateToProps),
-  injectIntl
-)(PrivacyPolicyPageComponent);
+const PrivacyPolicyPage = compose(connect(mapStateToProps), injectIntl)(PrivacyPolicyPageComponent);
 
 export default PrivacyPolicyPage;

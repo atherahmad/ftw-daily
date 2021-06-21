@@ -7,7 +7,7 @@ import { formatCurrencyMajorUnit } from '../../util/currency';
 import config from '../../config';
 
 import { PriceFilterForm } from '../../forms';
-import css from './PriceFilterPopup.module.css';
+import css from './PriceFilterPopup.css';
 
 const KEY_CODE_ESCAPE = 27;
 const RADIX = 10;

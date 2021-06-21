@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './IconCheckMark.module.css';
+import css from './IconCheckMark.css';
 
 const SIZE_SMALL = 'small';
 const SIZE_BIG = 'big';

@@ -24,7 +24,7 @@ import { TopbarSearchForm } from '../../forms';
 
 import MenuIcon from './MenuIcon';
 import SearchIcon from './SearchIcon';
-import css from './Topbar.module.css';
+import css from './Topbar.css';
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
@@ -198,7 +198,7 @@ class TopbarComponent extends Component {
           onLogout={this.handleLogout}
           currentPage={currentPage}
         />
-        <div className={classNames(mobileRootClassName || css.container, mobileClassName)}>
+        {/* <div className={classNames(mobileRootClassName || css.container, mobileClassName)}>
           <Button
             rootClassName={css.menu}
             onClick={this.handleMobileMenuOpen}
@@ -221,21 +221,29 @@ class TopbarComponent extends Component {
           >
             <SearchIcon className={css.searchMenuIcon} />
           </Button>
-        </div>
-        <div className={css.desktop}>
-          <TopbarDesktop
-            className={desktopClassName}
-            currentUserHasListings={currentUserHasListings}
-            currentUser={currentUser}
-            currentPage={currentPage}
-            initialSearchFormValues={initialSearchFormValues}
-            intl={intl}
-            isAuthenticated={isAuthenticated}
-            notificationCount={notificationCount}
-            onLogout={this.handleLogout}
-            onSearchSubmit={this.handleSubmit}
-          />
-        </div>
+        </div> */}
+        {/* <div className={css.desktop}> */}
+        <Button
+          rootClassName={window.location.pathname === '/s' ? css.searchMenu : css.searchMenu_hidden}
+          onClick={this.handleMobileSearchOpen}
+          title={intl.formatMessage({ id: 'Topbar.searchIcon' })}
+        >
+          <SearchIcon className={css.searchMenuIcon} />
+        </Button>
+        <TopbarDesktop
+          className={desktopClassName}
+          currentUserHasListings={currentUserHasListings}
+          currentUser={currentUser}
+          currentPage={currentPage}
+          initialSearchFormValues={initialSearchFormValues}
+          intl={intl}
+          isAuthenticated={isAuthenticated}
+          notificationCount={notificationCount}
+          onLogout={this.handleLogout}
+          onSearchSubmit={this.handleSubmit}
+        />
+
+        {/* </div> */}
         <Modal
           id="TopbarMobileMenu"
           isOpen={isMobileMenuOpen}

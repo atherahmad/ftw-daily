@@ -2,46 +2,40 @@
 
 exports[`TopbarDesktop data matches snapshot 1`] = `
 <nav
-  className="root"
+  className=""
 >
   <a
-    className="logoLink NamedLink_active"
+    className="NamedLink_active"
     href="/"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     style={Object {}}
     title={null}
   >
     <img
       alt="TopbarDesktop.logo"
-      className="logo"
+      className={null}
       src="saunatime-logo.png"
     />
   </a>
   <form
     action="/"
-    className="searchLink"
+    className=""
     method="post"
-    onMouseOver={[Function]}
     onSubmit={[Function]}
-    onTouchStart={[Function]}
   >
     <div
-      className="root topbarSearchWithLeftPadding"
+      className=""
     >
       <div
-        className="desktopIcon"
+        className=""
       >
         <svg
-          className="iconSvg"
           height="22"
           viewBox="0 0 21 22"
           width="21"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
-            className="iconSvgGroup"
             fill="none"
             fillRule="evenodd"
             strokeLinecap="round"
@@ -63,7 +57,7 @@ exports[`TopbarDesktop data matches snapshot 1`] = `
       <input
         autoComplete="off"
         autoFocus={false}
-        className="desktopInput"
+        className=""
         disabled={false}
         name="location"
         onBlur={[Function]}
@@ -77,61 +71,51 @@ exports[`TopbarDesktop data matches snapshot 1`] = `
     </div>
   </form>
   <a
-    className="createListingLink"
+    className=""
     href="/l/new"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     style={Object {}}
     title={null}
   >
-    <span
-      className="createListing"
-    >
+    <span>
       <span>
         TopbarDesktop.createListing
       </span>
     </span>
   </a>
   <a
-    className="inboxLink"
+    className=""
     href="/inbox/sales"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     style={Object {}}
     title={null}
   >
-    <span
-      className="inbox"
-    >
+    <span>
       <span>
         TopbarDesktop.inbox
       </span>
     </span>
   </a>
   <div
-    className="root"
+    className=""
     onBlur={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
   >
     <button
-      className="root profileMenuLabel"
+      className=""
       onBlur={[Function]}
       onClick={[Function]}
     >
       <div
-        className="root avatar"
+        className=""
         title=""
       >
-        <span
-          className="initials"
-        />
+        <span />
       </div>
     </button>
     <div
-      className="root profileMenuContent isClosed"
+      className=""
       style={
         Object {
           "left": "-10000px",
@@ -139,83 +123,69 @@ exports[`TopbarDesktop data matches snapshot 1`] = `
       }
     >
       <ul
-        className="content"
+        className=""
       >
         <li
-          className="root"
+          className=""
           role="menuitem"
         >
           <a
-            className="yourListingsLink"
+            className=""
             href="/listings"
             onClick={[Function]}
-            onMouseOver={[Function]}
-            onTouchStart={[Function]}
             style={Object {}}
             title={null}
           >
-            <span
-              className="menuItemBorder"
-            />
+            <span />
             <span>
               TopbarDesktop.yourListingsLink
             </span>
           </a>
         </li>
         <li
-          className="root"
+          className=""
           role="menuitem"
         >
           <a
-            className="profileSettingsLink"
+            className=""
             href="/profile-settings"
             onClick={[Function]}
-            onMouseOver={[Function]}
-            onTouchStart={[Function]}
             style={Object {}}
             title={null}
           >
-            <span
-              className="menuItemBorder"
-            />
+            <span />
             <span>
               TopbarDesktop.profileSettingsLink
             </span>
           </a>
         </li>
         <li
-          className="root"
+          className=""
           role="menuitem"
         >
           <a
-            className="yourListingsLink"
+            className=""
             href="/account"
             onClick={[Function]}
-            onMouseOver={[Function]}
-            onTouchStart={[Function]}
             style={Object {}}
             title={null}
           >
-            <span
-              className="menuItemBorder"
-            />
+            <span />
             <span>
               TopbarDesktop.accountSettingsLink
             </span>
           </a>
         </li>
         <li
-          className="root"
+          className=""
           role="menuitem"
         >
           <button
-            className="logoutButton inlineTextButton"
+            className=""
             disabled={false}
             onClick={[Function]}
           >
-            <span
-              className="menuItemBorder"
-            />
+            <span />
             <span>
               TopbarDesktop.logout
             </span>

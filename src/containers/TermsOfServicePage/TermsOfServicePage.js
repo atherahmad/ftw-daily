@@ -17,12 +17,19 @@ import {
 } from '../../components';
 import config from '../../config';
 
-import css from './TermsOfServicePage.module.css';
+import css from './TermsOfServicePage.css';
 
 const TermsOfServicePageComponent = props => {
   const { scrollingDisabled, intl } = props;
 
   const tabs = [
+    {
+      text: intl.formatMessage({ id: 'TermsOfServicePage.Imprint' }),
+      selected: false,
+      linkProps: {
+        name: 'Imprint',
+      },
+    },
     {
       text: intl.formatMessage({ id: 'TermsOfServicePage.privacyTabTitle' }),
       selected: false,
@@ -37,6 +44,7 @@ const TermsOfServicePageComponent = props => {
         name: 'TermsOfServicePage',
       },
     },
+   
   ];
   const siteTitle = config.siteTitle;
   const schemaTitle = intl.formatMessage({ id: 'TermsOfServicePage.schemaTitle' }, { siteTitle });

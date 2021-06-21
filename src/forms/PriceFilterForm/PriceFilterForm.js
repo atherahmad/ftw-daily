@@ -6,7 +6,7 @@ import { Field, Form as FinalForm, FormSpy } from 'react-final-form';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 
 import { Form, RangeSlider } from '../../components';
-import css from './PriceFilterForm.module.css';
+import css from './PriceFilterForm.css';
 
 const DEBOUNCE_WAIT_TIME = 400;
 
@@ -102,7 +102,7 @@ const PriceFilterFormComponent = props => {
           onCancel();
         };
 
-        const clear = intl.formatMessage({ id: 'PriceFilterForm.clear' });
+        const clear = intl.formatMessage({ id: 'SearchFiltersSecondary.resetAll' });
         const cancel = intl.formatMessage({ id: 'PriceFilterForm.cancel' });
         const submit = intl.formatMessage({ id: 'PriceFilterForm.submit' });
 
@@ -121,52 +121,53 @@ const PriceFilterFormComponent = props => {
             contentRef={contentRef}
             style={{ minWidth: '300px', ...style }}
           >
-            <div className={css.contentWrapper}>
-              <span className={css.label}>
-                <FormattedMessage id="PriceFilterForm.label" />
-              </span>
-              <div className={css.inputsWrapper}>
-                <Field
-                  className={css.minPrice}
-                  id={`${id}.minPrice`}
-                  name="minPrice"
-                  component="input"
-                  type="number"
-                  placeholder={min}
+            <div className={css.popupInner}>
+              <div className={css.contentWrapper}>
+                <span className={css.label}>
+                  <FormattedMessage id="PriceFilterForm.label" />
+                </span>
+                <div className={css.inputsWrapper}>
+                  <Field
+                    className={css.minPrice}
+                    id={`${id}.minPrice`}
+                    name="minPrice"
+                    component="input"
+                    type="number"
+                    placeholder={min}
+                    min={min}
+                    max={max}
+                    step={step}
+                    parse={parseMin(min, maxPrice)}
+                  />
+                  <span className={css.priceSeparator}>-</span>
+                  <Field
+                    className={css.maxPrice}
+                    id={`${id}.maxPrice`}
+                    name="maxPrice"
+                    component="input"
+                    type="number"
+                    placeholder={max}
+                    min={min}
+                    max={max}
+                    step={step}
+                    parse={parseMax(max, minPrice)}
+                  />
+                </div>
+              </div>
+
+              <div className={css.sliderWrapper}>
+                <RangeSlider
                   min={min}
                   max={max}
                   step={step}
-                  parse={parseMin(min, maxPrice)}
-                />
-                <span className={css.priceSeparator}>-</span>
-                <Field
-                  className={css.maxPrice}
-                  id={`${id}.maxPrice`}
-                  name="maxPrice"
-                  component="input"
-                  type="number"
-                  placeholder={max}
-                  min={min}
-                  max={max}
-                  step={step}
-                  parse={parseMax(max, minPrice)}
+                  handles={[minPrice, maxPrice]}
+                  onChange={handles => {
+                    form.change('minPrice', handles[0]);
+                    form.change('maxPrice', handles[1]);
+                  }}
                 />
               </div>
             </div>
-
-            <div className={css.sliderWrapper}>
-              <RangeSlider
-                min={min}
-                max={max}
-                step={step}
-                handles={[minPrice, maxPrice]}
-                onChange={handles => {
-                  form.change('minPrice', handles[0]);
-                  form.change('maxPrice', handles[1]);
-                }}
-              />
-            </div>
-
             {liveEdit ? (
               <FormSpy onChange={handleChange} subscription={{ values: true, dirty: true }} />
             ) : (

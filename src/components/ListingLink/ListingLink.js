@@ -17,7 +17,9 @@ import {
 } from '../../util/urlHelpers';
 import { NamedLink } from '../../components';
 
-import css from './ListingLink.module.css';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
+
+import css from './ListingLink.css';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 16;
 
@@ -29,13 +31,34 @@ const ListingLink = props => {
   }
   const id = listing.id.uuid;
   const { title, state } = listing.attributes;
-  const slug = createSlug(title);
+
+  const projectTitle = title.split(' • ')[0];
+
+  const projectRoomtypeRaw = title.split(' • ')[1];
+
+  const ProjectRoomtype =
+    projectRoomtypeRaw === 'singlebedroom' ? (
+      <FormattedMessage id="roomtypes.singlebedroom" />
+    ) : projectRoomtypeRaw === 'twobedroom' ? (
+      <FormattedMessage id="roomtypes.twobedroom" />
+    ) : projectRoomtypeRaw === 'doublebedroom' ? (
+      <FormattedMessage id="roomtypes.doublebedroom" />
+    ) : projectRoomtypeRaw === 'shared_bedroom' ? (
+      <FormattedMessage id="roomtypes.shared_bedroom" />
+    ) : projectRoomtypeRaw === 'entire_accomodation' ? (
+      <FormattedMessage id="roomtypes.entire_accomodation" />
+    ) : projectRoomtypeRaw === 'camping' ? (
+      <FormattedMessage id="roomtypes.camping" />
+    ) : null;
+
+  const slug = createSlug(projectTitle);
   const richTitle = (
     <span>
-      {richText(title, {
+      {richText(projectTitle, {
         longWordMinLength: MIN_LENGTH_FOR_LONG_WORDS,
         longWordClass: css.longWord,
-      })}
+      })}{' '}
+      • {ProjectRoomtype}
     </span>
   );
 

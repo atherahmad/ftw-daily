@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { MenuItem } from '../../components';
 
-import css from './MenuContent.module.css';
+import css from './MenuContent.css';
 
 const MenuContent = props => {
   const {

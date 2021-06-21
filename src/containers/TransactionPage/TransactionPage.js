@@ -30,12 +30,14 @@ import { TopbarContainer } from '../../containers';
 import {
   acceptSale,
   declineSale,
+  loadData,
+  setInitialValues,
   sendMessage,
   sendReview,
   fetchMoreMessages,
   fetchTransactionLineItems,
 } from './TransactionPage.duck';
-import css from './TransactionPage.module.css';
+import css from './TransactionPage.css';
 
 const PROVIDER = 'provider';
 const CUSTOMER = 'customer';
@@ -267,9 +269,7 @@ export const TransactionPageComponent = props => {
         <LayoutWrapperMain>
           <div className={css.root}>{panel}</div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter className={css.footer}>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter className={css.footer}>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSingleColumn>
     </Page>
   );
@@ -424,5 +424,8 @@ const TransactionPage = compose(
   ),
   injectIntl
 )(TransactionPageComponent);
+
+TransactionPage.loadData = loadData;
+TransactionPage.setInitialValues = setInitialValues;
 
 export default TransactionPage;

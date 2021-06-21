@@ -9,10 +9,10 @@ import config from '../../config';
 
 import IconHourGlass from './IconHourGlass';
 import IconCurrentLocation from './IconCurrentLocation';
-import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderMapbox';
-// import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderGoogleMaps';
+//import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderMapbox';
+import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderGoogleMaps';
 
-import css from './LocationAutocompleteInput.module.css';
+import css from './LocationAutocompleteInput.css';
 
 // A list of default predictions that can be shown when the user
 // focuses on the autocomplete input without typing a search. This can
@@ -53,10 +53,12 @@ const LocationPredictionsList = props => {
     onSelectMove,
     onSelectEnd,
   } = props;
+  console.log('predictions', predictions);
   if (predictions.length === 0) {
     return null;
   }
 
+  //* eslint-disable jsx-a11y/no-static-element-interactions */
   const item = (prediction, index) => {
     const isHighlighted = index === highlightedIndex;
     const predictionId = geocoder.getPredictionId(prediction);
@@ -97,6 +99,7 @@ const LocationPredictionsList = props => {
       </li>
     );
   };
+  //* eslint-enable jsx-a11y/no-static-element-interactions */
 
   const classes = classNames(rootClassName || css.predictionsRoot, className);
 

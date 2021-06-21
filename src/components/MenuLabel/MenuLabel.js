@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './MenuLabel.module.css';
+import css from './MenuLabel.css';
 
 class MenuLabel extends Component {
   constructor(props) {
@@ -54,6 +54,7 @@ class MenuLabel extends Component {
     );
   }
 }
+//* eslint-enable jsx-a11y/no-static-element-interactions */
 
 MenuLabel.defaultProps = {
   className: null,

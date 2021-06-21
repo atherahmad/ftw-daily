@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { bool, node, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import routeConfiguration from '../../routeConfiguration';
-import { findRouteByRouteName } from '../../util/routes';
 import { IconSpinner, IconCheckmark } from '../../components';
 
-import css from './Button.module.css';
+import css from './Button.css';
 
 class Button extends Component {
   constructor(props) {
@@ -25,7 +23,6 @@ class Button extends Component {
       inProgress,
       ready,
       disabled,
-      enforcePagePreloadFor,
       ...rest
     } = this.props;
 
@@ -45,35 +42,20 @@ class Button extends Component {
       content = children;
     }
 
-    const onOverButtonFn = enforcePreloadOfPage => () => {
-      // Enforce preloading of given page (loadable component)
-      const { component: Page } = findRouteByRouteName(enforcePreloadOfPage, routeConfiguration());
-      // Loadable Component has a "preload" function.
-      if (Page.preload) {
-        Page.preload();
-      }
-    };
-
-    const onOverButton = enforcePagePreloadFor ? onOverButtonFn(enforcePagePreloadFor) : null;
-    const onOverButtonMaybe = onOverButton
-      ? {
-          onMouseOver: onOverButton,
-          onTouchStart: onOverButton,
-        }
-      : {};
-
     // All buttons are disabled until the component is mounted. This
     // prevents e.g. being able to submit forms to the backend before
     // the client side is handling the submit.
     const buttonDisabled = this.state.mounted ? disabled : true;
 
     return (
-      <button className={classes} {...onOverButtonMaybe} {...rest} disabled={buttonDisabled}>
+      <button className={classes} {...rest} disabled={buttonDisabled}>
         {content}
       </button>
     );
   }
 }
+
+const { node, string, bool } = PropTypes;
 
 Button.defaultProps = {
   rootClassName: null,
@@ -83,7 +65,6 @@ Button.defaultProps = {
   inProgress: false,
   ready: false,
   disabled: false,
-  enforcePagePreloadFor: null,
   children: null,
 };
 
@@ -96,7 +77,6 @@ Button.propTypes = {
   inProgress: bool,
   ready: bool,
   disabled: bool,
-  enforcePagePreloadFor: string,
 
   children: node,
 };

@@ -4,7 +4,7 @@ import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 
 import { Menu, MenuContent, MenuItem, MenuLabel } from '..';
-import css from './SelectSingleFilterPopup.module.css';
+import css from './SelectSingleFilterPopup.css';
 
 const optionLabel = (options, key) => {
   const option = options.find(o => o.key === key);
@@ -87,7 +87,7 @@ class SelectSingleFilterPopup extends Component {
               className={css.clearMenuItem}
               onClick={() => this.selectOption(queryParamName, null)}
             >
-              <FormattedMessage id={'SelectSingleFilter.popupClear'} />
+              <FormattedMessage id={'SearchFiltersSecondary.resetAll'} />
             </button>
           </MenuItem>
         </MenuContent>

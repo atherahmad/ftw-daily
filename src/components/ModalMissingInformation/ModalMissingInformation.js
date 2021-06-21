@@ -10,7 +10,7 @@ import { Modal } from '../../components';
 
 import EmailReminder from './EmailReminder';
 import StripeAccountReminder from './StripeAccountReminder';
-import css from './ModalMissingInformation.module.css';
+import css from './ModalMissingInformation.css';
 
 const MISSING_INFORMATION_MODAL_WHITELIST = [
   'LoginPage',
@@ -84,9 +84,10 @@ class ModalMissingInformation extends Component {
       // Show reminder
       if (emailVerificationNeeded) {
         this.setState({ showMissingInformationReminder: EMAIL_VERIFICATION });
-      } else if (stripeAccountNeeded) {
-        this.setState({ showMissingInformationReminder: STRIPE_ACCOUNT });
       }
+      //  else if (stripeAccountNeeded) {
+      //   this.setState({ showMissingInformationReminder: STRIPE_ACCOUNT });
+      // }
     }
   }
 

@@ -3,12 +3,12 @@
 exports[`EditListingPricingForm matches snapshot 1`] = `
 <form
   action="/"
-  className="root"
+  className=""
   method="post"
   onSubmit={[Function]}
 >
   <div
-    className="priceInput"
+    className=""
   >
     <label
       htmlFor="price"
@@ -17,7 +17,7 @@ exports[`EditListingPricingForm matches snapshot 1`] = `
     </label>
     <input
       autoFocus={true}
-      className="input"
+      className=""
       id="price"
       onBlur={[Function]}
       onChange={[Function]}
@@ -28,7 +28,7 @@ exports[`EditListingPricingForm matches snapshot 1`] = `
     />
   </div>
   <button
-    className="root submitButton"
+    className=""
     disabled={true}
     type="submit"
   >

@@ -2,24 +2,31 @@ import React, { Component } from 'react';
 import { string, bool, arrayOf, array, func } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
 import moment from 'moment';
-import config from '../../config';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { required, bookingDatesRequired, composeValidators } from '../../util/validators';
 import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
-import { Form, IconSpinner, PrimaryButton, FieldDateRangeInput } from '../../components';
+import config from '../../config';
+import {
+  Form,
+  IconSpinner,
+  PrimaryButton,
+  FieldDateRangeInput,
+  FieldSelect,
+} from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
+import getRoomamountCodes from '../../translations/roomamountCodes';
 
-import css from './BookingDatesForm.module.css';
+import css from './BookingDatesForm.css';
 
 const identity = v => v;
 
 export class BookingDatesFormComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { focusedInput: null };
+    this.state = { focusedInput: null, seats: 1 };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onFocusedInputChange = this.onFocusedInputChange.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -30,6 +37,7 @@ export class BookingDatesFormComponent extends Component {
   // focused input changes.
   onFocusedInputChange(focusedInput) {
     this.setState({ focusedInput });
+    console.log(focusedInput);
   }
 
   // In case start or end date for the booking is missing
@@ -43,7 +51,17 @@ export class BookingDatesFormComponent extends Component {
     } else if (!endDate) {
       e.preventDefault();
       this.setState({ focusedInput: END_DATE });
+    }
+
+    // --------- we added this from here --------------//
+    else if (this.state.seats <= 0) {
+      this.setState({ focusedInput: START_DATE });
     } else {
+      e.seats = this.state.seats;
+      console.log('Seats state: ' + e.seats);
+
+      // --------- until here --------------//
+
       this.props.onSubmit(e);
     }
   }
@@ -53,14 +71,22 @@ export class BookingDatesFormComponent extends Component {
   // In case you add more fields to the form, make sure you add
   // the values here to the bookingData object.
   handleOnChange(formValues) {
+    console.log(formValues);
     const { startDate, endDate } =
       formValues.values && formValues.values.bookingDates ? formValues.values.bookingDates : {};
+
+    const { seats } =
+      formValues.values && formValues.values.seats
+        ? { seats: Number(formValues.values.seats) }
+        : { seats: 1 };
+    this.setState({ seats: seats });
+
     const listingId = this.props.listingId;
     const isOwnListing = this.props.isOwnListing;
 
-    if (startDate && endDate && !this.props.fetchLineItemsInProgress) {
+    if (startDate && endDate && seats && !this.props.fetchLineItemsInProgress) {
       this.props.onFetchTransactionLineItems({
-        bookingData: { startDate, endDate },
+        bookingData: { startDate, endDate, seats },
         listingId,
         isOwnListing,
       });
@@ -111,8 +137,11 @@ export class BookingDatesFormComponent extends Component {
             lineItems,
             fetchLineItemsInProgress,
             fetchLineItemsError,
+            bedamount,
+            projectRoomtypeRaw,
           } = fieldRenderProps;
           const { startDate, endDate } = values && values.bookingDates ? values.bookingDates : {};
+          const seats = values && values.seats ? Number(values.seats) : 1;
 
           const bookingStartLabel = intl.formatMessage({
             id: 'BookingDatesForm.bookingStartTitle',
@@ -140,12 +169,14 @@ export class BookingDatesFormComponent extends Component {
           // so we need to pass only booking data that is needed otherwise
           // If you have added new fields to the form that will affect to pricing,
           // you need to add the values to handleOnChange function
+
           const bookingData =
-            startDate && endDate
+            startDate && endDate && seats
               ? {
                   unitType,
                   startDate,
                   endDate,
+                  seats,
                 }
               : null;
 
@@ -154,10 +185,14 @@ export class BookingDatesFormComponent extends Component {
 
           const bookingInfoMaybe = showEstimatedBreakdown ? (
             <div className={css.priceBreakdownContainer}>
-              <h3 className={css.priceBreakdownTitle}>
+              {/* <h3 className={css.priceBreakdownTitle}>
                 <FormattedMessage id="BookingDatesForm.priceBreakdownTitle" />
-              </h3>
-              <EstimatedBreakdownMaybe bookingData={bookingData} lineItems={lineItems} />
+              </h3> */}
+              <EstimatedBreakdownMaybe
+                seats={seats}
+                bookingData={bookingData}
+                lineItems={lineItems}
+              />
             </div>
           ) : null;
 
@@ -191,8 +226,52 @@ export class BookingDatesFormComponent extends Component {
             submitButtonWrapperClassName || css.submitButtonWrapper
           );
 
+          const seatsSelection = [...Array.from({ length: bedamount }, (v, k) => k + 1)];
+
+          const seatsLabel =
+            projectRoomtypeRaw === 'singlebedroom'
+              ? intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.singlebedroom',
+                  }
+                  // { Roomtype: Roomtype }
+                )
+              : projectRoomtypeRaw === 'twobedroom'
+              ? intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.twobedroom',
+                  }
+                  // { Roomtype: Roomtype }
+                )
+              : projectRoomtypeRaw === 'doublebedroom'
+              ? intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.doublebedroom',
+                  }
+                  // { Roomtype: Roomtype }
+                )
+              : projectRoomtypeRaw === 'shared_bedroom'
+              ? intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.shared_bedroom',
+                  }
+                  // { Roomtype: Roomtype }
+                )
+              : projectRoomtypeRaw === 'entire_accomodation'
+              ? intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.entire_accomodation',
+                  }
+                  // { Roomtype: Roomtype }
+                )
+              : intl.formatMessage(
+                  {
+                    id: 'BookingDatesForm.camping',
+                  }
+                  // { Roomtype: Roomtype }
+                );
           return (
-            <Form onSubmit={handleSubmit} className={classes} enforcePagePreloadFor="CheckoutPage">
+            <Form onSubmit={handleSubmit} className={classes}>
               {timeSlotsError}
               <FormSpy
                 subscription={{ values: true }}
@@ -200,6 +279,17 @@ export class BookingDatesFormComponent extends Component {
                   this.handleOnChange(values);
                 }}
               />
+
+              <FieldSelect name="seats" id="seats" className={css.field} label={seatsLabel}>
+                {seatsSelection.map((person, index) => {
+                  return (
+                    <option key={index} value={person}>
+                      {person}
+                    </option>
+                  );
+                })}
+              </FieldSelect>
+
               <FieldDateRangeInput
                 className={css.bookingDates}
                 name="bookingDates"
@@ -222,11 +312,11 @@ export class BookingDatesFormComponent extends Component {
                 disabled={fetchLineItemsInProgress}
               />
 
-              {bookingInfoMaybe}
+              {/* {bookingInfoMaybe} */}
               {loadingSpinnerMaybe}
               {bookingInfoErrorMaybe}
 
-              <p className={css.smallPrint}>
+              {/* <p className={css.smallPrint}>
                 <FormattedMessage
                   id={
                     isOwnListing
@@ -234,7 +324,7 @@ export class BookingDatesFormComponent extends Component {
                       : 'BookingDatesForm.youWontBeChargedInfo'
                   }
                 />
-              </p>
+              </p> */}
               <div className={submitButtonClasses}>
                 <PrimaryButton type="submit">
                   <FormattedMessage id="BookingDatesForm.requestToBook" />

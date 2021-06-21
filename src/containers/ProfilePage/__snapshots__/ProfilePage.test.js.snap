@@ -26,15 +26,12 @@ exports[`ProfilePage matches snapshot 1`] = `
       />
     </LayoutWrapperTopbar>
     <LayoutWrapperSideNav
-      className="aside"
+      className={null}
       rootClassName={null}
       tabs={null}
     >
-      <div
-        className="asideContent"
-      >
+      <div>
         <AvatarLarge
-          className="avatar"
           disableProfileLink={true}
           user={
             Object {
@@ -54,9 +51,7 @@ exports[`ProfilePage matches snapshot 1`] = `
             }
           }
         />
-        <h1
-          className="mobileHeading"
-        >
+        <h1>
           <FormattedMessage
             id="ProfilePage.mobileHeading"
             values={
@@ -73,9 +68,7 @@ exports[`ProfilePage matches snapshot 1`] = `
       rootClassName={null}
     >
       <div>
-        <h1
-          className="desktopHeading"
-        >
+        <h1>
           <FormattedMessage
             id="ProfilePage.desktopHeading"
             values={
@@ -85,11 +78,9 @@ exports[`ProfilePage matches snapshot 1`] = `
             }
           />
         </h1>
-        <div
-          className="desktopReviews"
-        >
+        <div>
           <ButtonTabNavHorizontal
-            className="desktopReviewsTabNav"
+            className={null}
             rootClassName={null}
             skin="light"
             tabClassName={null}
@@ -99,9 +90,7 @@ exports[`ProfilePage matches snapshot 1`] = `
                 Object {
                   "onClick": [Function],
                   "selected": true,
-                  "text": <h3
-                    className="desktopReviewsTitle"
-                  >
+                  "text": <h3>
                     <FormattedMessage
                       id="ProfilePage.reviewsOfProviderTitle"
                       values={
@@ -115,9 +104,7 @@ exports[`ProfilePage matches snapshot 1`] = `
                 Object {
                   "onClick": [Function],
                   "selected": false,
-                  "text": <h3
-                    className="desktopReviewsTitle"
-                  >
+                  "text": <h3>
                     <FormattedMessage
                       id="ProfilePage.reviewsOfCustomerTitle"
                       values={

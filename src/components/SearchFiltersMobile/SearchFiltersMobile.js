@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { ModalInMobile, Button } from '../../components';
-import css from './SearchFiltersMobile.module.css';
+import css from './SearchFiltersMobile.css';
+import close from '../../assets/icons/close_small.png';
 
 class SearchFiltersMobileComponent extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class SearchFiltersMobileComponent extends Component {
     this.cancelFilters = this.cancelFilters.bind(this);
     this.closeFilters = this.closeFilters.bind(this);
     this.resetAll = this.resetAll.bind(this);
+
+    this.handleDeleteMapFilter = this.handleDeleteMapFilter.bind(this);
   }
 
   // Open filters modal, set the initial parameters to current ones
@@ -57,6 +60,10 @@ class SearchFiltersMobileComponent extends Component {
     if (e && e.currentTarget) {
       e.currentTarget.blur();
     }
+  }
+
+  handleDeleteMapFilter() {
+    window.location.search = '';
   }
 
   render() {
@@ -107,9 +114,18 @@ class SearchFiltersMobileComponent extends Component {
               className={css.mapIconText}
             />
           </Button>
+
           {sortByComponent}
           <div className={css.mapIcon} onClick={onMapIconClick}>
             <FormattedMessage id="SearchFiltersMobile.openMapView" className={css.mapIconText} />
+            <img
+              className={
+                window.location.search !== '' ? css.deleteMapFilter : css.deleteMapFilter_inactive
+              }
+              onClick={this.handleDeleteMapFilter}
+              src={close}
+              width="30px"
+            ></img>
           </div>
         </div>
         <ModalInMobile

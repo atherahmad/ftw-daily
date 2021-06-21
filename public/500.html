@@ -16,6 +16,32 @@
       */
 
       @font-face {
+  font-family: "Canela-Medium";
+  src: url("/fonts/Canela-Medium/Canela-Medium.ttf") format("truetype"),
+      url("/fonts/Canela-Medium/Canela-Medium.woff2") format("woff2"),
+       url("/fonts/Canela-Medium/Canela-Medium.wofff") format("woff");
+    } 
+
+
+      /* @font-face {
+      font-family: 'Canela-Medium';
+      src: url('fonts/Canela-Medium/Canela-Medium.ttf') format('truetype'),
+        url('fonts/Canela-Medium/Canela-Medium.woff2') format('woff2'),
+        url('fonts/Canela-Medium/Canela-Medium.woff') format('woff'),
+        url('fonts/Canela-Medium/Canela-Medium.eot') format('embedded-opentype'),
+        url('fonts/Canela-Medium/Canela-Medium.svg#Canela-Medium') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      transform: perspective(1px);
+      text-rendering: optimizeLegibility;
+
+
+
+    } */
+
+    
+      @font-face {
         font-family: 'poppins';
         src: url('https://assets-sharetribecom.sharetribe.com/webfonts/poppins/Poppins-Medium.ttf') format('truetype');
         font-weight: 500; /* Medium */
@@ -199,7 +225,10 @@
           var poppinsSemibold = new FontFace('poppins', 'url("https://assets-sharetribecom.sharetribe.com/webfonts/poppins/Poppins-SemiBold.ttf") format("truetype")', { style: 'normal', weight: '600' });
           var poppinsBold = new FontFace('poppins', 'url("https://assets-sharetribecom.sharetribe.com/webfonts/poppins/Poppins-Bold.ttf") format("truetype")', { style: 'normal', weight: '700' });
 
-          Promise.all([poppinsMedium.load(), poppinsSemibold.load(), poppinsBold.load()])
+          var canelaMedium = new FontFace('Canela-Medium', { style: 'normal', weight: '500' });
+
+
+          Promise.all([poppinsMedium.load(), poppinsSemibold.load(), poppinsBold.load(), canelaMedium.load()])
             .then(function(values) {
               values.forEach(function(f) {
                 document.fonts.add(f);

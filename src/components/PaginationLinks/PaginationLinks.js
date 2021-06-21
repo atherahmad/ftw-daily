@@ -7,7 +7,7 @@ import { IconArrowHead, NamedLink } from '../../components';
 import { stringify } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 
-import css from './PaginationLinks.module.css';
+import css from './PaginationLinks.css';
 
 const { string, object } = PropTypes;
 

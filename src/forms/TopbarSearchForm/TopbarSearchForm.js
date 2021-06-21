@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form as FinalForm, Field } from 'react-final-form';
-import classNames from 'classnames';
 import { intlShape, injectIntl } from '../../util/reactIntl';
+import classNames from 'classnames';
 import { Form, LocationAutocompleteInput } from '../../components';
 
-import css from './TopbarSearchForm.module.css';
+import css from './TopbarSearchForm.css';
 
 const identity = v => v;
 
@@ -44,11 +44,7 @@ class TopbarSearchFormComponent extends Component {
           const preventFormSubmit = e => e.preventDefault();
 
           return (
-            <Form
-              className={classes}
-              onSubmit={preventFormSubmit}
-              enforcePagePreloadFor="SearchPage"
-            >
+            <Form className={classes} onSubmit={preventFormSubmit}>
               <Field
                 name="location"
                 format={identity}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderDeep } from '../../util/test-helpers';
+import { renderShallow, renderDeep } from '../../util/test-helpers';
 import NamedLink, { NamedLinkComponent } from './NamedLink';
 
 describe('NamedLinkComponent', () => {

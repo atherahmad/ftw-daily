@@ -7,7 +7,7 @@ import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
 import config from '../../config';
 
-import css from './SearchMapPriceLabel.module.css';
+import css from './SearchMapPriceLabel.css';
 
 class SearchMapPriceLabel extends Component {
   shouldComponentUpdate(nextProps) {

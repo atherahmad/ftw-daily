@@ -19,13 +19,11 @@ exports[`TransactionPage - Order matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="root"
-      >
+      <div>
         <injectIntl(TransactionPanelComponent)
           acceptInProgress={false}
           acceptSaleError={null}
-          className="tabContent tabContentVisible"
+          className=""
           currentUser={
             Object {
               "attributes": Object {
@@ -50,7 +48,6 @@ exports[`TransactionPage - Order matches snapshot 1`] = `
           declineInProgress={false}
           declineSaleError={null}
           fetchLineItemsError={null}
-          fetchLineItemsInProgress={false}
           fetchMessagesError={null}
           fetchMessagesInProgress={false}
           fetchTimeSlotsError={null}
@@ -60,7 +57,6 @@ exports[`TransactionPage - Order matches snapshot 1`] = `
           oldestMessagePageFetched={0}
           onAcceptSale={[Function]}
           onDeclineSale={[Function]}
-          onFetchTransactionLineItems={[Function]}
           onSendMessage={[Function]}
           onShowMoreMessages={[Function]}
           onSubmitBookingRequest={[Function]}
@@ -221,7 +217,7 @@ exports[`TransactionPage - Order matches snapshot 1`] = `
       </div>
     </LayoutWrapperMain>
     <LayoutWrapperFooter
-      className="footer"
+      className={null}
       rootClassName={null}
     >
       <injectIntl(Footer) />
@@ -249,13 +245,11 @@ exports[`TransactionPage - Sale matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="root"
-      >
+      <div>
         <injectIntl(TransactionPanelComponent)
           acceptInProgress={false}
           acceptSaleError={null}
-          className="tabContent tabContentVisible"
+          className=""
           currentUser={
             Object {
               "attributes": Object {
@@ -280,7 +274,6 @@ exports[`TransactionPage - Sale matches snapshot 1`] = `
           declineInProgress={false}
           declineSaleError={null}
           fetchLineItemsError={null}
-          fetchLineItemsInProgress={false}
           fetchMessagesError={null}
           fetchTimeSlotsError={null}
           initialMessageFailed={false}
@@ -289,7 +282,6 @@ exports[`TransactionPage - Sale matches snapshot 1`] = `
           oldestMessagePageFetched={0}
           onAcceptSale={[Function]}
           onDeclineSale={[Function]}
-          onFetchTransactionLineItems={[Function]}
           onSendMessage={[Function]}
           onShowMoreMessages={[Function]}
           onSubmitBookingRequest={[Function]}
@@ -450,7 +442,7 @@ exports[`TransactionPage - Sale matches snapshot 1`] = `
       </div>
     </LayoutWrapperMain>
     <LayoutWrapperFooter
-      className="footer"
+      className={null}
       rootClassName={null}
     >
       <injectIntl(Footer) />

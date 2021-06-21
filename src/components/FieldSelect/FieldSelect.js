@@ -4,11 +4,11 @@ import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import { ValidationError } from '../../components';
 
-import css from './FieldSelect.module.css';
+import css from './FieldSelect.css';
 
 const FieldSelectComponent = props => {
   const { rootClassName, className, id, label, input, meta, children, ...rest } = props;
-
+  const { setRoom } = props;
   if (label && !id) {
     throw new Error('id required when a label is given');
   }
@@ -24,12 +24,13 @@ const FieldSelectComponent = props => {
     [css.selectError]: hasError,
   });
   const selectProps = { className: selectClasses, id, ...input, ...rest };
+  console.log('Selected props: ' + JSON.stringify(selectProps));
 
   const classes = classNames(rootClassName || css.root, className);
   return (
     <div className={classes}>
       {label ? <label htmlFor={id}>{label}</label> : null}
-      <select {...selectProps}>{children}</select>
+      <select /*onChange={props.update}*/ {...selectProps}>{children}</select>
       <ValidationError fieldMeta={meta} />
     </div>
   );

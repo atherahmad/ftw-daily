@@ -55,7 +55,7 @@ const initialState = {
   signupInProgress: false,
 
   // confirm (create use with idp)
-  confirmError: null,
+  confirmErro: null,
   confirmInProgress: false,
 };
 

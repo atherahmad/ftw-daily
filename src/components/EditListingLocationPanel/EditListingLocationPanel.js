@@ -7,7 +7,7 @@ import { ensureOwnListing } from '../../util/data';
 import { ListingLink } from '../../components';
 import { EditListingLocationForm } from '../../forms';
 
-import css from './EditListingLocationPanel.module.css';
+import css from './EditListingLocationPanel.css';
 
 class EditListingLocationPanel extends Component {
   constructor(props) {
@@ -34,6 +34,10 @@ class EditListingLocationPanel extends Component {
 
     return {
       building,
+      arrival: publicData.arrival,
+      arrival_de: publicData.arrival_de,
+      city: publicData.city,
+      country: publicData.country,
       location: locationFieldsPresent
         ? {
             search: address,
@@ -79,19 +83,28 @@ class EditListingLocationPanel extends Component {
           className={css.form}
           initialValues={this.state.initialValues}
           onSubmit={values => {
-            const { building = '', location } = values;
+            const { building = '', location, arrival, arrival_de, city, country } = values;
             const {
               selectedPlace: { address, origin },
             } = location;
             const updateValues = {
               geolocation: origin,
               publicData: {
+                arrival,
+                arrival_de,
+                city,
+                country,
+
                 location: { address, building },
               },
             };
             this.setState({
               initialValues: {
                 building,
+                arrival,
+                arrival_de,
+                city,
+                country,
                 location: { search: address, selectedPlace: { address, origin } },
               },
             });

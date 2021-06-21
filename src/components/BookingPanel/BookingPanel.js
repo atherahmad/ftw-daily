@@ -12,7 +12,7 @@ import config from '../../config';
 import { ModalInMobile, Button } from '../../components';
 import { BookingDatesForm } from '../../forms';
 
-import css from './BookingPanel.module.css';
+import css from './BookingPanel.css';
 
 // This defines when ModalInMobile shows content as Modal
 const MODAL_BREAKPOINT = 1023;
@@ -69,6 +69,9 @@ const BookingPanel = props => {
     lineItems,
     fetchLineItemsInProgress,
     fetchLineItemsError,
+    ProjectRoomtype,
+    projectRoomtypeRaw,
+    bedamount,
   } = props;
 
   const price = listing.attributes.price;
@@ -97,6 +100,63 @@ const BookingPanel = props => {
   const classes = classNames(rootClassName || css.root, className);
   const titleClasses = classNames(titleClassName || css.bookingTitle);
 
+  const pricePer =
+    projectRoomtypeRaw === 'shared_bedroom' ? (
+      <FormattedMessage id="ListingCard.pricePerBed" />
+    ) : projectRoomtypeRaw === 'singlebedroom' ? (
+      <FormattedMessage id="ListingCard.pricePerRoom" />
+    ) : projectRoomtypeRaw === 'twobedroom' ? (
+      <FormattedMessage id="ListingCard.pricePerRoom" />
+    ) : projectRoomtypeRaw === 'doublebedroom' ? (
+      <FormattedMessage id="ListingCard.pricePerRoom" />
+    ) : (
+      ''
+    );
+  const ProjectRoomtypeIcon =
+    projectRoomtypeRaw === 'singlebedroom' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/onebedroom.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : projectRoomtypeRaw === 'twobedroom' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/twobedroom.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : projectRoomtypeRaw === 'doublebedroom' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/doublebedroom.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : projectRoomtypeRaw === 'shared_bedroom' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/shared_bedroom.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : projectRoomtypeRaw === 'entire_accomodation' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/entire_accomodation.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : projectRoomtypeRaw === 'camping' ? (
+      <img
+        src={require('../../assets/icons/roomtypes/camping.png')}
+        width="auto"
+        height="60px"
+        style={{ paddingRight: '20px', paddingLeft: '0px' }}
+      ></img>
+    ) : null;
+
   return (
     <div className={classes}>
       <ModalInMobile
@@ -115,8 +175,18 @@ const BookingPanel = props => {
         </div>
 
         <div className={css.bookingHeading}>
-          <h2 className={titleClasses}>{title}</h2>
-          {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
+          {ProjectRoomtypeIcon}
+          <div>
+            <h3 style={{ fontWeight: '100', color: '#353535' }}>{ProjectRoomtype}</h3>
+            {/* {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null} */}
+            <h3 className={titleClasses}>
+              {/* Wähle deine Reisedaten aus, damit wir dir den Preis anzeigen können */}
+              {formattedPrice}{' '}
+              <span style={{ fontWeight: '100', color: '#353535' }}>
+                <FormattedMessage id="BookingPanel.night" /> {pricePer}
+              </span>
+            </h3>
+          </div>
         </div>
         {showBookingDatesForm ? (
           <BookingDatesForm
@@ -134,6 +204,8 @@ const BookingPanel = props => {
             lineItems={lineItems}
             fetchLineItemsInProgress={fetchLineItemsInProgress}
             fetchLineItemsError={fetchLineItemsError}
+            bedamount={bedamount}
+            projectRoomtypeRaw={projectRoomtypeRaw}
           />
         ) : null}
       </ModalInMobile>

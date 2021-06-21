@@ -1,0 +1,1125 @@
+@import '../../marketplace.css';
+
+:root {
+  /*
+    These variables are available in global scope through ":root"
+    element (<html> tag). Variables with the same names are going to
+    overwrite each other if CSS Properties' (PostCSS plugin)
+    configuration "preserve: true" is used - meaning that variables
+    are left to CSS bundle. We are planning to enable it in the future
+    since browsers support CSS Properties already.
+ */
+
+  --LandingPage_sectionMarginTop: 40px;
+  --LandingPage_sectionMarginTopMedium: 60px;
+  --LandingPage_sectionMarginTopLarge: 94px;
+}
+
+.root {
+}
+
+.section {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    min-height: 100vh;
+  }
+}
+
+.section1a {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    min-height: 50vh;
+  }
+}
+
+.section2 {
+  @media (--viewportMLarge) {
+    margin-top: -15vh;
+  }
+}
+
+.section4 {
+  z-index: 1;
+
+  /* @media (--viewportMLarge) {
+    margin-top: -10vh;
+  } */
+}
+
+.section5 {
+  z-index: 0;
+  min-height: 60vh;
+}
+.loader {
+  width: 100%;
+  height: 100%;
+  @apply --marketplacePaperBackground;
+}
+.loaderImage1 {
+  position: absolute;
+}
+
+.loaderImage2 {
+  position: absolute;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.topbar {
+  opacity: 0;
+  z-index: 999;
+}
+
+.LeftFooterContent {
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+    width: 80px;
+    z-index: 10;
+    position: fixed;
+  }
+}
+.dots {
+  margin-top: -60vh;
+  margin-left: 50px;
+  width: 10vw;
+  opacity: 0;
+}
+
+.dot_active {
+  background-color: var(--marketplaceColorSecond);
+  border: 1px solid var(--marketplaceColorSecond);
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border-radius: 100%;
+  margin-top: 10px;
+  transition: 0.5s;
+}
+
+.dot {
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  position: relative;
+  border-radius: 100%;
+  margin-top: 10px;
+  transition: 0.5s;
+}
+
+.dotInner {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+}
+.socialmedia {
+  position: fixed;
+  bottom: 50px;
+  margin-left: 50px;
+  width: 20px;
+}
+
+.socialmedia2 {
+  position: fixed;
+  bottom: 90px;
+  margin-left: 50px;
+  width: 20px;
+}
+
+.line {
+  height: 1px;
+  width: 65vw;
+  margin-left: -14vw;
+  background-color: black;
+  margin-top: 200px;
+  margin-bottom: 0px;
+}
+
+.HeaderWrapper {
+  margin-top: 12vh;
+  margin-left: 0vw;
+  z-index: 99;
+  position: relative;
+
+  @media (--viewportMedium) {
+    margin-top: 10vh;
+  }
+  @media (max-height: 500px) {
+    margin-top: 26vh;
+  }
+}
+
+.HeaderWrapperRow {
+  width: 100vw;
+  height: auto;
+  z-index: 5;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    height: 6em;
+  }
+
+  @media (--viewportMLarge) {
+    height: 7em;
+    margin-top: 8vh;
+  }
+}
+
+.Header1 {
+  text-align: center;
+  margin-top: -5px;
+  width: 100vw;
+  margin-left: 0vw;
+  z-index: 5;
+  font-family: var(--fontFamilyTitle);
+  color: var(--marketplaceColor);
+
+  font-size: 44px;
+  line-height: 54px;
+
+  opacity: 0;
+  text-shadow: 0 0 15px rgba(28, 120, 129, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (--viewportMedium) {
+    width: 100vw;
+    font-size: 44px;
+    line-height: 104px;
+    flex-direction: row;
+  }
+
+  @media (--viewportMLarge) {
+    font-size: 64px;
+    line-height: 114px;
+  }
+}
+
+.HeaderWrapperRowSecond {
+  width: 95vw;
+  height: 7em;
+  z-index: 3;
+  margin-top: 70px;
+  position: relative;
+
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    margin-top: 0vh;
+    height: 8em;
+  }
+
+  @media (--viewportMLarge) {
+    height: 8em;
+  }
+}
+
+/* .bookingSocialbnb{
+  position: absolute;
+  width: 100vw;
+  text-align: center;
+  margin-top: 74vh;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  animation: startAnimation 6s;
+
+
+}
+.bookingSocialbnb h3{
+color: var(--marketplaceColorDark);
+padding-right: 10px;
+transform: scale(1.05);
+
+} */
+
+.vision {
+  position: relative;
+  text-align: center;
+
+  width: 90vw;
+  margin-left: 5vw;
+  opacity: 0;
+  margin-top: 0vh;
+  display: flex;
+  justify-content: center;
+
+  /* color: var(--marketplaceColorSecond); */
+  @apply --marketplaceMediumTextStyles;
+
+  @media (--viewportMedium) {
+    width: 100vw;
+    margin-left: 0;
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+
+.vision h3 {
+  color: var(--marketplaceColorDark);
+  padding-right: 10px;
+  font-size: 18px;
+  line-height: 28px;
+
+  @media (--viewportMedium) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+.logo {
+  /* If height is increased, change link paddings accordingly */
+
+  width: 155px;
+
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.heroWrapper_active {
+  position: relative;
+  z-index: 0;
+  clip-path: circle(100% at 50% 50%);
+  /* animation: heroImageanimation 0.8s cubic-bezier(.7,.26,.96,.43);  */
+  will-change: auto;
+  -webkit-animation: heroImageanimation 1.4s cubic-bezier(0.42, 0, 0.58, 1);
+  animation: heroImageanimation 1.4s cubic-bezier(0.42, 0, 0.58, 1);
+  margin-top: 0;
+  overflow: hidden;
+  height: 100vh;
+
+  @media (--viewportMedium) {
+    height: 100vh;
+    margin-top: 0;
+    overflow: hidden;
+  }
+  @media (max-height: 400px) {
+    height: 150vh;
+  }
+}
+
+@media screen and (max-width: 1024) {
+  .heroImage {
+  }
+}
+
+.heroImage {
+  will-change: auto;
+
+  z-index: -1;
+  position: absolute;
+  transform: scale(1);
+  scale: 1;
+  top: 0;
+  height: 100vh;
+  width: auto;
+  margin-left: -25%;
+
+  @media (--viewportMedium) {
+    top: -45vh;
+    width: 100%;
+    height: auto;
+    margin-left: 0%;
+  }
+  @media (max-width: 1024px) {
+    top: 0;
+    height: 100vh;
+    width: auto;
+  }
+
+  @media (max-height: 800px) and (min-width: 600px) {
+    top: -51vh;
+    height: auto;
+    width: 100vw;
+    align-self: center;
+    margin: 0;
+  }
+  @media (max-height: 400px) {
+    width: 100vw;
+    height: auto;
+    margin-left: 0;
+  }
+}
+
+.cloudsOuter {
+  will-change: auto;
+
+  /* margin-left: -35%; */
+  animation: cloudsanimation 50s ease-in-out infinite;
+  transform: translate3d(-35vw, 0px, 0px);
+  z-index: 0;
+  top: 0;
+  position: absolute;
+  width: 100vw;
+}
+
+.clouds {
+  will-change: auto;
+
+  clip-path: circle(100% at 50% 40%);
+
+  /* animation: startAnimation 1s cubic-bezier(.42,0,.58,1) ; */
+  width: 550%;
+  margin-top: -15vh;
+  margin-left: -200%;
+  @media (--viewportMedium) {
+    z-index: 9;
+    position: absolute;
+    width: '80vw';
+    top: 0;
+    margin-top: -15vh;
+    margin-left: 0;
+    width: 150%;
+  }
+  @media (max-width: 800px) and (max-height: 1020px) {
+    postition: absolute;
+    top: 15vh;
+    height: 100vh;
+  }
+  @media (max-width: 1024px) and (min-height: 1021px) {
+    top: 12vh;
+  }
+}
+.clouds1 {
+  will-change: auto;
+
+  clip-path: circle(100% at 50% 40%);
+
+  /* animation: startAnimation 1s cubic-bezier(.42,0,.58,1) ; */
+  width: 550%;
+  margin-top: -15vh;
+  margin-left: -200%;
+  @media (--viewportMedium) {
+    margin-top: -15vh;
+    margin-left: 0;
+    width: 150%;
+    z-index: 9;
+    position: 'absolute';
+    width: '80vw';
+    top: '49.3vh';
+    height: '41vh';
+    transform: 'scaleY(-1)';
+  }
+}
+/* .clouds2 {
+  margin-top: 5vh;
+  will-change: auto;
+
+  clip-path: circle(100% at 50% 40%);
+} */
+
+@keyframes cloudsanimation {
+  0% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+
+  50% {
+    transform: translate3d(-40vw, 0px, 0px);
+  }
+
+  100% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+}
+
+@keyframes heroImageanimation {
+  0% {
+    clip-path: circle(0.8% at 50% 50%);
+    transform: scale(1.3);
+  }
+  1% {
+    clip-path: circle(0.8% at 50% 50%);
+    transform: scale(1.3);
+  }
+
+  100% {
+    clip-path: circle(100% at 50% 50%);
+    transform: scale(1);
+  }
+}
+
+.bookingLink {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  margin-left: 50vw;
+  transform: translateX(-50%);
+  z-index: 3;
+  margin-top: calc(13vh - 30px);
+
+  @media (--viewportMedium) {
+    margin-top: calc(40vh - 30px);
+    flex-direction: row;
+  }
+
+  @media (max-height: 700px) and (min-width: 600px) {
+    margin-top: 2vh;
+    flex-direction: column;
+  }
+  @media (max-height: 700px) and (min-width: 800px) {
+    flex-direction: row;
+  }
+  @media (min-height: 700px) and (max-height: 1000px) and (max-width: 800px) {
+    margin-top: calc(20vh - 30px) !important;
+  }
+}
+
+.formControl {
+  @apply --marketplaceButtonStylesCustom;
+  z-index: 0;
+  opacity: 1;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 11px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 11px;
+  position: relative;
+  animation: startAnimation 5s;
+  width: 90vw;
+
+  @media (--viewportMedium) {
+    position: relative;
+    width: 300px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 11px;
+    border-top-left-radius: 11px;
+  }
+}
+
+.heroButton {
+  @apply --marketplacePaperBackground;
+  @apply --marketplaceButtonStyles;
+  border-bottom-right-radius: 11px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 11px;
+  border-top-left-radius: 0;
+  z-index: 0;
+  position: relative;
+  animation: startAnimation 5s;
+  width: 90vw;
+  box-shadow: 0px 4px 15px rgba(235, 114, 66, 0.4);
+
+  @media (--viewportMedium) {
+    position: relative;
+    width: 250px;
+    border-bottom-right-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+}
+
+@keyframes startAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.sectionHeader {
+  @apply --marketplacePaperBackground;
+
+  z-index: 1;
+  width: auto;
+  line-height: 34px;
+  position: absolute;
+  font-family: var(--fontFamilyTitle);
+  margin-left: 0;
+  text-align: left;
+  padding-left: 20px;
+  font-size: 24px;
+
+  margin-top: 2vh;
+
+  @media (--viewportMedium) {
+    text-align: center;
+    margin-top: 15vh;
+    padding-left: 100px;
+    padding-right: 50px;
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+.sectionHeader2 {
+  @apply --marketplacePaperBackground;
+
+  z-index: 1;
+  width: auto;
+  line-height: 34px;
+  position: absolute;
+  font-family: var(--fontFamilyTitle);
+  margin-left: 0;
+  text-align: left;
+  padding-left: 20px;
+  font-size: 24px;
+
+  margin-top: 2vh;
+
+  @media (--viewportMedium) {
+    text-align: center;
+    margin-top: 15vh;
+    padding-left: 100px;
+    padding-right: 50px;
+    font-size: 34px;
+    line-height: 44px;
+  }
+  @media (min-width: 400px) and (max-width: 700px) {
+    margin-top: 4vh;
+  }
+  @media (min-width: 700px) and (max-width: 1024px) {
+    margin-top: 13vh;
+    padding-left: 1em;
+  }
+  @media (max-height: 400px) {
+    margin-top: 4vh;
+  }
+  @media (max-height: 500px) and (min-width: 800px) {
+    margin-top: 0;
+  }
+}
+
+.lineCarousel {
+  position: absolute;
+  height: 1px;
+  width: 100vw;
+  left: 0vw;
+  float: left;
+  background-color: var(--marketplaceColor);
+  margin-top: 23vh;
+
+  @media (--viewportMedium) {
+    margin-top: 17.5vh;
+  }
+}
+
+/* .carousel {
+  clip-path: polygon(0 100%, 100% 100%, 100% -20%, 0 -20%);
+  transition: 2s cubic-bezier(0.7, 0, 0.68, 1);
+  background-color: #fafafa;
+  background-image: url('https://www.transparenttextures.com/patterns/groovepaper.png');
+
+  background-size: 400px 240px;
+  background-repeat: repeat;
+
+
+}
+
+.carousel_open {
+
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  transition: 2s cubic-bezier(0.7, 0, 0.68, 1);
+
+
+
+} */
+
+.reviews {
+  width: 60vw;
+  margin-top: 5vh;
+}
+
+/* .Filter {
+  position: absolute;
+  text-align: left;
+  font-size: 1em;
+
+  margin-top: -89vh;
+  margin-left: 70vw;
+
+  width: 65vw;
+  color: var(--marketplaceColorSecond);
+  pointer-events: none;
+} */
+
+.sectionAlternative {
+  min-height: 100vh;
+  position: relative;
+}
+
+.fourthWrapper {
+  min-height: 100vh;
+  position: relative;
+}
+
+h3.subline1 {
+  float: left;
+
+  left: 0;
+  width: 90px;
+  height: 1px;
+  margin-right: 20px;
+
+  background-color: white;
+  background-color: #353535;
+}
+
+.cardSubtitle {
+  color: white;
+  text-align: left;
+  color: #335353;
+}
+
+.Card {
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.innerCard {
+  width: 60%;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.CardTitle {
+  @apply --SectionHero_animation;
+
+  margin-left: 50px;
+  margin-top: 50px;
+  font-size: 34px;
+  text-align: left;
+  width: 90%;
+  color: #353535;
+  font-family: var(--fontFamilyTitle);
+  letter-spacing: 2px;
+}
+
+.cardSide {
+  float: right;
+  width: 38%;
+  height: 100%;
+}
+
+.cardSideTitle {
+  font-size: 1.5em;
+  color: rgb(100, 115, 227);
+  color: #353535;
+  color: var(--marketplaceColorSecond);
+  color: var(--marketplaceColor);
+  font-weight: 600;
+  height: 15%;
+}
+
+.cardSideSubCardContainer {
+  height: 85%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cardSideSubCard {
+  width: 100%;
+  height: 23%;
+
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.cardSideSubCard img {
+}
+
+.cardButton {
+  @apply --marketplaceButtonStylesCustom2;
+  @apply --SectionHero_animation;
+
+  animation-delay: 0.8s;
+  position: relative;
+  display: block;
+  width: 300px;
+  border-radius: 10px;
+
+  float: right;
+  margin-top: -60px;
+  margin-right: 2vh;
+  margin-bottom: 2vh;
+}
+
+.reviewSubtitle {
+  margin-left: 50px;
+}
+
+.NgoImage {
+  width: 120%;
+  left: -10%;
+}
+
+.reviewImage {
+  height: 100%;
+  left: -10%;
+}
+
+.quote {
+  text-align: left;
+  font-size: 8em;
+  width: 100%;
+  margin-top: 100px;
+  margin-left: 50px;
+  color: #1c7881;
+  font-family: var(--fontFamilyTitle);
+}
+
+.brush {
+  position: absolute;
+  top: 165vh;
+  width: 17%;
+  right: 5%;
+}
+
+.garden {
+  position: absolute;
+  top: 273vh;
+  width: 25%;
+  left: 5%;
+}
+
+.review1 {
+  position: absolute;
+  top: 278vh;
+  width: 27%;
+  right: 5%;
+}
+
+/* heroContainer gives the height for SectionHero */
+/* Safari has a bug with vw padding inside flexbox. Therefore we need an extra div (container) */
+/* If you've lot of content for the hero, multiple lines of text, make sure to adjust min-heights for each media breakpoint accordingly */
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+
+  height: 85vh;
+  padding: 0;
+
+  /* 
+  min-height: 300px;
+  height: 67.5vh;
+  max-height: 600px;
+
+  @media (--viewportMedium) {
+    min-height: 500px;
+    height: 70vh;
+    max-height: none;
+  }
+
+  @media (--viewportLarge) {
+    max-height: 800px;
+    min-height: 600px;
+    height: calc(70vh - var(--topbarHeightDesktop));
+  } */
+}
+
+.hero {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding-bottom: 32px;
+
+  @media (--viewportMedium) {
+    padding-bottom: 83px;
+  }
+
+  @media (--viewportLarge) {
+    justify-content: center;
+    padding-top: 60px;
+  }
+}
+
+.menu {
+  z-index: 19;
+  position: fixed;
+  background-color: white;
+  width: 25em;
+  height: 72px;
+  top: 0;
+  left: 16em;
+  transition: 1s;
+}
+
+.menuText {
+  color: #353535;
+  padding: 40px;
+  line-height: 72px;
+}
+
+.menuText:hover {
+  color: #353535;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 21px;
+  line-height: 72px;
+  border-bottom: 4px solid var(--marketplaceColor);
+}
+
+.menuText_active {
+  border-bottom: 4px solid var(--marketplaceColor);
+  animation: menuborderanimation 1s;
+  padding-bottom: 21px;
+  line-height: 72px;
+}
+
+@keyframes menuborderanimation {
+  0% {
+    border-bottom: 4px solid white;
+  }
+
+  100% {
+    border-bottom: 4px solid var(--marketplaceColor);
+  }
+}
+
+.foto {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.staticPageWrapper {
+  width: calc(100% - 48px);
+  max-width: 1056px;
+  margin: 24px auto;
+
+  @media (--viewportMedium) {
+    width: calc(100% - 72px);
+    margin: 72px auto;
+  }
+}
+
+.pageTitle {
+  @apply --SectionHero_animation;
+
+  margin-top: 150px;
+
+  font-size: 54px;
+  line-height: 70px;
+  text-align: left;
+  width: 15em;
+  float: left;
+
+  z-index: -1;
+}
+
+.pageTitle_right {
+  @apply --SectionHero_animation;
+
+  margin-top: 150px;
+  font-family: Lora;
+
+  font-size: 54px;
+  line-height: 70px;
+  text-align: right;
+  width: 15em;
+
+  right: 0;
+  float: right;
+
+  z-index: -1;
+}
+
+.contentWrapperOuter {
+  clear: both;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+  @media (--viewportMedium) {
+    flex-wrap: nowrap;
+  }
+}
+
+.indicatorWrapper {
+  position: absolute;
+  margin-top: 110vh;
+
+  right: 13.5vw;
+}
+
+.indicator {
+  float: left;
+  padding-left: 20px;
+  font-size: 25px;
+  line-height: 0px;
+  font-weight: 900;
+  color: #353535;
+  font-family: Lora;
+}
+
+.indicator_thin {
+  float: left;
+  font-weight: 100;
+  line-height: 0px;
+  padding-right: 20px;
+  font-size: 25px;
+
+  font-family: Lora;
+
+  color: #353535;
+}
+
+.contentMain {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+
+  @media (--viewportMedium) {
+    max-width: 800px;
+  }
+}
+
+.Wrapper {
+  width: 100%;
+  min-height: 100vh;
+
+  @apply --marketplacePaperBackground;
+}
+
+.SwipeButtonContainer {
+  position: relative;
+  margin-top: -80vh;
+  float: right;
+  margin-right: 10vw;
+  padding-left: 20px;
+
+  @apply --marketplacePaperBackground;
+}
+
+.SwipeButton {
+  margin-right: 20px;
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  float: left;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 100%;
+
+  &:hover,
+  &:focus {
+    box-shadow: var(--boxShadowButton);
+  }
+}
+
+.SwipeButton_disabled {
+  margin-right: 20px;
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  float: left;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 100%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.arrows {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 10px;
+  height: 10px;
+  display: block;
+}
+
+.processImage1 {
+  position: absolute;
+  margin-top: 20vh;
+  margin-left: 10vw;
+  width: 100px;
+}
+
+.articles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 90vw;
+  margin-left: 5vw;
+  position: relative;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+
+  @media (--viewportMedium) {
+    width: calc(100vw - 200px);
+    margin-left: 100px;
+    height: 10vh;
+    margin-top: 50px;
+    /* position: absolute;
+    bottom: 30px;
+    margin-bottom: 0; */
+  }
+}
+
+.articlesItems {
+  width: 20vw;
+  margin: 3vw;
+  filter: grayscale(100%);
+  opacity: 0.5;
+
+  @media (--viewportMedium) {
+    width: 8%;
+    margin: 0;
+  }
+}
+
+.articlesItems:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.Select {
+  background-color: transparent;
+  padding-right: 40px;
+  font-family: 'Poppins, Helvetica, Arial, sans-serif';
+  font-weight: var(--fontWeightSemiBold);
+  font-size: 16px;
+  line-height: 16px;
+  display: flex;
+}
+/* .newsletterarea > * {
+  height: 119vh;
+  @media (--viewportMedium) {
+    height: 150vh;
+  }
+} */

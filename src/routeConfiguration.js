@@ -1,45 +1,46 @@
 import React from 'react';
-import loadable from '@loadable/component';
-import getPageDataLoadingAPI from './containers/pageDataLoadingAPI';
-import { NotFoundPage } from './containers';
+import {
+  AboutPage,
+  BecomeHostPage,
+  BecomeHostPage1,
+  FaqPage,
+  ContactPage,
+  AuthenticationPage,
+  CheckoutPage,
+  ContactDetailsPage,
+  EditListingPage,
+  EmailVerificationPage,
+  InboxPage,
+  LandingPage,
+  ListingPage,
+  ManageListingsPage,
+  NotFoundPage,
+  PasswordChangePage,
+  PasswordRecoveryPage,
+  PasswordResetPage,
+  StripePayoutPage,
+  PaymentMethodsPage,
+  PrivacyPolicyPage,
+  ProfilePage,
+  ProfileSettingsPage,
+  SearchPage,
+  StyleguidePage,
+  TermsOfServicePage,
+  TransactionPage,
+} from './containers';
 
 // routeConfiguration needs to initialize containers first
 // Otherwise, components will import form container eventually and
 // at that point css bundling / imports will happen in wrong order.
 import { NamedRedirect } from './components';
+import ImprintPage from './containers/ImprintPage/ImprintPage';
 
-const pageDataLoadingAPI = getPageDataLoadingAPI();
-
-const AboutPage = loadable(() => import(/* webpackChunkName: "AboutPage" */ './containers/AboutPage/AboutPage'));
-const AuthenticationPage = loadable(() => import(/* webpackChunkName: "AuthenticationPage" */ './containers/AuthenticationPage/AuthenticationPage'));
-const CheckoutPage = loadable(() => import(/* webpackChunkName: "CheckoutPage" */ './containers/CheckoutPage/CheckoutPage'));
-const ContactDetailsPage = loadable(() => import(/* webpackChunkName: "ContactDetailsPage" */ './containers/ContactDetailsPage/ContactDetailsPage'));
-const EditListingPage = loadable(() => import(/* webpackChunkName: "EditListingPage" */ './containers/EditListingPage/EditListingPage'));
-const EmailVerificationPage = loadable(() => import(/* webpackChunkName: "EmailVerificationPage" */ './containers/EmailVerificationPage/EmailVerificationPage'));
-const InboxPage = loadable(() => import(/* webpackChunkName: "InboxPage" */ './containers/InboxPage/InboxPage'));
-const LandingPage = loadable(() => import(/* webpackChunkName: "LandingPage" */ './containers/LandingPage/LandingPage'));
-const ListingPage = loadable(() => import(/* webpackChunkName: "ListingPage" */ /* webpackPrefetch: true */ './containers/ListingPage/ListingPage'));
-const ManageListingsPage = loadable(() => import(/* webpackChunkName: "ManageListingsPage" */ './containers/ManageListingsPage/ManageListingsPage'));
-const PasswordChangePage = loadable(() => import(/* webpackChunkName: "PasswordChangePage" */ './containers/PasswordChangePage/PasswordChangePage'));
-const PasswordRecoveryPage = loadable(() => import(/* webpackChunkName: "PasswordRecoveryPage" */ './containers/PasswordRecoveryPage/PasswordRecoveryPage'));
-const PasswordResetPage = loadable(() => import(/* webpackChunkName: "PasswordResetPage" */ './containers/PasswordResetPage/PasswordResetPage'));
-const PaymentMethodsPage = loadable(() => import(/* webpackChunkName: "PaymentMethodsPage" */ './containers/PaymentMethodsPage/PaymentMethodsPage'));
-const PrivacyPolicyPage = loadable(() => import(/* webpackChunkName: "PrivacyPolicyPage" */ './containers/PrivacyPolicyPage/PrivacyPolicyPage'));
-const ProfilePage = loadable(() => import(/* webpackChunkName: "ProfilePage" */ './containers/ProfilePage/ProfilePage'));
-const ProfileSettingsPage = loadable(() => import(/* webpackChunkName: "ProfileSettingsPage" */ './containers/ProfileSettingsPage/ProfileSettingsPage'));
-const SearchPage = loadable(() => import(/* webpackChunkName: "SearchPage" */ /* webpackPrefetch: true */  './containers/SearchPage/SearchPage'));
-const StripePayoutPage = loadable(() => import(/* webpackChunkName: "StripePayoutPage" */ './containers/StripePayoutPage/StripePayoutPage'));
-const TermsOfServicePage = loadable(() => import(/* webpackChunkName: "TermsOfServicePage" */ './containers/TermsOfServicePage/TermsOfServicePage'));
-const TransactionPage = loadable(() => import(/* webpackChunkName: "TransactionPage" */ './containers/TransactionPage/TransactionPage'));
-
-// Styleguide helps you to review current components and develop new ones
-const StyleguidePage = loadable(() => import(/* webpackChunkName: "StyleguidePage" */ './containers/StyleguidePage/StyleguidePage'));
 
 export const ACCOUNT_SETTINGS_PAGES = [
   'ContactDetailsPage',
   'PasswordChangePage',
-  'StripePayoutPage',
-  'PaymentMethodsPage',
+  // 'StripePayoutPage',
+  // 'PaymentMethodsPage',
 ];
 
 // https://en.wikipedia.org/wiki/Universally_unique_identifier#Nil_UUID
@@ -59,6 +60,22 @@ const RedirectToLandingPage = () => <NamedRedirect name="LandingPage" />;
 const routeConfiguration = () => {
   return [
     {
+      path: '/BecomeHostPage',
+      name: 'BecomeHostPage',
+      component: BecomeHostPage,
+    },
+    {
+      path: '/BecomeHostPage1',
+      name: 'BecomeHostPage1',
+      component: BecomeHostPage1,
+    },
+
+    // {
+    //   path: '/',
+    //   name: 'LandingPage',
+    //   component: props => <LandingPage {...props} />,
+    // },
+    {
       path: '/',
       name: 'LandingPage',
       component: LandingPage,
@@ -68,11 +85,48 @@ const routeConfiguration = () => {
       name: 'AboutPage',
       component: AboutPage,
     },
+
+    {
+      path: '/FAQ',
+      name: 'FaqPage',
+      component: FaqPage,
+    },
+
+    {
+      path: '/Contact',
+      name: 'ContactPage',
+      component: ContactPage,
+    },
+
+    {
+      path: '/Imprint',
+      name: 'Imprint',
+      component: props => <ImprintPage {...props} /> ,
+    },
+
     {
       path: '/s',
       name: 'SearchPage',
-      component: SearchPage,
-      loadData: pageDataLoadingAPI.SearchPage.loadData,
+      component: props => <SearchPage {...props} />,
+      loadData: SearchPage.loadData,
+    },
+    {
+      path: '/s/filters',
+      name: 'SearchFiltersPage',
+      component: props => <SearchPage {...props} tab="filters" />,
+      loadData: SearchPage.loadData,
+    },
+    {
+      path: '/s/listings',
+      name: 'SearchListingsPage',
+      component: props => <SearchPage {...props} tab="listings" />,
+      loadData: SearchPage.loadData,
+    },
+    {
+      path: '/s/map',
+      name: 'SearchMapPage',
+      component: props => <SearchPage {...props} tab="map" />,
+      loadData: SearchPage.loadData,
     },
     {
       path: '/l',
@@ -82,23 +136,23 @@ const routeConfiguration = () => {
     {
       path: '/l/:slug/:id',
       name: 'ListingPage',
-      component: ListingPage,
-      loadData: pageDataLoadingAPI.ListingPage.loadData,
+      component: props => <ListingPage {...props} />,
+      loadData: ListingPage.loadData,
     },
     {
       path: '/l/:slug/:id/checkout',
       name: 'CheckoutPage',
       auth: true,
-      component: CheckoutPage,
-      setInitialValues: pageDataLoadingAPI.CheckoutPage.setInitialValues,
+      component: props => <CheckoutPage {...props} />,
+      setInitialValues: CheckoutPage.setInitialValues,
     },
     {
       path: '/l/:slug/:id/:variant',
       name: 'ListingPageVariant',
       auth: true,
       authPage: 'LoginPage',
-      component: ListingPage,
-      loadData: pageDataLoadingAPI.ListingPage.loadData,
+      component: props => <ListingPage {...props} />,
+      loadData: ListingPage.loadData,
     },
     {
       path: '/l/new',
@@ -115,15 +169,15 @@ const routeConfiguration = () => {
       path: '/l/:slug/:id/:type/:tab',
       name: 'EditListingPage',
       auth: true,
-      component: EditListingPage,
-      loadData: pageDataLoadingAPI.EditListingPage.loadData,
+      component: props => <EditListingPage {...props} />,
+      loadData: EditListingPage.loadData,
     },
     {
       path: '/l/:slug/:id/:type/:tab/:returnURLType',
       name: 'EditListingStripeOnboardingPage',
       auth: true,
-      component: EditListingPage,
-      loadData: pageDataLoadingAPI.EditListingPage.loadData,
+      component: props => <EditListingPage {...props} />,
+      loadData: EditListingPage.loadData,
     },
 
     // Canonical path should be after the `/l/new` path since they
@@ -131,8 +185,8 @@ const routeConfiguration = () => {
     {
       path: '/l/:id',
       name: 'ListingPageCanonical',
-      component: ListingPage,
-      loadData: pageDataLoadingAPI.ListingPage.loadData,
+      component: props => <ListingPage {...props} />,
+      loadData: ListingPage.loadData,
     },
     {
       path: '/u',
@@ -142,15 +196,15 @@ const routeConfiguration = () => {
     {
       path: '/u/:id',
       name: 'ProfilePage',
-      component: ProfilePage,
-      loadData: pageDataLoadingAPI.ProfilePage.loadData,
+      component: props => <ProfilePage {...props} />,
+      loadData: ProfilePage.loadData,
     },
     {
       path: '/profile-settings',
       name: 'ProfileSettingsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: ProfileSettingsPage,
+      component: props => <ProfileSettingsPage {...props} />,
     },
 
     // Note: authenticating with IdP (e.g. Facebook) expects that /login path exists
@@ -159,25 +213,28 @@ const routeConfiguration = () => {
     {
       path: '/login',
       name: 'LoginPage',
-      component: AuthenticationPage,
-      extraProps: { tab: 'login' },
-    },
-    {
-      path: '/signup',
-      name: 'SignupPage',
-      component: AuthenticationPage,
-      extraProps: { tab: 'signup' },
+      component: props => <AuthenticationPage {...props} tab="login" />,
     },
     {
       path: '/confirm',
       name: 'ConfirmPage',
-      component: AuthenticationPage,
-      extraProps: { tab: 'confirm' },
+      component: props => <AuthenticationPage {...props} tab="confirm" />,
+    },
+    {
+      path: '/signup',
+      name: 'SignupPage',
+      component: props => <AuthenticationPage {...props} tab="signup" />,
+    },
+
+    {
+      path: '/signupHost',
+      name: 'SignupPageHost',
+      component: props => <AuthenticationPage {...props} tab="signup" />,
     },
     {
       path: '/recover-password',
       name: 'PasswordRecoveryPage',
-      component: PasswordRecoveryPage,
+      component: props => <PasswordRecoveryPage {...props} />,
     },
     {
       path: '/inbox',
@@ -191,8 +248,8 @@ const routeConfiguration = () => {
       name: 'InboxPage',
       auth: true,
       authPage: 'LoginPage',
-      component: InboxPage,
-      loadData: pageDataLoadingAPI.InboxPage.loadData,
+      component: props => <InboxPage {...props} />,
+      loadData: InboxPage.loadData,
     },
     {
       path: '/order/:id',
@@ -206,11 +263,9 @@ const routeConfiguration = () => {
       name: 'OrderDetailsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: TransactionPage,
-      extraProps: { transactionRole: 'customer' },
-      loadData: params =>
-        pageDataLoadingAPI.TransactionPage.loadData({ ...params, transactionRole: 'customer' }),
-      setInitialValues: pageDataLoadingAPI.TransactionPage.setInitialValues,
+      component: props => <TransactionPage {...props} transactionRole="customer" />,
+      loadData: params => TransactionPage.loadData({ ...params, transactionRole: 'customer' }),
+      setInitialValues: TransactionPage.setInitialValues,
     },
     {
       path: '/sale/:id',
@@ -224,18 +279,16 @@ const routeConfiguration = () => {
       name: 'SaleDetailsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: TransactionPage,
-      extraProps: { transactionRole: 'provider' },
-      loadData: params =>
-        pageDataLoadingAPI.TransactionPage.loadData({ ...params, transactionRole: 'provider' }),
+      component: props => <TransactionPage {...props} transactionRole="provider" />,
+      loadData: params => TransactionPage.loadData({ ...params, transactionRole: 'provider' }),
     },
     {
       path: '/listings',
       name: 'ManageListingsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: ManageListingsPage,
-      loadData: pageDataLoadingAPI.ManageListingsPage.loadData,
+      component: props => <ManageListingsPage {...props} />,
+      loadData: ManageListingsPage.loadData,
     },
     {
       path: '/account',
@@ -249,75 +302,74 @@ const routeConfiguration = () => {
       name: 'ContactDetailsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: ContactDetailsPage,
-      loadData: pageDataLoadingAPI.ContactDetailsPage.loadData,
+      component: props => <ContactDetailsPage {...props} />,
+      loadData: ContactDetailsPage.loadData,
     },
     {
       path: '/account/change-password',
       name: 'PasswordChangePage',
       auth: true,
       authPage: 'LoginPage',
-      component: PasswordChangePage,
+      component: props => <PasswordChangePage {...props} />,
     },
     {
       path: '/account/payments',
       name: 'StripePayoutPage',
       auth: true,
       authPage: 'LoginPage',
-      component: StripePayoutPage,
-      loadData: pageDataLoadingAPI.StripePayoutPage.loadData,
+      component: props => <StripePayoutPage {...props} />,
+      loadData: StripePayoutPage.loadData,
     },
     {
       path: '/account/payments/:returnURLType',
       name: 'StripePayoutOnboardingPage',
       auth: true,
       authPage: 'LoginPage',
-      component: StripePayoutPage,
-      loadData: pageDataLoadingAPI.StripePayoutPage.loadData,
+      component: props => <StripePayoutPage {...props} />,
+      loadData: StripePayoutPage.loadData,
     },
     {
       path: '/account/payment-methods',
       name: 'PaymentMethodsPage',
       auth: true,
       authPage: 'LoginPage',
-      component: PaymentMethodsPage,
-      loadData: pageDataLoadingAPI.PaymentMethodsPage.loadData,
+      component: props => <PaymentMethodsPage {...props} />,
+      loadData: PaymentMethodsPage.loadData,
     },
     {
       path: '/terms-of-service',
       name: 'TermsOfServicePage',
-      component: TermsOfServicePage,
+      component: props => <TermsOfServicePage {...props} />,
     },
     {
       path: '/privacy-policy',
       name: 'PrivacyPolicyPage',
-      component: PrivacyPolicyPage,
+      component: props => <PrivacyPolicyPage {...props} />,
     },
     {
       path: '/styleguide',
       name: 'Styleguide',
-      component: StyleguidePage,
+      component: props => <StyleguidePage {...props} />,
     },
     {
       path: '/styleguide/g/:group',
       name: 'StyleguideGroup',
-      component: StyleguidePage,
+      component: props => <StyleguidePage {...props} />,
     },
     {
       path: '/styleguide/c/:component',
       name: 'StyleguideComponent',
-      component: StyleguidePage,
+      component: props => <StyleguidePage {...props} />,
     },
     {
       path: '/styleguide/c/:component/:example',
       name: 'StyleguideComponentExample',
-      component: StyleguidePage,
+      component: props => <StyleguidePage {...props} />,
     },
     {
       path: '/styleguide/c/:component/:example/raw',
       name: 'StyleguideComponentExampleRaw',
-      component: StyleguidePage,
-      extraProps: { raw: true },
+      component: props => <StyleguidePage raw {...props} />,
     },
     {
       path: '/notfound',
@@ -331,7 +383,7 @@ const routeConfiguration = () => {
     {
       path: '/reset-password',
       name: 'PasswordResetPage',
-      component: PasswordResetPage ,
+      component: props => <PasswordResetPage {...props} />,
     },
 
     // Do not change this path!
@@ -342,8 +394,8 @@ const routeConfiguration = () => {
       name: 'EmailVerificationPage',
       auth: true,
       authPage: 'LoginPage',
-      component: EmailVerificationPage,
-      loadData: pageDataLoadingAPI.EmailVerificationPage.loadData,
+      component: props => <EmailVerificationPage {...props} />,
+      loadData: EmailVerificationPage.loadData,
     },
   ];
 };

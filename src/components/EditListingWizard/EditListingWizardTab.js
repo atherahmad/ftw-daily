@@ -12,32 +12,35 @@ import { createResourceLocatorString } from '../../util/routes';
 import {
   EditListingAvailabilityPanel,
   EditListingDescriptionPanel,
+  EditListingCharacteristicsPanel,
   EditListingFeaturesPanel,
   EditListingLocationPanel,
   EditListingPhotosPanel,
-  EditListingPoliciesPanel,
+  EditListingOffersPanel,
   EditListingPricingPanel,
 } from '../../components';
 
-import css from './EditListingWizard.module.css';
+import css from './EditListingWizard.css';
 
 export const AVAILABILITY = 'availability';
 export const DESCRIPTION = 'description';
+export const CHARACTERISTICS = 'characteristics';
 export const FEATURES = 'features';
-export const POLICY = 'policy';
+export const OFFERS = 'offers';
 export const LOCATION = 'location';
-export const PRICING = 'pricing';
-export const PHOTOS = 'photos';
+/* export const PRICING = 'pricing';
+ */ export const PHOTOS = 'photos';
 
 // EditListingWizardTab component supports these tabs
 export const SUPPORTED_TABS = [
   DESCRIPTION,
+  CHARACTERISTICS,
   FEATURES,
-  POLICY,
+  OFFERS,
   LOCATION,
-  PRICING,
-  AVAILABILITY,
+  // PRICING,
   PHOTOS,
+  AVAILABILITY,
 ];
 
 const pathParamsToNextTab = (params, tab, marketplaceTabs) => {
@@ -94,6 +97,7 @@ const EditListingWizardTab = props => {
     updatedTab,
     updateInProgress,
     intl,
+    currentUser,
   } = props;
 
   const { type } = params;
@@ -148,6 +152,7 @@ const EditListingWizardTab = props => {
       errors,
       listing,
       onChange,
+      isNewListingFlow,
       panelUpdated: updatedTab === tab,
       updateInProgress,
       // newListingPublished and fetchInProgress are flags for the last wizard tab
@@ -164,6 +169,7 @@ const EditListingWizardTab = props => {
       return (
         <EditListingDescriptionPanel
           {...panelProps(DESCRIPTION)}
+          currentUser={currentUser}
           submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
@@ -171,6 +177,21 @@ const EditListingWizardTab = props => {
         />
       );
     }
+    case CHARACTERISTICS: {
+      const submitButtonTranslationKey = isNewListingFlow
+        ? 'EditListingWizard.saveNewCharacteristics'
+        : 'EditListingWizard.saveEditCharacteristics';
+      return (
+        <EditListingCharacteristicsPanel
+          {...panelProps(CHARACTERISTICS)}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+          onSubmit={values => {
+            onCompleteEditListingWizardTab(tab, values);
+          }}
+        />
+      );
+    }
+
     case FEATURES: {
       const submitButtonTranslationKey = isNewListingFlow
         ? 'EditListingWizard.saveNewFeatures'
@@ -185,13 +206,13 @@ const EditListingWizardTab = props => {
         />
       );
     }
-    case POLICY: {
+    case OFFERS: {
       const submitButtonTranslationKey = isNewListingFlow
-        ? 'EditListingWizard.saveNewPolicies'
-        : 'EditListingWizard.saveEditPolicies';
+        ? 'EditListingWizard.saveNewOffers'
+        : 'EditListingWizard.saveEditOffers';
       return (
-        <EditListingPoliciesPanel
-          {...panelProps(POLICY)}
+        <EditListingOffersPanel
+          {...panelProps(OFFERS)}
           submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
@@ -213,35 +234,20 @@ const EditListingWizardTab = props => {
         />
       );
     }
-    case PRICING: {
-      const submitButtonTranslationKey = isNewListingFlow
-        ? 'EditListingWizard.saveNewPricing'
-        : 'EditListingWizard.saveEditPricing';
-      return (
-        <EditListingPricingPanel
-          {...panelProps(PRICING)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
-          onSubmit={values => {
-            onCompleteEditListingWizardTab(tab, values);
-          }}
-        />
-      );
-    }
-    case AVAILABILITY: {
-      const submitButtonTranslationKey = isNewListingFlow
-        ? 'EditListingWizard.saveNewAvailability'
-        : 'EditListingWizard.saveEditAvailability';
-      return (
-        <EditListingAvailabilityPanel
-          {...panelProps(AVAILABILITY)}
-          availability={availability}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
-          onSubmit={values => {
-            onCompleteEditListingWizardTab(tab, values);
-          }}
-        />
-      );
-    }
+    // case PRICING: {
+    //   const submitButtonTranslationKey = isNewListingFlow
+    //     ? 'EditListingWizard.saveNewPricing'
+    //     : 'EditListingWizard.saveEditPricing';
+    //   return (
+    //     <EditListingPricingPanel
+    //       {...panelProps(PRICING)}
+    //       submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+    //       onSubmit={values => {
+    //         onCompleteEditListingWizardTab(tab, values);
+    //       }}
+    //     />
+    //   );
+    // }
     case PHOTOS: {
       const submitButtonTranslationKey = isNewListingFlow
         ? 'EditListingWizard.saveNewPhotos'
@@ -261,6 +267,22 @@ const EditListingWizardTab = props => {
         />
       );
     }
+    case AVAILABILITY: {
+      const submitButtonTranslationKey = isNewListingFlow
+        ? 'EditListingWizard.saveNewAvailability'
+        : 'EditListingWizard.saveEditAvailability';
+      return (
+        <EditListingAvailabilityPanel
+          {...panelProps(AVAILABILITY)}
+          availability={availability}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+          onSubmit={values => {
+            onCompleteEditListingWizardTab(tab, values);
+          }}
+        />
+      );
+    }
+
     default:
       return null;
   }

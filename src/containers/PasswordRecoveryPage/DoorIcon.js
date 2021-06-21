@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './DoorIcon.module.css';
+import css from './DoorIcon.css';
 
 const DoorIcon = props => {
   const { className } = props;

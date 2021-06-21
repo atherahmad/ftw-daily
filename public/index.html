@@ -11,23 +11,71 @@
     <link rel="manifest" href="%PUBLIC_URL%/static/manifest.json">
 
     <!-- Start Favicons from https://realfavicongenerator.net/ -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
     <link rel="mask-icon" href="/static/icons/safari-pinned-tab.svg" color="#c0392b">
     <link rel="shortcut icon" href="/static/icons/favicon.ico">
     <meta name="msapplication-config" content="/static/icons/browserconfig.xml">
-    <meta name="theme-color" content="#c0392b">
+    <meta name="theme-color" content="#c0392b"> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+    <link rel="manifest" href="/static/icons/site.webmanifest">
+    <link rel="mask-icon" href="/static/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/static/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="socialbnb">
+    <meta name="application-name" content="socialbnb">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-config" content="/static/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <!-- End Favicons -->
 
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/8.3.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/8.3.1/firebase-analytics.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=ASY98dv_CoKeCP0kCk99qe6Q0ZPEY7Tk3zbDpCzJY5D6DasDPwM_0QDSEl6wvk2XPwY1AsRrKje-PeTB&currency=USD"></script> 
+
     <!--!link-->
-    <!--!ssrStyles-->
-    <!--!ssrLinks-->
 
     <style>
      /**
       * Poppins font is downloaded from Google Fonts but served from sharetribe.com / CDN
       */
+
+      /* @font-face {
+      font-family: 'Canela-Medium';
+      
+      src: url('fonts/Canela-Medium/Canela-Medium.ttf') format('truetype'),
+        url('fonts/Canela-Medium/Canela-Medium.woff2') format('woff2'),
+        url('fonts/Canela-Medium/Canela-Medium.woff') format('woff'),
+        url('fonts/Canela-Medium/Canela-Medium.eot') format('embedded-opentype'),
+        url('fonts/Canela-Medium/Canela-Medium.svg#Canela-Medium') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      transform: perspective(1px);
+      text-rendering: optimizeLegibility;
+
+
+    } */
+
+    @font-face {
+  font-family: "Canela-Medium";
+  src: url("/fonts/Canela-Medium/Canela-Medium.ttf") format("truetype"),
+      url("/fonts/Canela-Medium/Canela-Medium.woff2") format("woff2"),
+       url("/fonts/Canela-Medium/Canela-Medium.wofff") format("woff");
+    } 
+
+    
 
       @font-face {
         /* 'Poppins-Regular' */
@@ -75,10 +123,15 @@
           document.documentElement.classList.add("fontsLoaded");
         }
       })(document);
+
+          $( window ).on( "load", function() {
+        console.log( "window loaded" );
+    });
     </script>
 
     <link rel="stylesheet" href="%PUBLIC_URL%/static/reactDates.css" />
   </head>
+ 
   <body>
     <div id="root"><!--!body--></div>
     <div id="portal-root"></div>
@@ -116,13 +169,17 @@
         var poppinsSemibold = new FontFaceObserver('poppins', { weight: 600 });
         var poppinsBold = new FontFaceObserver('poppins', { weight: 700 });
 
+
+        var canelaMedium = new FontFaceObserver('Canela-Medium', { weight: 500 });
+
         var fontLoadingTimeout = 5000;
 
         Promise.all([
           poppinsRegular.load(null, fontLoadingTimeout),
           poppinsMedium.load(null, fontLoadingTimeout),
           poppinsSemibold.load(null, fontLoadingTimeout),
-          poppinsBold.load(null, fontLoadingTimeout)
+          poppinsBold.load(null, fontLoadingTimeout),
+          canelaMedium.load(null,fontLoadingTimeout )
         ])
           .then(function () {
             document.documentElement.classList.add("fontsLoaded");
@@ -148,6 +205,9 @@
     <script>
       window.mapboxgl.accessToken = '%REACT_APP_MAPBOX_ACCESS_TOKEN%';
     </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIJg4m8anLnG4gKslSRbo3L9KkgS79f_s&libraries=places"></script>
+
     <!--
       If Google Maps is used instead of Mapbox, you need to include Google's script instead:
       <script src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_GOOGLE_MAPS_API_KEY%&libraries=places"></script>
@@ -163,8 +223,6 @@
     <!--!preloadedStateScript-->
     <!--!script-->
 
-    <!--!ssrScripts-->
-
     <!--
          Note when adding new external scripts/styles/fonts/etc.:
          If a Content Security Policy (CSP) is turned on, the new URLs
@@ -172,5 +230,6 @@
 
          See docs/content-security-policy.md for more information.
     -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6725180.js"></script> 
   </body>
 </html>

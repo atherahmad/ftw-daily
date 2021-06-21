@@ -18,7 +18,7 @@ import {
 import { LocationSearchForm } from '../../forms';
 import { TopbarContainer } from '../../containers';
 
-import css from './NotFoundPage.module.css';
+import css from './NotFoundPage.css';
 
 export class NotFoundPageComponent extends Component {
   constructor(props) {

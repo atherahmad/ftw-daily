@@ -1,0 +1,53 @@
+@import '../../marketplace.css';
+
+@keyframes startAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.continentselect {
+  @apply --marketplaceButtonStylesCustom;
+  z-index: 0;
+  opacity: 1;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 11px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 11px;
+  position: relative;
+  animation: startAnimation 5s;
+  width: 90vw;
+
+  background-position: calc(100% - 20px) calc(1em + 5px), calc(100% - 15px) calc(1em + 5px), 100% 0;
+
+  background-image: url('../../assets/icons/select.png');
+
+  background-repeat: no-repeat;
+
+  @media (--viewportMedium) {
+    position: relative;
+    width: 300px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 11px;
+    border-top-left-radius: 11px;
+  }
+}
+
+.continentselect::after {
+}
+.continentitem {
+  content: ' ';
+  height: 5px;
+  width: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}

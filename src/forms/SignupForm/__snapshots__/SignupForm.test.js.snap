@@ -3,13 +3,13 @@
 exports[`SignupForm matches snapshot 1`] = `
 <form
   action="/"
-  className="root"
+  className=""
   method="post"
   onSubmit={[Function]}
 >
   <div>
     <div
-      className="root"
+      className=""
     >
       <label
         htmlFor="email"
@@ -18,7 +18,7 @@ exports[`SignupForm matches snapshot 1`] = `
       </label>
       <input
         autoComplete="email"
-        className="input"
+        className=""
         id="email"
         name="email"
         onBlur={[Function]}
@@ -29,11 +29,9 @@ exports[`SignupForm matches snapshot 1`] = `
         value=""
       />
     </div>
-    <div
-      className="name"
-    >
+    <div>
       <div
-        className="root firstNameRoot"
+        className=""
       >
         <label
           htmlFor="fname"
@@ -42,7 +40,7 @@ exports[`SignupForm matches snapshot 1`] = `
         </label>
         <input
           autoComplete="given-name"
-          className="input"
+          className=""
           id="fname"
           name="fname"
           onBlur={[Function]}
@@ -54,7 +52,7 @@ exports[`SignupForm matches snapshot 1`] = `
         />
       </div>
       <div
-        className="root lastNameRoot"
+        className=""
       >
         <label
           htmlFor="lname"
@@ -63,7 +61,7 @@ exports[`SignupForm matches snapshot 1`] = `
         </label>
         <input
           autoComplete="family-name"
-          className="input"
+          className=""
           id="lname"
           name="lname"
           onBlur={[Function]}
@@ -76,7 +74,7 @@ exports[`SignupForm matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="root password"
+      className=""
     >
       <label
         htmlFor="password"
@@ -85,7 +83,7 @@ exports[`SignupForm matches snapshot 1`] = `
       </label>
       <input
         autoComplete="new-password"
-        className="input"
+        className=""
         id="password"
         name="password"
         onBlur={[Function]}
@@ -97,22 +95,16 @@ exports[`SignupForm matches snapshot 1`] = `
       />
     </div>
   </div>
-  <div
-    className="bottomWrapper"
-  >
-    <p
-      className="bottomWrapperText"
-    >
-      <span
-        className="termsText"
-      >
+  <div>
+    <p>
+      <span>
         <span>
           SignupForm.termsAndConditionsAcceptText
         </span>
       </span>
     </p>
     <button
-      className="primaryButtonRoot primaryButton"
+      className=""
       disabled={true}
       type="submit"
     >

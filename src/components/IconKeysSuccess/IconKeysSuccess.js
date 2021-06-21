@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './IconKeysSuccess.module.css';
+import css from './IconKeysSuccess.css';
 
 const IconKeysSuccess = props => {
   const { className } = props;

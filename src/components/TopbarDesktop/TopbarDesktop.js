@@ -4,22 +4,18 @@ import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
 import { propTypes } from '../../util/types';
-import {
-  Avatar,
-  InlineTextButton,
-  Logo,
-  Menu,
-  MenuLabel,
-  MenuContent,
-  MenuItem,
-  NamedLink,
-} from '../../components';
+import { Avatar, Logo, NamedLink } from '../../components';
 import { TopbarSearchForm } from '../../forms';
 
-import css from './TopbarDesktop.module.css';
+import css from './TopbarDesktop.css';
+
+import user from './user.png';
+
+import MenuDrawer from './MenuDrawer';
 
 const TopbarDesktop = props => {
   const {
+    state,
     className,
     currentUser,
     currentPage,
@@ -32,7 +28,28 @@ const TopbarDesktop = props => {
     onSearchSubmit,
     initialSearchFormValues,
   } = props;
+
   const [mounted, setMounted] = useState(false);
+  const [sectionOne, setSectionOne] = useState(true);
+  const [sectionTwo, setSectionTwo] = useState(false);
+
+  useEffect(() => {
+    //console.log(section);
+    window.onscroll = function() {
+      if (window.pageYOffset * 2 < window.innerHeight) {
+        setSectionTwo(false);
+        setSectionOne(true);
+        //console.log('Scrolling ' + sectionOne);
+      } else {
+        setSectionOne(false);
+        if (window.pageYOffset > window.innerHeight * 1.5) {
+          setSectionTwo(true);
+        } else {
+          setSectionTwo(false);
+        }
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -43,97 +60,146 @@ const TopbarDesktop = props => {
 
   const classes = classNames(rootClassName || css.root, className);
 
+  const mediaQuery = window.matchMedia('(min-width: 768px)');
+
   const search = (
     <TopbarSearchForm
-      className={css.searchLink}
+      className={window.location.pathname === '/s' ? css.searchLink_active : css.searchLink}
       desktopInputRoot={css.topbarSearchWithLeftPadding}
       onSubmit={onSearchSubmit}
       initialValues={initialSearchFormValues}
     />
   );
 
+  const becomePartner =
+    !isAuthenticatedOrJustHydrated && mediaQuery.matches ? (
+      <div
+        className={
+          window.location.pathname === '/' ||
+          window.location.pathname === '/about' ||
+          window.location.pathname === '/FAQ' ||
+          window.location.pathname === '/Contact'
+            ? css.becomePartnerWrapper
+            : css.becomePartnerWrapper_hide
+        }
+      >
+        <NamedLink
+          className={window.location.pathname === '/I' ? css.active : css.becomePartnerLink}
+          name="BecomeHostPage"
+        >
+          <span className={css.becomePartner}>
+            <FormattedMessage id="TopbarDesktop.becomePartner" />
+          </span>
+        </NamedLink>
+      </div>
+    ) : null;
+
   const notificationDot = notificationCount > 0 ? <div className={css.notificationDot} /> : null;
 
-  const inboxLink = authenticatedOnClientSide ? (
-    <NamedLink
-      className={css.inboxLink}
-      name="InboxPage"
-      params={{ tab: currentUserHasListings ? 'sales' : 'orders' }}
-    >
-      <span className={css.inbox}>
-        <FormattedMessage id="TopbarDesktop.inbox" />
-        {notificationDot}
-      </span>
-    </NamedLink>
-  ) : null;
+  const inboxLink =
+    authenticatedOnClientSide && mediaQuery.matches ? (
+      <NamedLink
+        className={css.inboxLink}
+        name="InboxPage"
+        params={{ tab: currentUserHasListings ? 'sales' : 'orders' }}
+      >
+        <span className={css.inbox}>
+          <FormattedMessage id="TopbarDesktop.inbox" />
+          {notificationDot}
+        </span>
+      </NamedLink>
+    ) : null;
 
-  const currentPageClass = page => {
-    const isAccountSettingsPage =
-      page === 'AccountSettingsPage' && ACCOUNT_SETTINGS_PAGES.includes(currentPage);
-    return currentPage === page || isAccountSettingsPage ? css.currentPage : null;
-  };
-
-  const profileMenu = authenticatedOnClientSide ? (
-    <Menu>
-      <MenuLabel className={css.profileMenuLabel} isOpenClassName={css.profileMenuIsOpen}>
+  const profileMenu =
+    authenticatedOnClientSide && mediaQuery.matches ? (
+      <NamedLink
+        name="ProfileSettingsPage"
+        className={
+          window.location.pathname === '/profile-settings' ||
+          window.location.pathname === '/listings' ||
+          window.location.pathname === '/account/contact-details' ||
+          window.location.pathname === '/account/change-password'
+            ? css.active
+            : css.signupLink
+        }
+      >
         <Avatar className={css.avatar} user={currentUser} disableProfileLink />
-      </MenuLabel>
-      <MenuContent className={css.profileMenuContent}>
-        <MenuItem key="ManageListingsPage">
-          <NamedLink
-            className={classNames(css.yourListingsLink, currentPageClass('ManageListingsPage'))}
-            name="ManageListingsPage"
-          >
-            <span className={css.menuItemBorder} />
-            <FormattedMessage id="TopbarDesktop.yourListingsLink" />
-          </NamedLink>
-        </MenuItem>
-        <MenuItem key="ProfileSettingsPage">
-          <NamedLink
-            className={classNames(css.profileSettingsLink, currentPageClass('ProfileSettingsPage'))}
-            name="ProfileSettingsPage"
-          >
-            <span className={css.menuItemBorder} />
-            <FormattedMessage id="TopbarDesktop.profileSettingsLink" />
-          </NamedLink>
-        </MenuItem>
-        <MenuItem key="AccountSettingsPage">
-          <NamedLink
-            className={classNames(css.yourListingsLink, currentPageClass('AccountSettingsPage'))}
-            name="AccountSettingsPage"
-          >
-            <span className={css.menuItemBorder} />
-            <FormattedMessage id="TopbarDesktop.accountSettingsLink" />
-          </NamedLink>
-        </MenuItem>
-        <MenuItem key="logout">
-          <InlineTextButton rootClassName={css.logoutButton} onClick={onLogout}>
-            <span className={css.menuItemBorder} />
-            <FormattedMessage id="TopbarDesktop.logout" />
-          </InlineTextButton>
-        </MenuItem>
-      </MenuContent>
-    </Menu>
-  ) : null;
+      </NamedLink>
+    ) : null;
 
-  const signupLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="SignupPage" className={css.signupLink}>
-      <span className={css.signup}>
-        <FormattedMessage id="TopbarDesktop.signup" />
-      </span>
-    </NamedLink>
-  );
+  const loginLink =
+    !isAuthenticatedOrJustHydrated && mediaQuery.matches ? (
+      <NamedLink
+        name="LoginPage"
+        className={window.location.pathname === '/login' ? css.active : css.loginLink}
+      >
+        <img src={user} className={css.userIcon}></img>
+      </NamedLink>
+    ) : null;
 
-  const loginLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="LoginPage" className={css.loginLink}>
-      <span className={css.login}>
-        <FormattedMessage id="TopbarDesktop.login" />
-      </span>
-    </NamedLink>
+  const checkDestinations = mediaQuery.matches ? (
+    <div
+      className={
+        /* window.location.pathname === '/l/:slug/:id' ||
+        window.location.hash === '#sectionTwo' ||
+        window.location.hash === '#sectionThree' ||
+        window.location.hash === '#sectionFour' ||
+        window.location.hash === '#sectionFive' ||
+        window.location.hash === '#sectionSix' ||
+        window.location.hash === '#sectionSeven'
+          ? css.check
+          : css.check_hide*/
+
+        window.location.pathname === '/l/:slug/:id' ||
+        ((window.location.pathname === '/' || window.location.pathname === '/about') && sectionTwo)
+          ? css.check
+          : css.check_hide
+      }
+    >
+      <NamedLink name="SearchPage" className={css.heroButton}>
+        <FormattedMessage id="TopbarDesktop.destinationsCTA" />
+      </NamedLink>
+    </div>
+  ) : (
+    <div
+      className={
+        /*window.location.hash === '#sectionTwo' ||
+        window.location.hash === '#sectionThree' ||
+        window.location.hash === '#sectionFour' ||
+        window.location.hash === '#sectionFive' ||
+        window.location.hash === '#sectionSix' ||
+        window.location.hash === '#sectionSeven'
+          ? css.check
+          : css.check_hide*/
+        window.location.pathname === '/l/:slug/:id' ||
+        ((window.location.pathname === '/' || window.location.pathname === '/about') && sectionTwo)
+          ? css.check
+          : css.check_hide
+      }
+    >
+      <NamedLink name="SearchPage" className={css.heroButton}>
+        <FormattedMessage id="TopbarDesktop.destinationsCTAshort" />
+      </NamedLink>
+    </div>
   );
 
   return (
-    <nav className={classes}>
+    <nav
+      /*className={
+        (window.location.pathname === '/' && window.location.hash === '#sectionZero') ||
+        (window.location.pathname === '/about' && window.location.hash === '#sectionZero') ||
+        (window.location.pathname === '/' && window.location.hash === '') ||
+        (window.location.pathname === '/about' && window.location.hash === '')
+          ? css.root
+          : css.rootPaper
+      } */
+
+      className={
+        (window.location.pathname === '/' || window.location.pathname === '/about') && sectionOne
+          ? css.root
+          : css.rootPaper
+      }
+    >
       <NamedLink className={css.logoLink} name="LandingPage">
         <Logo
           format="desktop"
@@ -141,16 +207,30 @@ const TopbarDesktop = props => {
           alt={intl.formatMessage({ id: 'TopbarDesktop.logo' })}
         />
       </NamedLink>
-      {search}
-      <NamedLink className={css.createListingLink} name="NewListingPage">
-        <span className={css.createListing}>
-          <FormattedMessage id="TopbarDesktop.createListing" />
-        </span>
-      </NamedLink>
+
+      <div className={css.searchOuter}>{search}</div>
+
+      {becomePartner}
+      {checkDestinations}
       {inboxLink}
       {profileMenu}
-      {signupLink}
       {loginLink}
+
+      <div
+        className={css.line}
+        style={{
+          float: 'left',
+        }}
+      ></div>
+
+      <MenuDrawer
+        props={props}
+        authenticatedOnClientSide={authenticatedOnClientSide}
+        currentUserHasListings={currentUserHasListings}
+        notificationCount={notificationCount}
+        onLogout={onLogout}
+        intl={intl}
+      ></MenuDrawer>
     </nav>
   );
 };

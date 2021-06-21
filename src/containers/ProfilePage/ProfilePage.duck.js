@@ -1,10 +1,7 @@
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { fetchCurrentUser } from '../../ducks/user.duck';
-import { types as sdkTypes } from '../../util/sdkLoader';
 import { denormalisedResponseEntities } from '../../util/data';
 import { storableError } from '../../util/errors';
-
-const { UUID } = sdkTypes;
 
 // ================ Action types ================ //
 
@@ -125,6 +122,9 @@ export const queryReviewsError = e => ({
 // ================ Thunks ================ //
 
 export const queryUserListings = userId => (dispatch, getState, sdk) => {
+  // ======== hfir ========== //
+  console.log('inside Queryuserlistings');
+  // ======== hfir ========== //
   dispatch(queryListingsRequest(userId));
   return sdk.listings
     .query({
@@ -134,7 +134,10 @@ export const queryUserListings = userId => (dispatch, getState, sdk) => {
     })
     .then(response => {
       // Pick only the id and type properties from the response listings
-      const listingRefs = response.data.data.map(({ id, type }) => ({ id, type }));
+      const listingRefs = response.data.data.map(({ id, type }) => ({
+        id,
+        type,
+      }));
       dispatch(addMarketplaceEntities(response));
       dispatch(queryListingsSuccess(listingRefs));
       return response;
@@ -173,9 +176,7 @@ export const showUser = userId => (dispatch, getState, sdk) => {
     .catch(e => dispatch(showUserError(storableError(e))));
 };
 
-export const loadData = params => (dispatch, getState, sdk) => {
-  const userId = new UUID(params.id);
-
+export const loadData = userId => (dispatch, getState, sdk) => {
   // Clear state so that previously loaded data is not visible
   // in case this page load fails.
   dispatch(setInitialState());
@@ -187,3 +188,13 @@ export const loadData = params => (dispatch, getState, sdk) => {
     dispatch(queryUserReviews(userId)),
   ]);
 };
+
+// ========== hfir ========== //
+// export const loadUserListings = userId => (dispatch, getState, sdk) => {
+//   // Clear state so that previously loaded data is not visible
+//   // in case this page load fails.
+//   dispatch(setInitialState());
+
+//   return Promise.all([dispatch(queryUserListings(userId))]);
+// };
+// ========== hfir ========== //

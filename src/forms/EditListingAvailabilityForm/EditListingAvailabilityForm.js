@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { bool, func, object, string } from 'prop-types';
 import { compose } from 'redux';
-import { Form as FinalForm } from 'react-final-form';
+import { Form as FinalForm, FormSpy } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { Form, Button } from '../../components';
+import { Form, Button, FieldSelect } from '../../components';
 
 import ManageAvailabilityCalendar from './ManageAvailabilityCalendar';
-import css from './EditListingAvailabilityForm.module.css';
+import css from './EditListingAvailabilityForm.css';
+
+import getRoomamountCodes from '../../translations/roomamountCodes';
+import config from '../../config';
+import * as validators from '../../util/validators';
+import { Prompt } from 'react-router';
 
 export class EditListingAvailabilityFormComponent extends Component {
   render() {
@@ -22,7 +27,7 @@ export class EditListingAvailabilityFormComponent extends Component {
             disabled,
             ready,
             handleSubmit,
-            //intl,
+            intl,
             invalid,
             pristine,
             saveActionMsg,
@@ -32,7 +37,40 @@ export class EditListingAvailabilityFormComponent extends Component {
             availability,
             availabilityPlan,
             listingId,
+            Roomtype,
+            roomtypeKey,
           } = formRenderProps;
+
+          console.log(roomtypeKey);
+          const roomamountLabel = intl.formatMessage(
+            {
+              id: 'EditListingDescriptionForm.roomamountLabel',
+            },
+            { Roomtype: Roomtype }
+          );
+          const roomamountPlaceholder = intl.formatMessage({
+            id: 'EditListingDescriptionForm.roomamountPlaceholder',
+          });
+          const roomamountRequired = validators.required(
+            intl.formatMessage({
+              id: 'EditListingDescriptionForm.roomamountRequired',
+            })
+          );
+
+          const bedamountLabel = intl.formatMessage(
+            {
+              id: 'EditListingDescriptionForm.bedamountLabel',
+            },
+            { Roomtype: Roomtype }
+          );
+          const bedamountPlaceholder = intl.formatMessage({
+            id: 'EditListingDescriptionForm.bedamountPlaceholder',
+          });
+          const bedamountRequired = validators.required(
+            intl.formatMessage({
+              id: 'EditListingDescriptionForm.bedamountRequired',
+            })
+          );
 
           const errorMessage = updateError ? (
             <p className={css.error}>
@@ -45,9 +83,65 @@ export class EditListingAvailabilityFormComponent extends Component {
           const submitInProgress = updateInProgress;
           const submitDisabled = invalid || disabled || submitInProgress;
 
+          const roomamountCodes = getRoomamountCodes(config.locale);
+
           return (
             <Form className={classes} onSubmit={handleSubmit}>
+              <Prompt
+                when={!pristine}
+                message="You have unsaved changes, are you sure you want to leave?"
+              />
               {errorMessage}
+
+              <FieldSelect
+                id="roomamount"
+                name="roomamount"
+                disabled={disabled}
+                className={css.field}
+                label={roomamountLabel}
+                validate={roomamountRequired}
+              >
+                <option disabled value="">
+                  {roomamountPlaceholder}
+                </option>
+                {roomamountCodes.map(roomamount => {
+                  return (
+                    <option key={roomamount.code} value={roomamount.code}>
+                      {roomamount.code}
+                    </option>
+                  );
+                })}
+              </FieldSelect>
+              <br />
+
+              <FieldSelect
+                id="bedamount"
+                name="bedamount"
+                disabled={disabled}
+                className={
+                  roomtypeKey === 'doublebedroom' ||
+                  roomtypeKey === 'twobedroom' ||
+                  roomtypeKey === 'singlebedroom' ||
+                  roomtypeKey === 'entire_accomodation' ||
+                  roomtypeKey === 'camping'
+                    ? css.field_hide
+                    : css.field
+                }
+                label={bedamountLabel}
+                validate={roomtypeKey === 'shared_bedroom' ? bedamountRequired : null}
+              >
+                <option disabled value="">
+                  {bedamountPlaceholder}
+                </option>
+                {roomamountCodes.map(roomamount => {
+                  return (
+                    <option key={roomamount.code} value={roomamount.code}>
+                      {roomamount.code}
+                    </option>
+                  );
+                })}
+              </FieldSelect>
+              <br />
               <div className={css.calendarWrapper}>
                 <ManageAvailabilityCalendar
                   availability={availability}

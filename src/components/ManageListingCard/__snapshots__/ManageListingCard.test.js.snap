@@ -2,24 +2,19 @@
 
 exports[`ManageListingCard matches snapshot 1`] = `
 <div
-  className="root"
+  className=""
 >
   <div
-    className="threeToTwoWrapper"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     tabIndex={0}
   >
-    <div
-      className="aspectWrapper"
-    >
+    <div>
       <ResponsiveImage
         alt="listing1 title"
         className={null}
         image={null}
         noImageMessage={null}
-        rootClassName="rootForImage"
+        rootClassName={null}
         sizes={null}
         variants={
           Array [
@@ -30,31 +25,23 @@ exports[`ManageListingCard matches snapshot 1`] = `
       />
     </div>
     <div
-      className="menuOverlayWrapper"
+      className=""
     >
       <div
-        className="menuOverlay"
+        className=""
       />
-      <div
-        className="menuOverlayContent"
-      >
+      <div>
         <FormattedMessage
           id="ManageListingCard.viewListing"
           values={Object {}}
         />
       </div>
     </div>
-    <div
-      className="menubarWrapper"
-    >
-      <div
-        className="menubarGradient"
-      />
-      <div
-        className="menubar"
-      >
+    <div>
+      <div />
+      <div>
         <Menu
-          className="menu cardIsOpen"
+          className="undefined"
           contentPlacementOffset={-12}
           contentPosition="left"
           isOpen={false}
@@ -63,17 +50,15 @@ exports[`ManageListingCard matches snapshot 1`] = `
           useArrow={false}
         >
           <MenuLabel
-            className="menuLabel"
+            className={null}
             isOpen={false}
-            isOpenClassName="listingMenuIsOpen"
+            isOpenClassName={null}
             onToggleActive={null}
             rootClassName=""
           >
-            <div
-              className="iconWrapper"
-            >
+            <div>
               <MenuIcon
-                className="menuIcon"
+                className={null}
                 isActive={false}
               />
             </div>
@@ -84,7 +69,7 @@ exports[`ManageListingCard matches snapshot 1`] = `
             contentClassName={null}
             contentRef={null}
             isOpen={false}
-            rootClassName="menuContent"
+            rootClassName=""
             style={null}
           >
             <MenuItem
@@ -94,7 +79,7 @@ exports[`ManageListingCard matches snapshot 1`] = `
             >
               <InlineTextButton
                 onClick={[Function]}
-                rootClassName="menuItem"
+                rootClassName=""
               >
                 <FormattedMessage
                   id="ManageListingCard.closeListing"
@@ -107,36 +92,25 @@ exports[`ManageListingCard matches snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div
-    className="info"
-  >
-    <div
-      className="price"
-    >
+  <div>
+    <div>
       <div
-        className="priceValue"
         title={55}
       >
         55
       </div>
-      <div
-        className="perUnit"
-      >
+      <div>
         <FormattedMessage
           id="ManageListingCard.perNight"
           values={Object {}}
         />
       </div>
     </div>
-    <div
-      className="mainInfo"
-    >
-      <div
-        className="titleWrapper"
-      >
+    <div>
+      <div>
         <InlineTextButton
           onClick={[Function]}
-          rootClassName="title"
+          rootClassName=""
         >
           <span
             key="1"
@@ -153,11 +127,8 @@ exports[`ManageListingCard matches snapshot 1`] = `
         </InlineTextButton>
       </div>
     </div>
-    <div
-      className="manageLinks"
-    >
+    <div>
       <NamedLink
-        className="manageLink"
         name="EditListingPage"
         params={
           Object {
@@ -173,13 +144,10 @@ exports[`ManageListingCard matches snapshot 1`] = `
           values={Object {}}
         />
       </NamedLink>
-      <span
-        className="manageLinksSeparator"
-      >
+      <span>
          • 
       </span>
       <NamedLink
-        className="manageLink"
         name="EditListingPage"
         params={
           Object {

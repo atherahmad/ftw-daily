@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import { ValidationError, ExpandingTextarea } from '../../components';
 
-import css from './FieldTextInput.module.css';
+import css from './FieldTextInput.css';
 
 const CONTENT_MAX_LENGTH = 5000;
 
@@ -26,6 +26,8 @@ class FieldTextInputComponent extends Component {
       ...rest
     } = this.props;
     /* eslint-enable no-unused-vars */
+
+    if (this.props.getValue) this.props.getValue(input.value);
 
     if (label && !id) {
       throw new Error('id required when a label is given');

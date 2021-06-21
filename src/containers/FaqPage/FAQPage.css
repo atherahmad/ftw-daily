@@ -1,0 +1,83 @@
+@import '../../marketplace.css';
+
+:root {
+  /*
+    These variables are available in global scope through ":root"
+    element (<html> tag). Variables with the same names are going to
+    overwrite each other if CSS Properties' (PostCSS plugin)
+    configuration "preserve: true" is used - meaning that variables
+    are left to CSS bundle. We are planning to enable it in the future
+    since browsers support CSS Properties already.
+ */
+
+  --LandingPage_sectionMarginTop: 40px;
+  --LandingPage_sectionMarginTopMedium: 60px;
+  --LandingPage_sectionMarginTopLarge: 94px;
+}
+
+.Wrapper {
+  margin-top: -72px;
+  padding-top: 72px;
+  width: 100%;
+  height: 100%;
+
+  @apply --marketplacePaperBackground;
+}
+
+.topbar {
+  z-index: 999;
+}
+
+.LeftFooterContent {
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+    width: 80px;
+    z-index: 10;
+    position: fixed;
+  }
+}
+
+.socialmedia {
+  position: fixed;
+  bottom: 50px;
+  margin-left: 50px;
+  width: 20px;
+}
+
+.socialmedia2 {
+  position: fixed;
+  bottom: 90px;
+  margin-left: 50px;
+  width: 20px;
+}
+
+.section {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    height: 100vh;
+  }
+}
+
+.header {
+  margin-top: 15vh;
+  color: var(--marketplaceColor)
+}
+
+.FAQheader {
+  @apply --marketplaceH1FontStyles;
+  color: var(--marketplaceColorDark);
+  text-align: center;
+
+}
+
+.heading{
+  @apply --marketplaceH4FontStyles;
+  
+  margin-top: 0;
+  margin-bottom:0;
+}

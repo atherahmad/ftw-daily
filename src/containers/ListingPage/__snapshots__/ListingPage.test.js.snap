@@ -20,7 +20,7 @@ exports[`ListingPage matches snapshot 1`] = `
   twitterImages={Array []}
 >
   <LayoutSingleColumn
-    className="pageRoot"
+    className={null}
     rootClassName={null}
   >
     <LayoutWrapperTopbar
@@ -92,9 +92,7 @@ exports[`ListingPage matches snapshot 1`] = `
           onManageDisableScrolling={[Function]}
           title="listing1 title"
         />
-        <div
-          className="contentContainer"
-        >
+        <div>
           <SectionAvatar
             params={
               Object {
@@ -120,15 +118,12 @@ exports[`ListingPage matches snapshot 1`] = `
               }
             }
           />
-          <div
-            className="mainContent"
-          >
+          <div>
             <SectionHeading
               category={null}
               formattedPrice={55}
               hostLink={
                 <NamedLink
-                  className="authorNameLink"
                   name="ListingPage"
                   params={
                     Object {
@@ -284,7 +279,6 @@ exports[`ListingPage matches snapshot 1`] = `
           </div>
           <withRouter(injectIntl(BookingPanel))
             authorDisplayName="user-1 display name"
-            className="bookingPanel"
             fetchLineItemsError={null}
             fetchLineItemsInProgress={false}
             fetchTimeSlotsError={null}

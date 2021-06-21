@@ -12,7 +12,7 @@ import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
 import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
 
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
-import css from './SearchMapWithMapbox.module.css';
+import css from './SearchMapWithMapbox.css';
 
 export const LABEL_HANDLE = 'SearchMapLabel';
 export const INFO_CARD_HANDLE = 'SearchMapInfoCard';
@@ -98,7 +98,10 @@ const sdkBoundsToMapboxBounds = bounds => {
   // is less than -180
   const swLng = sw.lng > ne.lng ? -360 + sw.lng : sw.lng;
 
-  return [[swLng, sw.lat], [ne.lng, ne.lat]];
+  return [
+    [swLng, sw.lat],
+    [ne.lng, ne.lat],
+  ];
 };
 
 /**
@@ -337,9 +340,11 @@ class SearchMapWithMapbox extends Component {
     if (hasDimensions) {
       this.map = new window.mapboxgl.Map({
         container: this.state.mapContainer,
-        style: 'mapbox://styles/mapbox/streets-v10',
-        scrollZoom: false,
+        style: 'mapbox://styles/socialbnb/ckfc968wy47q519pin0gxnx4a',
+        scrollZoom: true,
+        minZoom: 1,
       });
+
       window.mapboxMap = this.map;
 
       var nav = new window.mapboxgl.NavigationControl({ showCompass: false });
@@ -364,9 +369,18 @@ class SearchMapWithMapbox extends Component {
     e.stopPropagation();
   }
 
+  // componentDidMount() {
+  //   console.log(this.state.bounds);
+  //   setTimeout(() => {
+  //     this.map.flyTo({
+  //       center: [3.504655, 28.146906],
+  //       zoom: 1.5,
+  //     });
+  //   }, 3500);
+  // }
+
   render() {
     const {
-      id,
       className,
       listings,
       activeListingId,
@@ -451,7 +465,7 @@ class SearchMapWithMapbox extends Component {
 
     return (
       <div
-        id={id}
+        id="map"
         ref={this.onMount}
         className={classNames(className, css.fullArea)}
         onClick={this.props.onClick}
@@ -495,7 +509,6 @@ class SearchMapWithMapbox extends Component {
 }
 
 SearchMapWithMapbox.defaultProps = {
-  id: 'map',
   center: null,
   priceLabels: [],
   infoCard: null,
@@ -504,7 +517,6 @@ SearchMapWithMapbox.defaultProps = {
 };
 
 SearchMapWithMapbox.propTypes = {
-  id: string,
   center: propTypes.latlng,
   location: shape({
     search: string.isRequired,

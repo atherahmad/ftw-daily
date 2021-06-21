@@ -15,20 +15,15 @@ exports[`InboxPage matches snapshot 1`] = `
       rootClassName={null}
     >
       <withRouter(Connect(TopbarContainerComponent))
-        className="topbar"
         currentPage="InboxPage"
-        desktopClassName="desktopTopbar"
-        mobileRootClassName="mobileTopbar"
       />
     </LayoutWrapperTopbar>
     <LayoutWrapperSideNav
-      className="navigation"
+      className={null}
       rootClassName={null}
       tabs={null}
     >
-      <h1
-        className="title"
-      >
+      <h1>
         <FormattedMessage
           id="InboxPage.title"
           values={Object {}}
@@ -36,9 +31,9 @@ exports[`InboxPage matches snapshot 1`] = `
       </h1>
       <TabNav
         className={null}
-        rootClassName="tabs"
+        rootClassName={null}
         tabClassName={null}
-        tabRootClassName="tab"
+        tabRootClassName={null}
         tabs={
           Array [
             Object {
@@ -79,11 +74,8 @@ exports[`InboxPage matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <ul
-        className="itemList"
-      >
+      <ul>
         <li
-          className="listItem"
           key="order-1"
         >
           <InboxItem
@@ -101,11 +93,11 @@ exports[`InboxPage matches snapshot 1`] = `
             }
             stateData={
               Object {
-                "bookingClassName": "bookingNoActionNeeded",
-                "lastTransitionedAtClassName": "lastTransitionedAtEmphasized",
-                "nameClassName": "nameNotEmphasized",
+                "bookingClassName": undefined,
+                "lastTransitionedAtClassName": undefined,
+                "nameClassName": undefined,
                 "state": "InboxPage.stateRequested",
-                "stateClassName": "stateActionNeeded",
+                "stateClassName": undefined,
               }
             }
             tx={
@@ -237,7 +229,6 @@ exports[`InboxPage matches snapshot 1`] = `
           />
         </li>
         <li
-          className="listItem"
           key="order-2"
         >
           <InboxItem
@@ -255,11 +246,11 @@ exports[`InboxPage matches snapshot 1`] = `
             }
             stateData={
               Object {
-                "bookingClassName": "bookingNoActionNeeded",
-                "lastTransitionedAtClassName": "lastTransitionedAtEmphasized",
-                "nameClassName": "nameNotEmphasized",
+                "bookingClassName": undefined,
+                "lastTransitionedAtClassName": undefined,
+                "nameClassName": undefined,
                 "state": "InboxPage.stateRequested",
-                "stateClassName": "stateActionNeeded",
+                "stateClassName": undefined,
               }
             }
             tx={
@@ -403,45 +394,31 @@ exports[`InboxPage matches snapshot 1`] = `
 `;
 
 exports[`InboxPage matches snapshot 2`] = `
-<div
-  className="item"
->
-  <div
-    className="itemAvatar"
-  >
+<div>
+  <div>
     <a
-      className="root"
+      className=""
       href="/u/provider-user-id"
       onClick={[Function]}
-      onMouseOver={[Function]}
-      onTouchStart={[Function]}
       style={Object {}}
       title="provider-user-id display name"
     >
-      <span
-        className="initials"
-      >
+      <span>
         TT
       </span>
     </a>
   </div>
   <a
-    className="itemLink"
+    className=""
     href="/order/order-1/details"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     style={Object {}}
     title={null}
   >
-    <div
-      className="rowNotificationDot"
-    />
-    <div
-      className="itemInfo"
-    >
+    <div />
+    <div>
       <div
-        className="itemUsername nameNotEmphasized"
+        className=""
       >
         <span
           className=""
@@ -450,34 +427,28 @@ exports[`InboxPage matches snapshot 2`] = `
         </span>
       </div>
       <div
-        className="bookingInfoWrapper bookingNoActionNeeded"
+        className=""
       >
         <div
-          className="bookingInfo bookingNoActionNeeded"
+          className=""
         >
-          <span
-            className="dateSection"
-          >
+          <span>
             Feb 15 -
           </span>
-          <span
-            className="dateSection"
-          >
+          <span>
             Feb 16
           </span>
         </div>
       </div>
     </div>
-    <div
-      className="itemState"
-    >
+    <div>
       <div
-        className="stateName stateActionNeeded"
+        className=""
       >
         InboxPage.stateRequested
       </div>
       <div
-        className="lastTransitionedAt lastTransitionedAtEmphasized"
+        className=""
         title="2017-01-15 00:00"
       >
         2017-01-15
@@ -502,20 +473,15 @@ exports[`InboxPage matches snapshot 3`] = `
       rootClassName={null}
     >
       <withRouter(Connect(TopbarContainerComponent))
-        className="topbar"
         currentPage="InboxPage"
-        desktopClassName="desktopTopbar"
-        mobileRootClassName="mobileTopbar"
       />
     </LayoutWrapperTopbar>
     <LayoutWrapperSideNav
-      className="navigation"
+      className={null}
       rootClassName={null}
       tabs={null}
     >
-      <h1
-        className="title"
-      >
+      <h1>
         <FormattedMessage
           id="InboxPage.title"
           values={Object {}}
@@ -523,9 +489,9 @@ exports[`InboxPage matches snapshot 3`] = `
       </h1>
       <TabNav
         className={null}
-        rootClassName="tabs"
+        rootClassName={null}
         tabClassName={null}
-        tabRootClassName="tab"
+        tabRootClassName={null}
         tabs={
           Array [
             Object {
@@ -566,11 +532,8 @@ exports[`InboxPage matches snapshot 3`] = `
       className={null}
       rootClassName={null}
     >
-      <ul
-        className="itemList"
-      >
+      <ul>
         <li
-          className="listItem"
           key="sale-1"
         >
           <InboxItem
@@ -588,11 +551,11 @@ exports[`InboxPage matches snapshot 3`] = `
             }
             stateData={
               Object {
-                "bookingClassName": "bookingActionNeeded",
-                "lastTransitionedAtClassName": "lastTransitionedAtEmphasized",
-                "nameClassName": "nameEmphasized",
+                "bookingClassName": undefined,
+                "lastTransitionedAtClassName": undefined,
+                "nameClassName": undefined,
                 "state": "InboxPage.statePending",
-                "stateClassName": "stateActionNeeded",
+                "stateClassName": undefined,
               }
             }
             tx={
@@ -724,7 +687,6 @@ exports[`InboxPage matches snapshot 3`] = `
           />
         </li>
         <li
-          className="listItem"
           key="sale-2"
         >
           <InboxItem
@@ -742,11 +704,11 @@ exports[`InboxPage matches snapshot 3`] = `
             }
             stateData={
               Object {
-                "bookingClassName": "bookingActionNeeded",
-                "lastTransitionedAtClassName": "lastTransitionedAtEmphasized",
-                "nameClassName": "nameEmphasized",
+                "bookingClassName": undefined,
+                "lastTransitionedAtClassName": undefined,
+                "nameClassName": undefined,
                 "state": "InboxPage.statePending",
-                "stateClassName": "stateActionNeeded",
+                "stateClassName": undefined,
               }
             }
             tx={
@@ -890,49 +852,33 @@ exports[`InboxPage matches snapshot 3`] = `
 `;
 
 exports[`InboxPage matches snapshot 4`] = `
-<div
-  className="item"
->
-  <div
-    className="itemAvatar"
-  >
+<div>
+  <div>
     <a
-      className="root"
+      className=""
       href="/u/customer-user-id"
       onClick={[Function]}
-      onMouseOver={[Function]}
-      onTouchStart={[Function]}
       style={Object {}}
       title="customer-user-id display name"
     >
-      <span
-        className="initials"
-      >
+      <span>
         TT
       </span>
     </a>
   </div>
   <a
-    className="itemLink"
+    className=""
     href="/sale/sale-1/details"
     onClick={[Function]}
-    onMouseOver={[Function]}
-    onTouchStart={[Function]}
     style={Object {}}
     title={null}
   >
-    <div
-      className="rowNotificationDot"
-    >
-      <div
-        className="notificationDot"
-      />
+    <div>
+      <div />
     </div>
-    <div
-      className="itemInfo"
-    >
+    <div>
       <div
-        className="itemUsername nameEmphasized"
+        className=""
       >
         <span
           className=""
@@ -941,34 +887,28 @@ exports[`InboxPage matches snapshot 4`] = `
         </span>
       </div>
       <div
-        className="bookingInfoWrapper bookingActionNeeded"
+        className=""
       >
         <div
-          className="bookingInfo bookingActionNeeded"
+          className=""
         >
-          <span
-            className="dateSection"
-          >
+          <span>
             Feb 15 -
           </span>
-          <span
-            className="dateSection"
-          >
+          <span>
             Feb 16
           </span>
         </div>
       </div>
     </div>
-    <div
-      className="itemState"
-    >
+    <div>
       <div
-        className="stateName stateActionNeeded"
+        className=""
       >
         InboxPage.statePending
       </div>
       <div
-        className="lastTransitionedAt lastTransitionedAtEmphasized"
+        className=""
         title="2017-01-15 00:00"
       >
         2017-01-15

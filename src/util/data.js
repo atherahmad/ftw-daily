@@ -27,10 +27,7 @@ export const combinedResourceObjects = (oldRes, newRes) => {
     throw new Error('Cannot merge resource objects with different ids or types');
   }
   const attributes = newRes.attributes || oldRes.attributes;
-  const attributesOld = oldRes.attributes || {};
-  const attributesNew = newRes.attributes || {};
-  // Allow (potentially) sparse attributes to update only relevant fields
-  const attrs = attributes ? { attributes: { ...attributesOld, ...attributesNew } } : null;
+  const attrs = attributes ? { attributes: { ...attributes } } : null;
   const relationships = combinedRelationships(oldRes.relationships, newRes.relationships);
   const rels = relationships ? { relationships } : null;
   return { id, type, ...attrs, ...rels };
@@ -129,6 +126,7 @@ export const denormalisedEntities = (entities, resources, throwIfNotFound = true
  */
 export const denormalisedResponseEntities = sdkResponse => {
   const apiResponse = sdkResponse.data;
+  console.log('API RESPONSE: ' + JSON.stringify(apiResponse));
   const data = apiResponse.data;
   const resources = Array.isArray(data) ? data : [data];
 

@@ -24,7 +24,7 @@ import {
   retypePasswordRecoveryEmail,
   clearPasswordRecoveryError,
 } from './PasswordRecoveryPage.duck';
-import css from './PasswordRecoveryPage.module.css';
+import css from './PasswordRecoveryPage.css';
 
 export const PasswordRecoveryPageComponent = props => {
   const {
@@ -143,9 +143,7 @@ export const PasswordRecoveryPageComponent = props => {
         <LayoutWrapperMain className={css.layoutWrapperMain}>
           <div className={css.root}>{content}</div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSingleColumn>
     </Page>
   );
@@ -200,10 +198,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const PasswordRecoveryPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(PasswordRecoveryPageComponent);
 

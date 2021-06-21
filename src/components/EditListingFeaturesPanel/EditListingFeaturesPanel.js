@@ -8,7 +8,7 @@ import { ensureListing } from '../../util/data';
 import { EditListingFeaturesForm } from '../../forms';
 import { ListingLink } from '../../components';
 
-import css from './EditListingFeaturesPanel.module.css';
+import css from './EditListingFeaturesPanel.css';
 
 const FEATURES_NAME = 'amenities';
 
@@ -42,7 +42,11 @@ const EditListingFeaturesPanel = props => {
   );
 
   const amenities = publicData && publicData.amenities;
-  const initialValues = { amenities };
+  const initialValues = {
+    amenities,
+    packlist: publicData.packlist,
+    packlist_de: publicData.packlist_de,
+  };
 
   return (
     <div className={classes}>
@@ -52,10 +56,10 @@ const EditListingFeaturesPanel = props => {
         name={FEATURES_NAME}
         initialValues={initialValues}
         onSubmit={values => {
-          const { amenities = [] } = values;
+          const { amenities = [], packlist, packlist_de } = values;
 
           const updatedValues = {
-            publicData: { amenities },
+            publicData: { amenities, packlist, packlist_de },
           };
           onSubmit(updatedValues);
         }}

@@ -36,6 +36,8 @@ export const BookingBreakdownComponent = props => {
     booking,
     intl,
     dateType,
+    seats,
+    projectRoomtypeRaw,
   } = props;
 
   const isCustomer = userRole === 'customer';
@@ -89,43 +91,56 @@ export const BookingBreakdownComponent = props => {
   return (
     <div className={classes}>
       <LineItemBookingPeriod booking={booking} unitType={unitType} dateType={dateType} />
-      <LineItemUnitsMaybe transaction={transaction} unitType={unitType} />
 
       <LineItemBasePriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemUnknownItemsMaybe transaction={transaction} isProvider={isProvider} intl={intl} />
 
+      <LineItemUnitsMaybe
+        transaction={transaction}
+        unitType={unitType}
+        seats={seats}
+        projectRoomtypeRaw={projectRoomtypeRaw}
+      />
+      <LineItemUnknownItemsMaybe transaction={transaction} isProvider={isProvider} intl={intl} />
+      {/* 
       <LineItemSubTotalMaybe
         transaction={transaction}
         unitType={unitType}
         userRole={userRole}
         intl={intl}
       />
-      <LineItemRefundMaybe transaction={transaction} intl={intl} />
+      <LineItemRefundMaybe transaction={transaction} intl={intl} /> */}
 
-      <LineItemCustomerCommissionMaybe
+      {/* <LineItemCustomerCommissionMaybe
         transaction={transaction}
         isCustomer={isCustomer}
         intl={intl}
-      />
-      <LineItemCustomerCommissionRefundMaybe
+      /> */}
+      {/* <LineItemCustomerCommissionRefundMaybe
         transaction={transaction}
         isCustomer={isCustomer}
         intl={intl}
-      />
+      /> */}
+
+      {/* <LineItemProviderCommissionRefundMaybe
+        transaction={transaction}
+        isProvider={isProvider}
+        intl={intl}
+      /> */}
 
       <LineItemProviderCommissionMaybe
         transaction={transaction}
         isProvider={isProvider}
         intl={intl}
+        seats={seats}
       />
-      <LineItemProviderCommissionRefundMaybe
-        transaction={transaction}
-        isProvider={isProvider}
-        intl={intl}
-      />
-
       <LineItemTotalPrice transaction={transaction} isProvider={isProvider} intl={intl} />
 
+      <LineItemProviderCommissionMaybe
+        transaction={transaction}
+        isProvider={isCustomer}
+        intl={intl}
+        seats={seats}
+      />
       {hasCommissionLineItem ? (
         <span className={css.feeInfo}>
           <FormattedMessage id="BookingBreakdown.commissionFeeNote" />

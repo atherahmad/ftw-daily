@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './LayoutWrapperTopbar.module.css';
+import css from './LayoutWrapperTopbar.css';
 
 const LayoutWrapperTopbar = props => {
   const { className, rootClassName, children } = props;

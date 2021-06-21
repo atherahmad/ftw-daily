@@ -5,10 +5,10 @@
  */
 import React, { Component } from 'react';
 import { bool, func, object, string } from 'prop-types';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
 import config from '../../config';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { ensurePaymentMethodCard } from '../../util/data';
 
@@ -21,7 +21,7 @@ import {
   SavedCardDetails,
   StripePaymentAddress,
 } from '../../components';
-import css from './StripePaymentForm.module.css';
+import css from './StripePaymentForm.css';
 
 /**
  * Translate a Stripe API error object.
@@ -396,7 +396,7 @@ class StripePaymentForm extends Component {
       selectedPaymentMethod
     );
     return hasStripeKey ? (
-      <Form className={classes} onSubmit={handleSubmit} enforcePagePreloadFor="OrderDetailsPage">
+      <Form className={classes} onSubmit={handleSubmit}>
         {billingDetailsNeeded && !loadingData ? (
           <React.Fragment>
             {showPaymentMethodSelector ? (

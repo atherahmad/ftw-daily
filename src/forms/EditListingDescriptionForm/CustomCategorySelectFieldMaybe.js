@@ -2,7 +2,12 @@ import React from 'react';
 import { required } from '../../util/validators';
 import { FieldSelect } from '../../components';
 
-import css from './EditListingDescriptionForm.module.css';
+import css from './EditListingDescriptionForm.css';
+
+import getCategoryCodes from '../../translations/categoryCodes';
+import config from '../../config';
+
+const categoryCodes = getCategoryCodes(config.locale);
 
 const CustomCategorySelectFieldMaybe = props => {
   const { name, id, categories, intl } = props;
@@ -28,11 +33,14 @@ const CustomCategorySelectFieldMaybe = props => {
       <option disabled value="">
         {categoryPlaceholder}
       </option>
-      {categories.map(c => (
-        <option key={c.key} value={c.key}>
-          {c.label}
-        </option>
-      ))}
+
+      {categoryCodes.map(category => {
+        return (
+          <option key={category.code} value={category.code}>
+            {category.name}
+          </option>
+        );
+      })}
     </FieldSelect>
   ) : null;
 };

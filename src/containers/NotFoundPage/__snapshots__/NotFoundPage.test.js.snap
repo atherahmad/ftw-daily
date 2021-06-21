@@ -19,35 +19,24 @@ exports[`NotFoundPageComponent matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="root"
-      >
-        <div
-          className="content"
-        >
-          <div
-            className="number"
-          >
+      <div>
+        <div>
+          <div>
             404
           </div>
-          <h1
-            className="heading"
-          >
+          <h1>
             <FormattedMessage
               id="NotFoundPage.heading"
               values={Object {}}
             />
           </h1>
-          <p
-            className="description"
-          >
+          <p>
             <FormattedMessage
               id="NotFoundPage.description"
               values={Object {}}
             />
           </p>
           <injectIntl(LocationSearchFormComponent)
-            className="searchForm"
             onSubmit={[Function]}
           />
         </div>

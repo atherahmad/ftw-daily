@@ -12,13 +12,44 @@ const urlParams = {
 
 const filters = [
   {
+    id: 'roomtype',
+    label: 'Roomtype',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_roomtype',
+    config: {
+      options: [
+        { key: 'cat1', label: 'Cat 1' },
+        { key: 'cat2', label: 'Cat 2' },
+      ],
+    },
+  },
+
+  {
+    id: 'accomodationtype',
+    label: 'Accomodationtype',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_accomodationtype',
+    config: {
+      options: [
+        { key: 'cat1', label: 'Cat 1' },
+        { key: 'cat2', label: 'Cat 2' },
+      ],
+    },
+  },
+
+  {
     id: 'category',
     label: 'Category',
     type: 'SelectSingleFilter',
     group: 'secondary',
     queryParamNames: ['pub_category'],
     config: {
-      options: [{ key: 'smoke', label: 'Smoke' }, { key: 'wooden', label: 'Wood' }],
+      options: [
+        { key: 'smoke', label: 'Smoke' },
+        { key: 'wooden', label: 'Wood' },
+      ],
     },
   },
   {
@@ -28,7 +59,10 @@ const filters = [
     group: 'secondary',
     queryParamNames: ['pub_param1', 'pub_param1'],
     config: {
-      options: [{ key: 'smoke', label: 'Smoke' }, { key: 'wooden', label: 'Wood' }],
+      options: [
+        { key: 'smoke', label: 'Smoke' },
+        { key: 'wooden', label: 'Wood' },
+      ],
     },
   },
   {

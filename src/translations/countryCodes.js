@@ -1,3 +1,5 @@
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 // Add here the translations of the country names using key "<language_code>: 'transalation'" e.g. fi: 'Afganistan'
 // prettier-ignore
 const countryCodes = [
@@ -255,12 +257,21 @@ const countryCodes = [
 const getCountryCodes = lang => {
   // Add the lnew locale here so that the correct translations will be returned.
   // If locale is unknown or the translation is missing, this will default to english coutnry name.
-  const codes = countryCodes.map(c => {
-    const countryName = c[lang] ? c[lang] : c['en'];
-    const counryCode = c.code;
 
-    return { code: counryCode, name: countryName };
-  });
+  const codes =
+    cookies.get('language') === 'en'
+      ? countryCodes.map(c => {
+          const countryName = c[lang] ? c['en'] : c['en'];
+          const counryCode = c.code;
+
+          return { code: counryCode, name: countryName };
+        })
+      : countryCodes.map(c => {
+          const countryName = c[lang] ? c['de'] : c['de'];
+          const counryCode = c.code;
+
+          return { code: counryCode, name: countryName };
+        });
   return codes;
 };
 

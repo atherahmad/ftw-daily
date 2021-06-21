@@ -11,7 +11,7 @@ import {
 import { NamedLink } from '../../components';
 import EditIcon from './EditIcon';
 
-import css from './ListingPage.module.css';
+import css from './ListingPage.css';
 
 export const ActionBarMaybe = props => {
   const { isOwnListing, listing, editParams } = props;

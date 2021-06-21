@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -21,7 +21,7 @@ import {
 import { EmailVerificationForm } from '../../forms';
 import { TopbarContainer } from '../../containers';
 
-import css from './EmailVerificationPage.module.css';
+import css from './EmailVerificationPage.css';
 
 /**
   Parse verification token from URL
@@ -51,7 +51,6 @@ export const EmailVerificationPageComponent = props => {
     intl,
     scrollingDisabled,
     submitVerification,
-    isVerified,
     emailVerificationInProgress,
     verificationError,
     location,
@@ -63,12 +62,9 @@ export const EmailVerificationPageComponent = props => {
   const initialValues = {
     verificationToken: parseVerificationToken(location ? location.search : null),
   };
-  const user = ensureCurrentUser(currentUser);
 
-  // The first attempt to verify email is done when the page is loaded
-  // If the verify API call is successfull and the user has verified email
-  // We can redirect user forward from email verification page.
-  if (isVerified && user && user.attributes.emailVerified) {
+  const user = ensureCurrentUser(currentUser);
+  if (user && user.attributes.emailVerified) {
     return <NamedRedirect name="LandingPage" />;
   }
 
@@ -108,11 +104,12 @@ EmailVerificationPageComponent.defaultProps = {
   verificationError: null,
 };
 
+const { bool, func, shape, string } = PropTypes;
+
 EmailVerificationPageComponent.propTypes = {
   currentUser: propTypes.currentUser,
   scrollingDisabled: bool.isRequired,
   submitVerification: func.isRequired,
-  isVerified: bool,
   emailVerificationInProgress: bool.isRequired,
   verificationError: propTypes.error,
 
@@ -127,9 +124,8 @@ EmailVerificationPageComponent.propTypes = {
 
 const mapStateToProps = state => {
   const { currentUser } = state.user;
-  const { isVerified, verificationError, verificationInProgress } = state.EmailVerification;
+  const { verificationError, verificationInProgress } = state.EmailVerification;
   return {
-    isVerified,
     verificationError,
     emailVerificationInProgress: verificationInProgress,
     currentUser,
@@ -151,11 +147,13 @@ const mapDispatchToProps = dispatch => ({
 // See: https://github.com/ReactTraining/react-router/issues/4671
 const EmailVerificationPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(EmailVerificationPageComponent);
+
+EmailVerificationPage.loadData = (params, search) => {
+  const token = parseVerificationToken(search);
+  return verify(token);
+};
 
 export default EmailVerificationPage;

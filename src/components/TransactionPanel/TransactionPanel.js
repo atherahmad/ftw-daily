@@ -50,7 +50,7 @@ import PanelHeading, {
   HEADING_DELIVERED,
 } from './PanelHeading';
 
-import css from './TransactionPanel.module.css';
+import css from './TransactionPanel.css';
 
 // Helper function to get display names for different roles
 const displayNames = (currentUser, currentProvider, currentCustomer, intl) => {
@@ -337,6 +337,39 @@ export class TransactionPanelComponent extends Component {
 
     const classes = classNames(rootClassName || css.root, className);
 
+    const projectTitle = listingTitle.split(' • ')[0];
+
+    const projectRoomtypeRaw = listingTitle.split(' • ')[1];
+
+    const ProjectRoomtype =
+      projectRoomtypeRaw === 'singlebedroom'
+        ? intl.formatMessage({
+            id: 'roomtypes.singlebedroom',
+          })
+        : projectRoomtypeRaw === 'twobedroom'
+        ? intl.formatMessage({
+            id: 'roomtypes.twobedroom',
+          })
+        : projectRoomtypeRaw === 'doublebedroom'
+        ? intl.formatMessage({
+            id: 'roomtypes.doublebedroom',
+          })
+        : projectRoomtypeRaw === 'shared_bedroom'
+        ? intl.formatMessage({
+            id: 'roomtypes.shared_bedroom',
+          })
+        : projectRoomtypeRaw === 'entire_accomodation'
+        ? intl.formatMessage({
+            id: 'roomtypes.entire_accomodation',
+          })
+        : projectRoomtypeRaw === 'camping'
+        ? intl.formatMessage({
+            id: 'roomtypes.camping',
+          })
+        : null;
+
+    const listingsTitleNew = projectTitle + ' • ' + ProjectRoomtype;
+
     return (
       <div className={classes}>
         <div className={css.container}>
@@ -344,7 +377,7 @@ export class TransactionPanelComponent extends Component {
             <DetailCardImage
               rootClassName={css.imageWrapperMobile}
               avatarWrapperClassName={css.avatarWrapperMobile}
-              listingTitle={listingTitle}
+              listingTitle={listingsTitleNew}
               image={firstImage}
               provider={currentProvider}
               isCustomer={isCustomer}
@@ -362,7 +395,7 @@ export class TransactionPanelComponent extends Component {
               customerName={customerDisplayName}
               isCustomerBanned={isCustomerBanned}
               listingId={currentListing.id && currentListing.id.uuid}
-              listingTitle={listingTitle}
+              listingTitle={listingsTitleNew}
               listingDeleted={listingDeleted}
             />
 
@@ -373,7 +406,11 @@ export class TransactionPanelComponent extends Component {
                 geolocation={geolocation}
                 showAddress={stateData.showAddress}
               />
-              <BreakdownMaybe transaction={currentTransaction} transactionRole={transactionRole} />
+              <BreakdownMaybe
+                projectRoomtypeRaw={projectRoomtypeRaw}
+                transaction={currentTransaction}
+                transactionRole={transactionRole}
+              />
             </div>
 
             {savePaymentMethodFailed ? (
@@ -421,7 +458,7 @@ export class TransactionPanelComponent extends Component {
             <div className={css.detailCard}>
               <DetailCardImage
                 avatarWrapperClassName={css.avatarWrapperDesktop}
-                listingTitle={listingTitle}
+                listingTitle={listingsTitleNew}
                 image={firstImage}
                 provider={currentProvider}
                 isCustomer={isCustomer}
@@ -429,7 +466,7 @@ export class TransactionPanelComponent extends Component {
 
               <DetailCardHeadingsMaybe
                 showDetailCardHeadings={stateData.showDetailCardHeadings}
-                listingTitle={listingTitle}
+                listingTitle={listingsTitleNew}
                 subTitle={bookingSubTitle}
                 location={location}
                 geolocation={geolocation}
@@ -441,7 +478,7 @@ export class TransactionPanelComponent extends Component {
                   titleClassName={css.bookingTitle}
                   isOwnListing={false}
                   listing={currentListing}
-                  title={listingTitle}
+                  title={listingsTitleNew}
                   subTitle={bookingSubTitle}
                   authorDisplayName={authorDisplayName}
                   onSubmit={onSubmitBookingRequest}

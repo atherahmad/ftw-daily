@@ -20,6 +20,10 @@ import {
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { showListingRequest, showListingError, showListing } from './ListingPage.duck';
 
+// routeConfiguration needs to be imported before tests for ListingPageComponent can be made.
+// Otherwise, ListingPage itself is not initialized correctly when routeConfiguration is imported
+// (loadData call fails).
+import routeConfiguration from '../../routeConfiguration';
 import { ListingPageComponent } from './ListingPage';
 import ActionBarMaybe from './ActionBarMaybe';
 
@@ -28,13 +32,44 @@ const noop = () => null;
 
 const filterConfig = [
   {
+    id: 'roomtype',
+    label: 'Roomtype',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_roomtype',
+    config: {
+      options: [
+        { key: 'cat1', label: 'Cat 1' },
+        { key: 'cat2', label: 'Cat 2' },
+      ],
+    },
+  },
+
+  {
+    id: 'accomodationtype',
+    label: 'Accomodationtype',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamName: 'pub_accomodationtype',
+    config: {
+      options: [
+        { key: 'cat1', label: 'Cat 1' },
+        { key: 'cat2', label: 'Cat 2' },
+      ],
+    },
+  },
+
+  {
     id: 'category',
     label: 'Category',
     type: 'SelectSingleFilter',
     group: 'secondary',
     queryParamName: 'pub_category',
     config: {
-      options: [{ key: 'cat1', label: 'Cat 1' }, { key: 'cat2', label: 'Cat 2' }],
+      options: [
+        { key: 'cat1', label: 'Cat 1' },
+        { key: 'cat2', label: 'Cat 2' },
+      ],
     },
   },
   {

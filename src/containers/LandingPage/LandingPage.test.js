@@ -2,6 +2,8 @@ import React from 'react';
 import { fakeIntl } from '../../util/test-data';
 import { renderShallow } from '../../util/test-helpers';
 import { LandingPageComponent } from './LandingPage';
+import { RoutesProvider } from '../../components';
+import routeConfiguration from '../../routeConfiguration';
 
 const noop = () => null;
 

@@ -1,0 +1,96 @@
+@import '../../marketplace.css';
+
+.title {
+  @apply --marketplaceH1FontStyles;
+  margin-top: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form_control_1 {
+  @apply --SectionHero_animation;
+  background-color: #f5f9f8;
+  border: 1px solid var(--marketplaceColor);
+  border-radius: 11px;
+  padding: 20px;
+  width: 15em;
+  float: left;
+
+  position: relative;
+  display: block;
+
+  @media (--viewportMedium) {
+    margin-left: 0px;
+    display: block;
+    margin-top: 50px;
+  }
+}
+
+.form_control {
+  @apply --SectionHero_animation;
+  background-color: #f5f9f8;
+  border: 1px solid var(--marketplaceColor);
+  border-radius: 11px;
+  padding: 20px;
+  width: 20em;
+  float: left;
+
+  position: relative;
+  display: block;
+
+  @media (--viewportMedium) {
+    margin-left: 10px;
+    display: block;
+    margin-top: 50px;
+  }
+}
+
+.form_control_hide {
+  display: none;
+}
+
+.submitButton {
+  @apply --marketplaceButtonStyles;
+  @apply --SectionHero_animation;
+
+  animation-delay: 0.8s;
+  display: block;
+
+  float: left;
+
+  position: relative;
+  display: block;
+  bottom: 0vh;
+  width: 150px;
+  /* bottom: 5vh; */
+
+  margin-top: 20px;
+
+  @media (--viewportMedium) {
+    width: 250px;
+    margin-top: 50px;
+  }
+
+  @media (--viewportMedium) {
+  }
+}
+
+.submitButtonEmpty {
+  @apply --marketplaceButtonStyles;
+  @apply --SectionHero_animation;
+
+  animation-delay: 0.8s;
+
+  display: none;
+  width: 260px;
+  left: 0;
+  background-color: var(--marketplaceColorCustomLight);
+  pointer-events: none;
+  opacity: 0;
+
+  @media (--viewportMedium) {
+  }
+}

@@ -8,7 +8,14 @@ import MultiTouch from 'mapbox-gl-multitouch';
 import uniqueId from 'lodash/uniqueId';
 import { circlePolyline } from '../../util/maps';
 import config from '../../config';
-
+const marker = {
+  backgroundImage: "url('mapbox-icon.png')",
+  backgroundSize: 'cover',
+  width: '50px',
+  height: '50px',
+  borderRadius: '50%',
+  cursor: 'pointer',
+}
 const mapMarker = mapsConfig => {
   const { enabled, url, width, height } = mapsConfig.customMarker;
   if (enabled) {
@@ -18,7 +25,15 @@ const mapMarker = mapsConfig => {
     element.style.height = `${height}px`;
     return new window.mapboxgl.Marker({ element });
   } else {
-    return new window.mapboxgl.Marker();
+    
+    const element = document.createElement('div');
+    element.style.backgroundImage = `url("http://localhost:3000/static/icons/Circle.png")`;
+    element.style.backgroundColor = 'rgba(128, 128, 128,0.5)'
+    element.style.borderRadius= '50%'
+    element.style.width = '50px';
+    element.style.height = `50px`;
+    element.style.backgroundSize = 'cover';
+    return new window.mapboxgl.Marker({ element });
   }
 };
 
@@ -62,17 +77,17 @@ class DynamicMapboxMap extends Component {
   componentDidMount() {
     const { center, zoom, mapsConfig } = this.props;
     const position = [center.lng, center.lat];
-
+    
     this.map = new window.mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v10',
+      style: 'mapbox://styles/socialbnb/ckfc968wy47q519pin0gxnx4a',
       center: position,
       zoom,
       scrollZoom: false,
     });
     this.map.addControl(new window.mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
     this.map.addControl(new MultiTouch());
-
+    
     if (mapsConfig.fuzzy.enabled) {
       this.map.on('load', () => {
         this.map.addLayer(circleLayer(center, mapsConfig, this.fuzzyLayerId));
@@ -90,16 +105,19 @@ class DynamicMapboxMap extends Component {
     }
   }
   componentDidUpdate(prevProps) {
+    
     if (!this.map) {
       return;
     }
 
     const { center, zoom, mapsConfig } = this.props;
+    
     const { lat, lng } = center;
     const position = [lng, lat];
 
     // zoom change
     if (zoom !== prevProps.zoom) {
+      
       this.map.setZoom(this.props.zoom);
     }
 
@@ -130,7 +148,7 @@ class DynamicMapboxMap extends Component {
     const { center, mapsConfig } = this.props;
     const { lat, lng } = center;
     const position = [lng, lat];
-
+    
     this.map.removeLayer(this.fuzzyLayerId);
 
     // We have to use a different layer id to avoid Mapbox errors

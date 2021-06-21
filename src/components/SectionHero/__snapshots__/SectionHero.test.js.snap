@@ -2,31 +2,23 @@
 
 exports[`SectionHero matches snapshot 1`] = `
 <div
-  className="root"
+  className=""
 >
-  <div
-    className="heroContent"
-  >
-    <h1
-      className="heroMainTitle"
-    >
+  <div>
+    <h1>
       <span>
         SectionHero.title
       </span>
     </h1>
-    <h2
-      className="heroSubTitle"
-    >
+    <h2>
       <span>
         SectionHero.subTitle
       </span>
     </h2>
     <a
-      className="heroButton"
+      className=""
       href="/s?address=Finland&bounds=70.0922932%2C31.5870999%2C59.693623%2C20.456500199999937"
       onClick={[Function]}
-      onMouseOver={[Function]}
-      onTouchStart={[Function]}
       style={Object {}}
       title={null}
     >

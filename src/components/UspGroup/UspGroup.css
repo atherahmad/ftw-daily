@@ -1,0 +1,50 @@
+@import '../../marketplace.css';
+
+:root {
+  /*
+    These variables are available in global scope through ":root"
+    element (<html> tag). Variables with the same names are going to
+    overwrite each other if CSS Properties' (PostCSS plugin)
+    configuration "preserve: true" is used - meaning that variables
+    are left to CSS bundle. We are planning to enable it in the future
+    since browsers support CSS Properties already.
+ */
+
+  --PropertyGroup_lineHeight: 24px;
+  --PropertyGroup_lineThroughTop: 12px;
+  --PropertyGroup_lineThroughBottom: 13px;
+  --PropertyGroup_lineThroughTopMobile: 10px;
+  --PropertyGroup_lineThroughBottomMobile: 11px;
+}
+
+.root {
+  margin: 0;
+  display: flex;
+}
+
+.item {
+  width: auto;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.labelWrapper {
+  display: inline-block;
+}
+
+.selectedLabel,
+.notSelectedLabel {
+  color: var(--marketplaceColor);
+  @apply --marketplaceBodyFontStyles;
+  line-height: var(--PropertyGroup_lineHeight);
+  margin: 0;
+  border: 1px solid var(--marketplaceColor);
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: var(--borderRadius);
+}
+
+.notSelectedLabel {
+  display: none;
+}

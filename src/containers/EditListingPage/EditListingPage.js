@@ -36,11 +36,12 @@ import {
   requestImageUpload,
   updateImageOrder,
   removeListingImage,
+  loadData,
   clearUpdatedTab,
   savePayoutDetails,
 } from './EditListingPage.duck';
 
-import css from './EditListingPage.module.css';
+import css from './EditListingPage.css';
 
 const STRIPE_ONBOARDING_RETURN_URL_SUCCESS = 'success';
 const STRIPE_ONBOARDING_RETURN_URL_FAILURE = 'failure';
@@ -360,10 +361,9 @@ const mapDispatchToProps = dispatch => ({
 // See: https://github.com/ReactTraining/react-router/issues/4671
 const EditListingPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps, mapDispatchToProps)
 )(injectIntl(EditListingPageComponent));
+
+EditListingPage.loadData = loadData;
 
 export default EditListingPage;

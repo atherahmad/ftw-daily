@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './IconSpinner.module.css';
+import css from './IconSpinner.css';
 
 const IconSpinner = props => {
   const { rootClassName, className } = props;

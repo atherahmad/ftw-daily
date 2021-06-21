@@ -27,9 +27,9 @@ import {
 } from '../../components';
 import { StripeConnectAccountForm } from '../../forms';
 import { TopbarContainer } from '..';
-import { savePayoutDetails } from './StripePayoutPage.duck';
+import { savePayoutDetails, loadData } from './StripePayoutPage.duck';
 
-import css from './StripePayoutPage.module.css';
+import css from './StripePayoutPage.css';
 
 const STRIPE_ONBOARDING_RETURN_URL_SUCCESS = 'success';
 const STRIPE_ONBOARDING_RETURN_URL_FAILURE = 'failure';
@@ -95,6 +95,11 @@ export const StripePayoutPageComponent = props => {
     intl,
   } = props;
 
+  const userVerification = ensureCurrentUser(currentUser);
+
+  const verification = ensureCurrentUser(userVerification.attributes.profile.protectedData);
+  const partner = verification.type;
+
   const { returnURLType } = params;
   const ensuredCurrentUser = ensureCurrentUser(currentUser);
   const currentUserLoaded = !!ensuredCurrentUser.id;
@@ -151,9 +156,9 @@ export const StripePayoutPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="StripePayoutPage" />
+          <UserNav partner={partner} selectedPageName="StripePayoutPage" />
         </LayoutWrapperTopbar>
-        <LayoutWrapperAccountSettingsSideNav currentTab="StripePayoutPage" />
+        <LayoutWrapperAccountSettingsSideNav partner={partner} currentTab="StripePayoutPage" />
         <LayoutWrapperMain>
           <div className={css.content}>
             <h1 className={css.title}>
@@ -206,9 +211,7 @@ export const StripePayoutPageComponent = props => {
             )}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );
@@ -285,11 +288,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const StripePayoutPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(StripePayoutPageComponent);
+
+StripePayoutPage.loadData = loadData;
 
 export default StripePayoutPage;

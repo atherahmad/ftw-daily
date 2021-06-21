@@ -19,7 +19,9 @@ import { PasswordChangeForm } from '../../forms';
 import { TopbarContainer } from '../../containers';
 
 import { changePassword, changePasswordClear, resetPassword } from './PasswordChangePage.duck';
-import css from './PasswordChangePage.module.css';
+
+import css from './PasswordChangePage.css';
+import { ensureCurrentUser } from '../../util/data';
 
 export const PasswordChangePageComponent = props => {
   const {
@@ -35,6 +37,11 @@ export const PasswordChangePageComponent = props => {
     scrollingDisabled,
     intl,
   } = props;
+
+  const userVerification = ensureCurrentUser(currentUser);
+
+  const verification = ensureCurrentUser(userVerification.attributes.profile.protectedData);
+  const partner = verification.type;
 
   const changePasswordForm =
     currentUser && currentUser.id ? (
@@ -63,9 +70,9 @@ export const PasswordChangePageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="PasswordChangePage" />
+          <UserNav partner={partner} selectedPageName="PasswordChangePage" />
         </LayoutWrapperTopbar>
-        <LayoutWrapperAccountSettingsSideNav currentTab="PasswordChangePage" />
+        <LayoutWrapperAccountSettingsSideNav partner={partner} currentTab="PasswordChangePage" />
         <LayoutWrapperMain>
           <div className={css.content}>
             <h1 className={css.title}>
@@ -74,9 +81,7 @@ export const PasswordChangePageComponent = props => {
             {changePasswordForm}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

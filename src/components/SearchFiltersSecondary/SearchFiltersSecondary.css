@@ -1,0 +1,95 @@
+@import '../../marketplace.css';
+
+.root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--matterColorBright);
+  z-index: 0;
+  margin-top: 100px;
+}
+
+.filtersWrapper {
+  padding: 24px;
+  overflow: scroll;
+}
+
+.footer {
+  display: flex;
+  position: sticky;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding: 10px 0px 10px 24px;
+  z-index: 99;
+  background-color: white;
+  box-shadow: var(--boxShadowTop);
+}
+
+.resetAllButton {
+  @apply --marketplaceLinkStyles;
+  @apply --marketplaceH5FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--matterColorAnti);
+
+  /* Layout */
+  margin: 0 auto 0 0;
+
+  /* Override button styles */
+  outline: none;
+
+  &:focus,
+  &:hover {
+    color: var(--matterColor);
+  }
+}
+
+.cancelButton {
+  @apply --marketplaceLinkStyles;
+  @apply --marketplaceH5FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--matterColorAnti);
+
+  /* Layout */
+  margin: 0 24px 0 24px;
+
+  /* Override button styles */
+  outline: none;
+
+  &:focus,
+  &:hover {
+    color: var(--matterColor);
+  }
+}
+/* 
+.applyButton {
+  @apply --marketplaceLinkStyles;
+  @apply --marketplaceH5FontStyles;
+  font-weight: var(--fontWeightMedium);
+
+  margin: 0;
+
+  outline: none;
+
+  &:focus,
+  &:hover {
+    color: var(--marketplaceColorDark);
+  }
+} */
+
+.applyButton {
+  @apply --marketplaceButtonStyles;
+  @apply --SectionHero_animation;
+
+  animation-delay: 0.8s;
+  transform: scale(0.8);
+
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(235, 114, 66, 0.4);
+  /* filter: drop-shadow(0px 4px 15px rgba(28, 129, 114, 0.4));
+  -webkit-filter: drop-shadow(0px 4px 15px rgba(28, 129, 114, 0.4)); */
+
+  width: 250px;
+}

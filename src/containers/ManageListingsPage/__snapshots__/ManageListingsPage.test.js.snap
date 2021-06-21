@@ -26,12 +26,8 @@ exports[`ContactDetailsPage matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="listingPanel"
-      >
-        <div
-          className="listingCards"
-        />
+      <div>
+        <div />
       </div>
     </LayoutWrapperMain>
     <LayoutWrapperFooter

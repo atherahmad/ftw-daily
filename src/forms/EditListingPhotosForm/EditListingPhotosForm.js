@@ -10,7 +10,8 @@ import { nonEmptyArray, composeValidators } from '../../util/validators';
 import { isUploadImageOverLimitError } from '../../util/errors';
 import { AddImages, Button, Form, ValidationError } from '../../components';
 
-import css from './EditListingPhotosForm.module.css';
+import css from './EditListingPhotosForm.css';
+import { Prompt } from 'react-router';
 
 const ACCEPT_IMAGES = 'image/*';
 
@@ -60,8 +61,10 @@ export class EditListingPhotosFormComponent extends Component {
             saveActionMsg,
             updated,
             updateInProgress,
+            pristine,
           } = formRenderProps;
-
+            
+            
           const chooseImageText = (
             <span className={css.chooseImageText}>
               <span className={css.chooseImage}>
@@ -135,6 +138,10 @@ export class EditListingPhotosFormComponent extends Component {
                 handleSubmit(e);
               }}
             >
+              <Prompt
+                when={!pristine}
+                message="You have unsaved changes, are you sure you want to leave?"
+              />
               {updateListingError ? (
                 <p className={css.error}>
                   <FormattedMessage id="EditListingPhotosForm.updateFailed" />
@@ -200,9 +207,11 @@ export class EditListingPhotosFormComponent extends Component {
               </AddImages>
               {uploadImageFailed}
 
-              <p className={css.tip}>
-                <FormattedMessage id="EditListingPhotosForm.addImagesTip" />
-              </p>
+              <div className={css.tip}>
+                <p>
+                  <FormattedMessage id="EditListingPhotosForm.addImagesTip" />
+                </p>
+              </div>
               {publishListingFailed}
               {showListingFailed}
 

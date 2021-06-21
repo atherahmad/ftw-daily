@@ -15,7 +15,7 @@ import classNames from 'classnames';
 import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { Button, IconClose } from '../../components';
 
-import css from './Modal.module.css';
+import css from './Modal.css';
 
 const KEY_CODE_ESCAPE = 27;
 
@@ -51,6 +51,8 @@ export class ModalComponent extends Component {
     super(props);
     this.handleBodyKeyUp = this.handleBodyKeyUp.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleClose2 = this.handleClose2.bind(this);
+    this.handleCloseOut = this.handleCloseOut.bind(this);
 
     this.refDiv = React.createRef();
 
@@ -63,6 +65,7 @@ export class ModalComponent extends Component {
     const { id, isOpen, onManageDisableScrolling } = this.props;
     onManageDisableScrolling(id, isOpen);
     document.body.addEventListener('keyup', this.handleBodyKeyUp);
+    //document.body.addEventListener('keyup', this.handleCloseOut, true);
     this.setState({
       portalRoot: document.getElementById('portal-root'),
     });
@@ -84,6 +87,7 @@ export class ModalComponent extends Component {
   componentWillUnmount() {
     const { id, onManageDisableScrolling } = this.props;
     document.body.removeEventListener('keyup', this.handleBodyKeyUp);
+    //document.body.removeEventListener('click', this.handleCloseOut);
     onManageDisableScrolling(id, false);
   }
 
@@ -97,7 +101,25 @@ export class ModalComponent extends Component {
   handleClose(event) {
     const { id, onClose, onManageDisableScrolling } = this.props;
     onManageDisableScrolling(id, false);
+
+    // window.location.search = '';
     onClose(event);
+  }
+
+  handleClose2(event) {
+    const { id, onClose, onManageDisableScrolling } = this.props;
+    onManageDisableScrolling(id, false);
+
+    onClose(event);
+  }
+  // Makes sure youre clicking on the background then
+  // closes the image
+  handleCloseOut(event) {
+    if (event.target.className == 'ImageCarousel_root__Jkt2M') {
+      const { id, onClose, onManageDisableScrolling } = this.props;
+      onManageDisableScrolling(id, false);
+      onClose(event);
+    }
   }
 
   render() {
@@ -132,6 +154,15 @@ export class ModalComponent extends Component {
       </Button>
     ) : null;
 
+    const closeBtn2 =
+      isOpen && window.location.pathname === '/s' && window.location.search !== '' ? (
+        <Button onClick={this.handleClose2} rootClassName={css.button} title={closeModalMessage}>
+          <span className={css.closeText}>
+            <FormattedMessage id="Modal.showListings" />
+          </span>
+        </Button>
+      ) : null;
+
     // Modal uses given styles to wrap child components.
     // If props doesn't contain isClosedClassName, styles default to css.isClosed
     // This makes it possible to create ModalInMobile on top of Modal where style modes are:
@@ -153,6 +184,7 @@ export class ModalComponent extends Component {
         <div className={scrollLayerClasses}>
           <div className={containerClasses}>
             {closeBtn}
+
             <div className={classNames(contentClassName || css.content)}>{children}</div>
           </div>
         </div>
@@ -167,7 +199,13 @@ export class ModalComponent extends Component {
               tabIndex="-1"
             >
               {closeBtn}
-              <div className={classNames(contentClassName || css.content)}>{children}</div>
+
+              <div
+                className={classNames(contentClassName || css.content)}
+                onClick={this.handleCloseOut}
+              >
+                {children}
+              </div>
             </div>
           </div>
         </div>

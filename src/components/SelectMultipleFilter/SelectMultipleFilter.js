@@ -6,23 +6,37 @@ import { parseSelectFilterOptions } from '../../util/search';
 import { FieldCheckbox } from '../../components';
 
 import { FilterPopup, FilterPlain } from '../../components';
-import css from './SelectMultipleFilter.module.css';
+import css from './SelectMultipleFilter.css';
 
 // SelectMultipleFilter doesn't need array mutators since it doesn't require validation.
 // TODO: Live edit didn't work with FieldCheckboxGroup
 //       There's a mutation problem: formstate.dirty is not reliable with it.
+
+//Here we can select & delete filteroptions
+
 const GroupOfFieldCheckboxes = props => {
   const { id, className, name, options } = props;
+
+  console.log(options.key);
+
   return (
     <fieldset className={className}>
       <ul className={css.list}>
         {options.map((option, index) => {
-          const fieldId = `${id}.${option.key}`;
-          return (
-            <li key={fieldId} className={css.item}>
-              <FieldCheckbox id={fieldId} name={name} label={option.label} value={option.key} />
-            </li>
-          );
+          console.log(option.key);
+          if (
+            option.key !== 'breakfast_for_sale' &&
+            option.key !== 'lunch_for_sale' &&
+            option.key !== 'dinner_for_sale'
+          ) {
+            const fieldId = `${id}.${option.key}`;
+
+            return (
+              <li key={fieldId} className={css.item}>
+                <FieldCheckbox id={fieldId} name={name} label={option.label} value={option.key} />
+              </li>
+            );
+          }
         })}
       </ul>
     </fieldset>

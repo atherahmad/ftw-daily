@@ -16,8 +16,6 @@ exports[`StripePayoutPage matches snapshot with Stripe connected 1`] = `
     >
       <withRouter(Connect(TopbarContainerComponent))
         currentPage="StripePayoutPage"
-        desktopClassName="desktopTopbar"
-        mobileClassName="mobileTopbar"
       />
       <UserNav
         className={null}
@@ -32,12 +30,8 @@ exports[`StripePayoutPage matches snapshot with Stripe connected 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="content"
-      >
-        <h1
-          className="title"
-        >
+      <div>
+        <h1>
           <FormattedMessage
             id="StripePayoutPage.heading"
             values={Object {}}
@@ -118,8 +112,6 @@ exports[`StripePayoutPage matches snapshot with Stripe not connected 1`] = `
     >
       <withRouter(Connect(TopbarContainerComponent))
         currentPage="StripePayoutPage"
-        desktopClassName="desktopTopbar"
-        mobileClassName="mobileTopbar"
       />
       <UserNav
         className={null}
@@ -134,12 +126,8 @@ exports[`StripePayoutPage matches snapshot with Stripe not connected 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="content"
-      >
-        <h1
-          className="title"
-        >
+      <div>
+        <h1>
           <FormattedMessage
             id="StripePayoutPage.heading"
             values={Object {}}
@@ -210,8 +198,6 @@ exports[`StripePayoutPage matches snapshot with details submitted 1`] = `
     >
       <withRouter(Connect(TopbarContainerComponent))
         currentPage="StripePayoutPage"
-        desktopClassName="desktopTopbar"
-        mobileClassName="mobileTopbar"
       />
       <UserNav
         className={null}
@@ -226,12 +212,8 @@ exports[`StripePayoutPage matches snapshot with details submitted 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="content"
-      >
-        <h1
-          className="title"
-        >
+      <div>
+        <h1>
           <FormattedMessage
             id="StripePayoutPage.heading"
             values={Object {}}

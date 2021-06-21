@@ -3,7 +3,10 @@ import moment from 'moment';
 import config from '../../config';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { storableError } from '../../util/errors';
-import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import {
+  /* hfir */ getMarketplaceEntities /* hfir */,
+  addMarketplaceEntities,
+} from '../../ducks/marketplaceData.duck';
 import { transactionLineItems } from '../../util/api';
 import * as log from '../../util/log';
 import { denormalisedResponseEntities } from '../../util/data';
@@ -39,6 +42,14 @@ export const SEND_ENQUIRY_REQUEST = 'app/ListingPage/SEND_ENQUIRY_REQUEST';
 export const SEND_ENQUIRY_SUCCESS = 'app/ListingPage/SEND_ENQUIRY_SUCCESS';
 export const SEND_ENQUIRY_ERROR = 'app/ListingPage/SEND_ENQUIRY_ERROR';
 
+export const SHOW_USER_REQUEST = 'app/ProfilePage/SHOW_USER_REQUEST';
+export const SHOW_USER_SUCCESS = 'app/ProfilePage/SHOW_USER_SUCCESS';
+export const SHOW_USER_ERROR = 'app/ProfilePage/SHOW_USER_ERROR';
+
+export const QUERY_LISTINGS_REQUEST = 'app/ListingPage/QUERY_LISTINGS_REQUEST';
+export const QUERY_LISTINGS_SUCCESS = 'app/ListingPage/QUERY_LISTINGS_SUCCESS';
+export const QUERY_LISTINGS_ERROR = 'app/ProfilePage/QUERY_LISTINGS_ERROR';
+
 // ================ Reducer ================ //
 
 const initialState = {
@@ -54,6 +65,10 @@ const initialState = {
   sendEnquiryInProgress: false,
   sendEnquiryError: null,
   enquiryModalOpenForListingId: null,
+  userListingRefs: [],
+  userId: null,
+  userListingRefs: [],
+  userShowError: null,
 };
 
 const listingPageReducer = (state = initialState, action = {}) => {
@@ -94,6 +109,27 @@ const listingPageReducer = (state = initialState, action = {}) => {
       return { ...state, sendEnquiryInProgress: false };
     case SEND_ENQUIRY_ERROR:
       return { ...state, sendEnquiryInProgress: false, sendEnquiryError: payload };
+
+    case SHOW_USER_REQUEST:
+      return { ...state, userShowError: null, userId: payload.userId };
+    case SHOW_USER_SUCCESS:
+      return state;
+    case SHOW_USER_ERROR:
+      return { ...state, userShowError: payload };
+
+    case QUERY_LISTINGS_REQUEST:
+      return {
+        ...state,
+
+        // Empty listings only when user id changes
+        userListingRefs: payload.userId === state.userId ? state.userListingRefs : [],
+
+        queryListingsError: null,
+      };
+    case QUERY_LISTINGS_SUCCESS:
+      return { ...state, userListingRefs: payload.listingRefs };
+    case QUERY_LISTINGS_ERROR:
+      return { ...state, userListingRefs: [], queryListingsError: payload };
 
     default:
       return state;
@@ -297,6 +333,7 @@ export const sendEnquiry = (listingId, message) => (dispatch, getState, sdk) => 
 };
 
 export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing }) => dispatch => {
+  console.log(bookingData);
   dispatch(fetchLineItemsRequest());
   transactionLineItems({ bookingData, listingId, isOwnListing })
     .then(response => {
@@ -312,7 +349,75 @@ export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing
     });
 };
 
-export const loadData = (params, search) => dispatch => {
+//IMPORTED FROM PROFILE PAGE DUCK
+
+export const showUserRequest = userId => ({
+  type: SHOW_USER_REQUEST,
+  payload: { userId },
+});
+
+export const showUserSuccess = () => ({
+  type: SHOW_USER_SUCCESS,
+});
+
+export const showUserError = e => ({
+  type: SHOW_USER_ERROR,
+  error: true,
+  payload: e,
+});
+
+export const queryListingsRequest = userId => ({
+  type: QUERY_LISTINGS_REQUEST,
+  payload: { userId },
+});
+
+export const queryListingsSuccess = listingRefs => ({
+  type: QUERY_LISTINGS_SUCCESS,
+  payload: { listingRefs },
+});
+
+export const queryListingsError = e => ({
+  type: QUERY_LISTINGS_ERROR,
+  error: true,
+  payload: e,
+});
+
+export const showUser = userId => (dispatch, getState, sdk) => {
+  dispatch(showUserRequest(userId));
+  return sdk.users
+    .show({
+      id: userId,
+      include: ['profileImage'],
+      'fields.image': ['variants.square-small', 'variants.square-small2x'],
+    })
+    .then(response => {
+      dispatch(addMarketplaceEntities(response));
+      dispatch(showUserSuccess());
+      return response;
+    })
+    .catch(e => dispatch(showUserError(storableError(e))));
+};
+
+export const queryUserListings = userId => (dispatch, getState, sdk) => {
+  dispatch(queryListingsRequest(userId));
+
+  return sdk.listings
+    .query({
+      author_id: userId,
+      include: ['author', 'images'],
+      'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
+    })
+    .then(response => {
+      // Pick only the id and type properties from the response listings
+      const listingRefs = response.data.data.map(({ id, type }) => ({ id, type }));
+      dispatch(addMarketplaceEntities(response));
+      dispatch(queryListingsSuccess(listingRefs));
+      return response;
+    })
+    .catch(e => dispatch(queryListingsError(storableError(e))));
+};
+
+export const loadData = (params, search) => (dispatch, getState) => {
   const listingId = new UUID(params.id);
 
   const ownListingVariants = [LISTING_PAGE_DRAFT_VARIANT, LISTING_PAGE_PENDING_APPROVAL_VARIANT];
@@ -321,11 +426,24 @@ export const loadData = (params, search) => dispatch => {
   }
 
   if (config.enableAvailability) {
-    return Promise.all([
-      dispatch(showListing(listingId)),
-      dispatch(fetchTimeSlots(listingId)),
-      dispatch(fetchReviews(listingId)),
-    ]);
+    return (
+      Promise.all([
+        dispatch(showListing(listingId)),
+        dispatch(fetchTimeSlots(listingId)),
+        dispatch(fetchReviews(listingId)),
+      ])
+        // ======== hfir ========== //
+        .then(response => {
+          const listing = getMarketplaceEntities(getState(), [{ id: listingId, type: 'listing' }]);
+          const userId = new UUID(listing[0].author.id.uuid);
+          dispatch(queryUserListings(userId));
+          return response;
+        })
+        .catch(e => {
+          throw e;
+        })
+      // ======================= //
+    );
   } else {
     return Promise.all([dispatch(showListing(listingId)), dispatch(fetchReviews(listingId))]);
   }

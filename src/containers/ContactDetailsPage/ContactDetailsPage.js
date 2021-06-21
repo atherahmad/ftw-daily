@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { ensureCurrentUser } from '../../util/data';
-import { sendVerificationEmail } from '../../ducks/user.duck';
+import { fetchCurrentUser, sendVerificationEmail } from '../../ducks/user.duck';
 import {
   LayoutSideNavigation,
   LayoutWrapperMain,
@@ -25,7 +25,7 @@ import {
   saveContactDetailsClear,
   resetPassword,
 } from './ContactDetailsPage.duck';
-import css from './ContactDetailsPage.module.css';
+import css from './ContactDetailsPage.css';
 
 export const ContactDetailsPageComponent = props => {
   const {
@@ -72,6 +72,11 @@ export const ContactDetailsPageComponent = props => {
 
   const title = intl.formatMessage({ id: 'ContactDetailsPage.title' });
 
+  const userVerification = ensureCurrentUser(currentUser);
+
+  const verification = ensureCurrentUser(userVerification.attributes.profile.protectedData);
+  const partner = verification.type;
+
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
@@ -81,9 +86,9 @@ export const ContactDetailsPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="ContactDetailsPage" />
+          <UserNav partner={partner} selectedPageName="ContactDetailsPage" />
         </LayoutWrapperTopbar>
-        <LayoutWrapperAccountSettingsSideNav currentTab="ContactDetailsPage" />
+        <LayoutWrapperAccountSettingsSideNav partner={partner} currentTab="ContactDetailsPage" />
         <LayoutWrapperMain>
           <div className={css.content}>
             <h1 className={css.title}>
@@ -92,9 +97,7 @@ export const ContactDetailsPageComponent = props => {
             {contactInfoForm}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );
@@ -169,5 +172,10 @@ const ContactDetailsPage = compose(
   ),
   injectIntl
 )(ContactDetailsPageComponent);
+
+ContactDetailsPage.loadData = () => {
+  // Since verify email happens in separate tab, current user's data might be updated
+  return fetchCurrentUser();
+};
 
 export default ContactDetailsPage;

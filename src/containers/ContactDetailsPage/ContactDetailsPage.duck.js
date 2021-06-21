@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import { denormalisedResponseEntities } from '../../util/data';
 import { storableError } from '../../util/errors';
-import { fetchCurrentUser, currentUserShowSuccess } from '../../ducks/user.duck';
+import { currentUserShowSuccess } from '../../ducks/user.duck';
 
 // ================ Action types ================ //
 
@@ -248,9 +248,4 @@ export const resetPassword = email => (dispatch, getState, sdk) => {
     .request({ email })
     .then(() => dispatch(resetPasswordSuccess()))
     .catch(e => dispatch(resetPasswordError(storableError(e))));
-};
-
-export const loadData = () => {
-  // Since verify email happens in separate tab, current user's data might be updated
-  return fetchCurrentUser();
 };

@@ -1,0 +1,208 @@
+@import '../../marketplace.css';
+
+/* @import '../../ContactPage.module.css'; */
+
+/* font converted using font-converter.net. thank you! */
+/* font converted using font-converter.net. thank you! */
+
+:root {
+  /*
+    These variables are available in global scope through ":root"
+    element (<html> tag). Variables with the same names are going to
+    overwrite each other if CSS Properties' (PostCSS plugin)
+    configuration "preserve: true" is used - meaning that variables
+    are left to CSS bundle. We are planning to enable it in the future
+    since browsers support CSS Properties already.
+ */
+
+  --LandingPage_sectionMarginTop: 40px;
+  --LandingPage_sectionMarginTopMedium: 60px;
+  --LandingPage_sectionMarginTopLarge: 94px;
+}
+
+.root {
+}
+
+.pageTitle_small {
+  @apply --SectionHero_animation;
+
+  font-family: var(--fontFamilyTitle);
+  letter-spacing: 0.5px;
+
+  position: relative;
+  margin-top: 20px;
+
+  font-size: 24px;
+  line-height: 34px;
+  text-align: center;
+  z-index: -1;
+  width: 90vw;
+  margin-left: 5vw;
+
+  @media (--viewportMedium) {
+    width: 20em;
+    margin-left: -10em;
+    left: 50%;
+    margin-top: 50px;
+    font-size: 34px;
+    line-height: 50px;
+  }
+}
+
+.contactForm_hide {
+  display: none;
+}
+
+.contactForm_hidden {
+  visibility: hidden;
+}
+
+.form_control {
+  @apply --SectionHero_animation;
+  background-color: #f5f9f8;
+  border: 1px solid var(--marketplaceColor);
+  border-radius: 5px;
+  padding: 1em;
+  width: 20em;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form_control_hide {
+  display: none;
+}
+
+.form_control_big {
+  @apply --SectionHero_animation;
+  background-color: #f5f9f8;
+  border: 1px solid var(--marketplaceColor);
+  border-radius: 5px;
+  padding: 1em;
+  width: calc(90vw - 2em);
+  margin-left: 5vw;
+
+  @media (--viewportMedium) {
+    width: 30em;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.submitButton {
+  @apply --marketplaceButtonStyles;
+  @apply --SectionHero_animation;
+
+  animation-delay: 0.8s;
+  margin-top: 20px;
+  display: block;
+
+  width: 90vw;
+  margin-left: 5vw;
+
+  position: relative;
+  z-index: 9;
+
+  @media (--viewportMedium) {
+    margin-top: 50px;
+    left: 50%;
+    margin-left: -130px;
+    width: 260px;
+  }
+}
+
+.submitButtonEmpty {
+  @apply --marketplaceButtonStyles;
+
+  /* background-color: var(--marketplaceColor); */
+
+  position: relative;
+
+  animation-delay: 0.8s;
+  margin-top: 20px;
+  display: block;
+
+  width: 90vw;
+  margin-left: 5vw;
+
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 9;
+  @media (--viewportMedium) {
+    margin-top: 50px;
+    left: 50%;
+    margin-left: -130px;
+    width: 260px;
+  }
+}
+
+.response {
+  position: absolute;
+}
+
+.pageTitle_response {
+  @apply --SectionHero_animation;
+
+  font-family: var(--fontFamilyTitle);
+  letter-spacing: 0.5px;
+
+  position: absolute;
+  margin-top: 50px;
+  width: 20em;
+  margin-left: -10em;
+  left: 50%;
+  font-size: 34px;
+  line-height: 50px;
+  text-align: center;
+  z-index: -1;
+}
+/* 
+@media screen and (max-width: 576px) {
+  .pageTitle_small {
+    position: static;
+    margin-top: 10px;
+    width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    line-height: 28px;
+  }
+
+  .form_control {
+    width: 15em;
+    height: 40px;
+  }
+
+  .form_control_big {
+    width: 15em;
+    margin-top: 10px;
+    height: 50px;
+  }
+
+  .submitButton {
+    position: static;
+    margin-right: auto;
+    margin-left: auto;
+    width: 180px;
+    margin-top: 15px;
+    width: 180px;
+    margin-top: 15px;
+  }
+
+  .submitButtonEmpty {
+    position: static;
+    margin-right: auto;
+    margin-left: auto;
+    width: 180px;
+    margin-top: 15px;
+  }
+
+  .pageTitle_response {
+    margin-top: 10px;
+    width: 15em;
+    margin-left: -7em;
+    font-size: 17px;
+    line-height: 28px;
+  }
+} */

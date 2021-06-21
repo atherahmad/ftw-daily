@@ -15,7 +15,7 @@ import {
 } from '../../util/errors';
 import { FieldPhoneNumberInput, Form, PrimaryButton, FieldTextInput } from '../../components';
 
-import css from './ContactDetailsForm.module.css';
+import css from './ContactDetailsForm.css';
 
 const SHOW_EMAIL_SENT_TIMEOUT = 2000;
 
@@ -127,6 +127,7 @@ class ContactDetailsFormComponent extends Component {
               </span>
             );
           } else {
+            //* eslint-disable jsx-a11y/no-static-element-interactions */
             resendEmailMessage = (
               <span
                 className={css.helperLink}
@@ -136,6 +137,7 @@ class ContactDetailsFormComponent extends Component {
                 <FormattedMessage id="ContactDetailsForm.resendEmailVerificationText" />
               </span>
             );
+            //* eslint-enable jsx-a11y/no-static-element-interactions */
           }
 
           // Email status info: unverified, verified and pending email (aka changed unverified email)

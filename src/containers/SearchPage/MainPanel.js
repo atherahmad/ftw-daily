@@ -19,7 +19,7 @@ import {
 import FilterComponent from './FilterComponent';
 import { validFilterParams } from './SearchPage.helpers';
 
-import css from './SearchPage.module.css';
+import css from './SearchPage.css';
 
 // Primary filters have their content in dropdown-popup.
 // With this offset we move the dropdown to the left a few pixels on desktop layout.
@@ -34,6 +34,8 @@ const cleanSearchFromConflictingParams = (searchParams, sortConfig, filterConfig
     searchParams,
     filterConfig
   );
+
+  console.log(sortingFiltersActive);
   return sortingFiltersActive
     ? { ...searchParams, [sortConfig.queryParamName]: null }
     : searchParams;
@@ -287,6 +289,7 @@ class MainPanel extends Component {
         {isSecondaryFiltersOpen ? (
           <div className={classNames(css.searchFiltersPanel)}>
             <SearchFiltersSecondary
+              resultsCount={totalItems}
               urlQueryParams={urlQueryParams}
               listingsAreLoaded={listingsAreLoaded}
               applyFilters={this.applyFilters}
@@ -326,6 +329,10 @@ class MainPanel extends Component {
               pagination={listingsAreLoaded ? pagination : null}
               search={searchParamsForPagination}
               setActiveListing={onActivateListing}
+              sortByComponent={sortBy('desktop')}
+              listingsAreLoaded={listingsAreLoaded}
+              resultsCount={totalItems}
+              searchInProgress={searchInProgress}
             />
           </div>
         )}

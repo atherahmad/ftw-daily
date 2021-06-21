@@ -7,41 +7,40 @@ const { LatLng, LatLngBounds } = sdkTypes;
 //
 // Each item in the array should be an object with a unique `id` (String) and a
 // `predictionPlace` (util.types.place) properties.
-const defaultLocations = [
+export default [
   {
-    id: 'default-helsinki',
+    id: 'default-Peru',
     predictionPlace: {
-      address: 'Helsinki, Finland',
-      bounds: new LatLngBounds(new LatLng(60.29783, 25.25448), new LatLng(59.92248, 24.78287)),
+      address: 'Peru',
+      bounds: new LatLngBounds(new LatLng(-0.03877685638356913,-68.6523288194706), new LatLng(-18.44830000727931,-81.38670006518649)),
     },
   },
   {
-    id: 'default-turku',
+    id: 'default-Tanzania',
     predictionPlace: {
-      address: 'Turku, Finland',
-      bounds: new LatLngBounds(new LatLng(60.53045, 22.38197), new LatLng(60.33361, 22.06644)),
+      address: 'Tanzania',
+      bounds: new LatLngBounds(new LatLng(0.9843968413481883, 40.63980004969153), new LatLng(-11.76125392757591, 29.33999997140636)),
     },
   },
   {
-    id: 'default-tampere',
+    id: 'default-Thailand',
     predictionPlace: {
-      address: 'Tampere, Finland',
-      bounds: new LatLngBounds(new LatLng(61.83657, 24.11838), new LatLng(61.42728, 23.5422)),
+      address: 'Thailand',
+      bounds: new LatLngBounds(new LatLng(20.46514296787411,105.6368119956324), new LatLng(5.613038011736927,97.34339596444781)),
     },
   },
   {
-    id: 'default-oulu',
+    id: 'default- Italien',
     predictionPlace: {
-      address: 'Oulu, Finland',
-      bounds: new LatLngBounds(new LatLng(65.56434, 26.77069), new LatLng(64.8443, 24.11494)),
+      address: ' Italien',
+      bounds: new LatLngBounds(new LatLng(47.09199997988367,18.79759992139748), new LatLng(35.48969995195065,6.626720064926066)),
     },
   },
-  {
-    id: 'default-ruka',
-    predictionPlace: {
-      address: 'Ruka, Finland',
-      bounds: new LatLngBounds(new LatLng(66.16997, 29.16773), new LatLng(66.16095, 29.13572)),
-    },
-  },
+  // {
+  //   id: 'default-ruka',
+  //   predictionPlace: {
+  //     address: 'Ruka',
+  //     bounds: new LatLngBounds(new LatLng(66.16997, 29.16773), new LatLng(66.16095, 29.13572)),
+  //   },
+  // },
 ];
-export default defaultLocations;

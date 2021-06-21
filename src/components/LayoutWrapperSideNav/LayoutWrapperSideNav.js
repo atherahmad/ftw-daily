@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TabNav } from '../../components';
 
-import css from './LayoutWrapperSideNav.module.css';
+import css from './LayoutWrapperSideNav.css';
 
 const LayoutWrapperSideNav = props => {
   const { className, rootClassName, children, tabs } = props;

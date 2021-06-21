@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './LayoutWrapperMain.module.css';
+import css from './LayoutWrapperMain.css';
 
 const LayoutWrapperMain = props => {
   const { className, rootClassName, children } = props;

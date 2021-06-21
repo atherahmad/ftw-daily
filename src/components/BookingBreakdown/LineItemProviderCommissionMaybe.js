@@ -12,11 +12,12 @@ const { Money } = sdkTypes;
 // Validate the assumption that the commission exists and the amount
 // is zero or negative.
 const isValidCommission = commissionLineItem => {
-  return commissionLineItem.lineTotal instanceof Money && commissionLineItem.lineTotal.amount <= 0;
+  return commissionLineItem.lineTotal instanceof Money;
+  // && commissionLineItem.lineTotal.amount >= 0;
 };
 
 const LineItemProviderCommissionMaybe = props => {
-  const { transaction, isProvider, intl } = props;
+  const { transaction, isProvider, intl, seats } = props;
 
   const providerCommissionLineItem = transaction.attributes.lineItems.find(
     item => item.code === LINE_ITEM_PROVIDER_COMMISSION && !item.reversal
@@ -36,6 +37,8 @@ const LineItemProviderCommissionMaybe = props => {
     }
 
     const commission = providerCommissionLineItem.lineTotal;
+    // commission.amount = commission.amount * seats * -1;
+    // console.log(commission.amount);
     const formattedCommission = commission ? formatMoney(intl, commission) : null;
 
     commissionItem = (
@@ -43,7 +46,10 @@ const LineItemProviderCommissionMaybe = props => {
         <span className={css.itemLabel}>
           <FormattedMessage id="BookingBreakdown.commission" />
         </span>
-        <span className={css.itemValue}>{formattedCommission}</span>
+        <span className={css.itemValue}>
+          15%
+          {/*formattedCommission*/}
+        </span>
       </div>
     );
   }

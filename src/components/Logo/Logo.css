@@ -1,0 +1,15 @@
+@import '../../marketplace.css';
+
+.logo {
+  width: 120px;
+
+  @media (--viewportMedium) {
+    width: 140px;
+  }
+}
+
+/* .logoMobile {
+  & path {
+    fill: var(--marketplaceColor);
+  }
+} */

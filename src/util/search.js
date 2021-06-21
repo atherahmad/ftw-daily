@@ -29,8 +29,10 @@ export const isAnyFilterActive = (filterIds, urlQueryParams, filterConfigs) => {
   const paramEntries = Object.entries(urlQueryParams);
   const activeKey = paramEntries.find(entry => {
     const [key, value] = entry;
+    console.log(queryParamKeysOfGivenFilters);
     return queryParamKeysOfGivenFilters.includes(key) && value != null;
   });
+
   return !!activeKey;
 };
 

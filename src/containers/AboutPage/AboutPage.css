@@ -1,0 +1,965 @@
+@import '../../marketplace.css';
+
+:root {
+  /*
+    These variables are available in global scope through ":root"
+    element (<html> tag). Variables with the same names are going to
+    overwrite each other if CSS Properties' (PostCSS plugin)
+    configuration "preserve: true" is used - meaning that variables
+    are left to CSS bundle. We are planning to enable it in the future
+    since browsers support CSS Properties already.
+ */
+
+  --LandingPage_sectionMarginTop: 40px;
+  --LandingPage_sectionMarginTopMedium: 60px;
+  --LandingPage_sectionMarginTopLarge: 94px;
+}
+
+.root {
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  @apply --marketplacePaperBackground;
+}
+.loaderImage1 {
+  position: absolute;
+}
+
+.loaderImage2 {
+  position: absolute;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.topbar {
+  opacity: 0;
+  z-index: 999;
+}
+
+.Wrapper {
+  margin-top: -72px;
+  padding-top: 72px;
+  width: 100%;
+  height: 100%;
+
+  @apply --marketplacePaperBackground;
+}
+
+.section {
+  /* position: relative; */
+  height: auto;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    position: relative;
+    min-height: 100vh;
+  }
+}
+
+.section2 {
+  @media (--viewportMLarge) {
+    margin-top: -15vh;
+  }
+}
+
+.section4 {
+  z-index: 1;
+  height: auto;
+  position: relative;
+  margin-top: -90px;
+  height: auto;
+  overflow: hidden;
+  min-height: 30vh;
+
+  @media (--viewportMLarge) {
+    margin-top: -208px;
+  }
+}
+
+.section5 {
+  z-index: 0;
+  min-height: 60vh;
+
+  @media (--viewportMLarge) {
+    margin-top: -5vh;
+  }
+}
+
+.LeftFooterContent {
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+    width: 80px;
+    z-index: 10;
+    position: fixed;
+  }
+}
+.dots {
+  margin-top: -60vh;
+  margin-left: 50px;
+  width: 10vw;
+}
+
+.dot_active {
+  background-color: var(--marketplaceColorSecond);
+  border: 1px solid var(--marketplaceColorSecond);
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border-radius: 100%;
+  margin-top: 10px;
+  transition: 0.5s;
+}
+
+.dot {
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  position: relative;
+  border-radius: 100%;
+  margin-top: 10px;
+  transition: 0.5s;
+}
+
+.dotInner {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+}
+.socialmedia {
+  cursor: pointer;
+  position: fixed;
+  bottom: 50px;
+  margin-left: 50px;
+  width: 20px;
+}
+
+.socialmedia2 {
+  cursor: pointer;
+  position: fixed;
+  bottom: 90px;
+  margin-left: 50px;
+  width: 20px;
+}
+.socialmedia1 {
+  cursor: pointer;
+  position: fixed;
+  bottom: 130px;
+  margin-left: 50px;
+  width: 23px;
+}
+
+.firstWrapper {
+  position: relative;
+  height: 50vh;
+
+  @media (--viewportMedium) {
+    height: 100vh;
+  }
+}
+
+.startImage {
+  position: relative;
+  bottom: 0;
+  width: 110vw;
+  left: -5vw;
+  animation: startImageAnimation 3.5s;
+  bottom: 0px;
+  z-index: 9;
+
+  @media (--viewportMedium) {
+    position: absolute;
+    bottom: 0px;
+    width: 50vw;
+    left: 25vw;
+  }
+
+  @media (--viewportMLarge) {
+    width: 70vw;
+    left: 15vw;
+  }
+}
+
+@keyframes startImageAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.startImage2 {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  left: 0vw;
+  bottom: 0px;
+  animation: startImageAnimation2 4s;
+
+  @media (--viewportMedium) {
+    bottom: 0px;
+    width: 50vw;
+    left: 25vw;
+  }
+
+  @media (--viewportMLarge) {
+    width: 70vw;
+    left: 15vw;
+  }
+}
+
+@keyframes startImageAnimation2 {
+  0% {
+    transform: skewX(5deg) translateY(50px);
+
+    opacity: 0;
+  }
+
+  33% {
+    transform: skewX(5deg) translateY(50px);
+
+    opacity: 0;
+  }
+
+  100% {
+    transform: skewX(0deg) translateY(0px);
+    opacity: 1;
+  }
+}
+.cloudsOuter {
+  will-change: auto;
+  /* margin-left: -35%; */
+  animation: cloudsanimation 50s ease-in-out infinite;
+  transform: translate3d(-35vw, 0px, 0px);
+  z-index: 0;
+  top: 0;
+  position: absolute;
+  width: 100vw;
+}
+
+.clouds {
+  will-change: auto;
+  clip-path: circle(100% at 50% 40%);
+
+  /* animation: startAnimation 1s cubic-bezier(.42,0,.58,1) ; */
+
+  margin-top: -15vh;
+  margin-left: -200%;
+  @media (--viewportMedium) {
+    z-index: 3;
+    position: absolute;
+    /* width: '80vw'; */
+    top: 0;
+    margin-top: -15vh;
+    margin-left: 0;
+  }
+  @media (max-width: 450px) and (max-height: 1020px) {
+    width: 100%;
+  }
+  @media (max-width: 800px) and (max-height: 1020px) {
+    position: absolute;
+    top: 15vh;
+    height: 100vh;
+  }
+  @media (max-width: 1024px) and (min-height: 1021px) {
+    top: 12vh;
+    position: absolute;
+    left: -82vw;
+    height: 55vh;
+    width: auto;
+  }
+}
+/* .clouds2 {
+  margin-top: 5vh;
+  will-change: auto;
+
+  clip-path: circle(100% at 50% 40%);
+} */
+
+@keyframes cloudsanimation {
+  0% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+
+  50% {
+    transform: translate3d(-40vw, 0px, 0px);
+  }
+
+  100% {
+    transform: translate3d(-35vw, 0px, 0px);
+  }
+}
+.line {
+  height: 1px;
+  width: 65vw;
+  margin-left: -14vw;
+  background-color: black;
+  margin-top: 200px;
+  margin-bottom: 0px;
+}
+
+.HeaderWrapper {
+  margin-top: 12vh;
+  margin-left: 0vw;
+  z-index: 99;
+  position: relative;
+
+  @media (--viewportMedium) {
+    margin-top: 10vh;
+  }
+}
+
+.HeaderWrapperRow {
+  width: 100vw;
+  height: 5.5em;
+  z-index: 5;
+  overflow: '';
+
+  @media (--viewportMedium) {
+    height: 4em;
+  }
+
+  @media (--viewportMLarge) {
+    height: 7em;
+  }
+}
+.HeaderWrapperRowSecond {
+  margin-top: 6vh;
+  width: 95vw;
+  height: 7em;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    height: 8em;
+  }
+
+  @media (--viewportMLarge) {
+    height: 8em;
+  }
+}
+
+.Header1 {
+  text-align: center;
+  margin-top: -5px;
+  width: 100vw;
+  margin-left: 0vw;
+  z-index: 5;
+  font-family: var(--fontFamilyTitle);
+  color: var(--marketplaceColor);
+
+  font-size: 44px;
+  line-height: 66px;
+
+  opacity: 0;
+  text-shadow: 0 0 15px rgba(28, 120, 129, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (--viewportMedium) {
+    width: 100vw;
+    font-size: 44px;
+    line-height: 84px;
+    flex-direction: row;
+  }
+
+  @media (--viewportMLarge) {
+    font-size: 64px;
+    line-height: 114px;
+  }
+}
+
+.SubHeader1 {
+  opacity: 0;
+}
+
+.SubHeader1 p {
+  text-align: center;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 10px;
+  width: 70vw;
+  margin-left: 15vw;
+  color: var(--marketplaceColorSecond);
+
+  @media (--viewportMedium) {
+    margin-top: 0px;
+    font-size: 24px;
+    line-height: 54px;
+  }
+}
+
+.heroWrapper_active {
+  position: relative;
+  z-index: 0;
+  clip-path: circle(100% at 50% 50%);
+  /* animation: heroImageanimation 0.8s cubic-bezier(.7,.26,.96,.43);  */
+  will-change: auto;
+  -webkit-animation: heroImageanimation 1.4s cubic-bezier(0.42, 0, 0.58, 1);
+  animation: heroImageanimation 1.4s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+/* image in the very beginning (a girl sitting on a boat) */
+.heroImage {
+  will-change: auto;
+  z-index: -1;
+  position: absolute;
+  transform: scale(1);
+  scale: 1;
+  height: 100px;
+  width: 100px;
+  margin-left: -25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-position: 0 0;
+
+  @media (--viewportMedium) {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: -50%;
+    margin-left: -50%;
+  }
+
+  @media (width: 1050px) {
+    width: 100%;
+    height: 80%;
+  }
+
+  @media (max-width: 450px) {
+    position: relative;
+    max-width: 80%;
+    max-height: 80%;
+    margin-top: -30%;
+    margin-left: -30%;
+    height: 100vh;
+    left: 50%;
+  }
+  @media (max-width: 850px) {
+    /* top: -51vh;
+    height: auto;
+    width: 100vw;
+    align-self: center;
+    overflow-y: hidden;
+    margin: 0; */
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: -50%;
+    margin-left: -50%;
+  }
+  @media (max-width: 450px) {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: -50%;
+    margin-left: -50%;
+  }
+
+  @media (max-height: 800px) and (min-width: 400px) {
+    top: -51vh;
+    height: auto;
+    width: 100vw;
+    align-self: center;
+    margin: 0;
+  }
+  @media (max-height: 400px) and (min-width: 68px) {
+    /* width: 100vw;
+    height: auto;
+    margin-left: 0; */
+    /* position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: -50%;
+    margin-left: -50%; */
+  }
+}
+
+@keyframes heroImageanimation {
+  0% {
+    clip-path: circle(0.8% at 50% 50%);
+    transform: scale(1.3);
+  }
+  1% {
+    clip-path: circle(0.8% at 50% 50%);
+    transform: scale(1.3);
+  }
+
+  100% {
+    clip-path: circle(100% at 50% 50%);
+    transform: scale(1);
+  }
+}
+
+.sectionHeader {
+  @apply --marketplacePaperBackground;
+
+  z-index: 1;
+  width: auto;
+  line-height: 34px;
+  position: absolute;
+  font-family: var(--fontFamilyTitle);
+  margin-left: 0;
+  text-align: left;
+  padding-left: 20px;
+  font-size: 24px;
+
+  margin-top: 8vh;
+
+  @media (--viewportMedium) {
+    text-align: center;
+    margin-top: 15vh;
+    padding-left: 100px;
+    padding-right: 50px;
+    font-size: 34px;
+    line-height: 44px;
+  }
+
+  @media (--viewportLarge) {
+    width: auto;
+    text-align: center;
+    margin-top: 15vh;
+    padding-left: 100px;
+    padding-right: 50px;
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+.lineCarousel {
+  position: absolute;
+  height: 1px;
+  width: 100vw;
+  left: 0vw;
+  float: left;
+  background-color: var(--marketplaceColor);
+  margin-top: 23vh;
+
+  @media (--viewportMedium) {
+    margin-top: 17.5vh;
+  }
+}
+
+.videoWrapper {
+  height: auto;
+  position: relative;
+  border-radius: 11px;
+  overflow: hidden;
+  margin-top: 15vh;
+  animation: videoWrapperAnimation 3.5s;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+    padding-bottom: 0px;
+    margin-left: 100px;
+    width: calc(100vw - 200px);
+    bottom: 50px;
+    border-radius: 11px;
+    height: calc(100vh - 162px);
+    position: absolute;
+
+    margin-top: 0;
+  }
+}
+
+@keyframes videoWrapperAnimation {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.showVideoicon {
+  width: 64px;
+  height: 64px;
+  background-color: var(--marketplaceColorSecond);
+  position: absolute;
+
+  border-radius: 200px;
+  top: 50%;
+  left: 50%;
+  margin-top: -32px;
+  margin-left: -32px;
+}
+
+.showVideoicon:hover {
+  filter: drop-shadow(0px 4px 15px rgba(235, 114, 66, 0.4));
+}
+
+.showVideoicon:after {
+  position: absolute;
+  border-left: 12px solid #fff;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-left: 2px;
+  content: '';
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+/* this is the paragraph beside the picture of a man teaches his daughter */
+.storyWrapper {
+  margin-left: 5vw;
+  width: 90vw;
+  margin-top: 45vh;
+
+  @media (--viewportMedium) {
+    margin-left: 60vw;
+    width: 37vw;
+    margin-top: 0;
+  }
+
+  @media (max-width: 450px) {
+    margin-left: 20vw;
+    /* display: flex; */
+    padding: 80px;
+    /* width: 20px; */
+    margin-top: 0;
+    /* font-size: 10px; */
+    justify-content: center;
+  }
+}
+
+.teamWrapper {
+  margin-left: 5vw;
+  width: 90vw;
+  margin-top: 45vh;
+
+  @media (--viewportMedium) {
+    margin-right: 53vw;
+    margin-left: 10vw;
+    width: 37vw;
+    margin-top: 0;
+  }
+}
+
+.storyTextHeaderWrapper {
+  width: 37vw;
+  @media (max-width: 450px) {
+    width: 500vw;
+    height: 4vw;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.whyWrapper {
+  display: flex;
+  justify-content: space-between;
+
+  flex-direction: column;
+  margin-left: 5vw;
+  width: 90vw;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+    margin-left: 10vw;
+    width: 80vw;
+  }
+  @media (max-width: 450px) {
+    display: inline;
+    position: relative;
+    height: 100vh;
+    width: 20px;
+  }
+}
+
+.whyTextWrapper {
+  margin-top: 15vh;
+  width: 100%;
+
+  /* @media (--viewportMedium) {
+    width: 37vw;
+  } */
+
+  @media (max-width: 450px) {
+    /* display: block; */
+    top: 2px;
+    width: 20vw;
+  }
+}
+@media (max-width: 1050px) {
+}
+
+.whyTextHeaderWrapper {
+  width: 100%;
+
+  @media (--viewportMedium) {
+    width: 37vw;
+  }
+}
+
+.whyTextHeader {
+  /* text-align: left;
+  font-size: 2.2em;
+  line-height: 1.5em;
+  font-family: var(--fontFamilyTitle);
+  color: var(--marketplaceColor); */
+
+  width: 100%;
+  text-align: left;
+  color: var(--marketplaceColor);
+
+  font-size: 24px;
+  line-height: 34px;
+  margin-top: -10px;
+
+  @media (max-width: 850px) {
+    position: relative;
+    top: 1000px;
+  }
+
+  @media (max-width: 450px) {
+    position: absolute;
+    /* top: -1; */
+  }
+}
+
+.SubHeaderImage {
+  width: 50px;
+  margin-right: 20px;
+  float: left;
+  margin-top: 0px;
+}
+
+.text p {
+  color: var(--marketplaceColor);
+
+  text-align: left;
+
+  min-height: 7vh;
+  @apply --marketplaceMediumTextStyles;
+
+  @media (max-width: 850px) {
+    position: relative;
+    min-height: 2vh;
+    top: 400px;
+  }
+}
+
+/* this is a picture of a man teaches his daughter  */
+.storyPhoto {
+  position: absolute;
+  margin-left: 25vw;
+  opacity: 1;
+  transition: 4s;
+
+  width: 80vw;
+  margin-top: 10vh;
+
+  @media (--viewportMedium) {
+    width: 50vw;
+    margin-top: 0vh;
+    margin-left: 5vw;
+  }
+}
+
+.storyPhoto_hide {
+  position: absolute;
+  margin-left: 25vw;
+  opacity: 0;
+  transition: 4s;
+  width: 80vw;
+  margin-top: 10vh;
+  @media (--viewportMedium) {
+    width: 45vw;
+    margin-top: 0vh;
+    margin-left: 5vw;
+  }
+}
+
+.teamPhoto {
+  position: absolute;
+  margin-left: 25vw;
+  opacity: 1;
+  transition: 4s;
+
+  width: 80vw;
+  margin-top: 10vh;
+
+  @media (--viewportMedium) {
+    width: 45vw;
+    margin-top: 0vh;
+    right: 0;
+    margin-right: 5vw;
+  }
+  @media (max-width: 450px) {
+    display: block;
+
+    margin-left: 10vh;
+    margin-right: 5vw;
+    padding: -35px;
+    width: 80%;
+  }
+}
+
+.teamPhoto_hide {
+  position: absolute;
+  margin-left: 25vw;
+  opacity: 0;
+  transition: 4s;
+  width: 80vw;
+  margin-top: 10vh;
+  @media (--viewportMedium) {
+    width: 45vw;
+    margin-top: 10vh;
+    right: 0;
+    margin-right: 5vw;
+  }
+}
+
+/* this is for house  +  girl with the bag */
+.imagesWrapper {
+  height: 25vh;
+  width: 100vw;
+  margin-left: 5vw;
+  margin-top: 4vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.imagesItemsInner {
+  width: 10%;
+}
+
+.imagesItemsOuter {
+  width: 90vw;
+
+  /* @media (--viewportMedium) {
+    width: 40%;
+  } */
+  @media (max-width: 450px) {
+    dispaly: flex;
+  }
+  @media (max-width: 850px) {
+    display: flex;
+    margin-top: -70px;
+    position: relative;
+    /* width: 90%; */
+  }
+  @media (--viewportSmall) {
+    /* margin-top: 92px; */
+  }
+}
+
+.imagesWrapper img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.contactFormWrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  top: 0;
+  left: 0;
+  @apply --marketplacePaperBackground;
+}
+
+.line1 {
+  @apply --SectionHero_animation;
+  position: absolute;
+  height: 1px;
+  width: 45vw;
+  left: 0vw;
+  margin-top: 200px;
+  background-color: var(--marketplaceColor);
+}
+
+.articles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  margin-left: 5vw;
+  position: relative;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  /* 
+  @media (--viewportMedium) {
+    width: calc(100vw - 200px);
+    margin-left: 100px;
+    height: 10vh;
+    position: absolute;
+    bottom: 30px;
+    margin-bottom: 0;
+  } */
+  @media (max-width: 850px) {
+    padding-top: 300px;
+  }
+}
+
+/* this is for 6 of the icons from partnership */
+.articlesItems {
+  width: 15rem;
+  margin: 3vw;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.articlesItems:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.heroButton {
+  @apply --marketplacePaperBackground;
+  @apply --marketplaceButtonStyles;
+  border-radius: 11px;
+  z-index: 0;
+  box-shadow: 0px 4px 15px rgba(235, 114, 66, 0.4);
+  position: relative;
+  animation: startAnimation 5s;
+  width: 90vw;
+
+  @media (--viewportMedium) {
+    position: relative;
+    width: 250px;
+  }
+}

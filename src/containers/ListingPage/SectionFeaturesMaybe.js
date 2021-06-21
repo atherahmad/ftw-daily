@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from '../../util/reactIntl';
 import { PropertyGroup } from '../../components';
+// import TabBar from './TabBar';
 
-import css from './ListingPage.module.css';
+import css from './ListingPage.css';
 
 const SectionFeaturesMaybe = props => {
   const { options, publicData } = props;
@@ -13,9 +14,7 @@ const SectionFeaturesMaybe = props => {
   const selectedOptions = publicData && publicData.amenities ? publicData.amenities : [];
   return (
     <div className={css.sectionFeatures}>
-      <h2 className={css.featuresTitle}>
-        <FormattedMessage id="ListingPage.featuresTitle" />
-      </h2>
+      {/* <TabBar></TabBar> */}
       <PropertyGroup
         id="ListingPage.amenities"
         options={options}

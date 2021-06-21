@@ -19,7 +19,6 @@ import 'raf/polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { loadableReady } from '@loadable/component';
 import { createInstance, types as sdkTypes } from './util/sdkLoader';
 import { ClientApp, renderApp } from './app';
 import configureStore from './store';
@@ -33,7 +32,7 @@ import routeConfiguration from './routeConfiguration';
 import * as log from './util/log';
 import { LoggingAnalyticsHandler, GoogleAnalyticsHandler } from './analytics/handlers';
 
-import './styles/marketplaceDefaults.css';
+import './marketplaceIndex.css';
 
 const render = (store, shouldHydrate) => {
   // If the server already loaded the auth information, render the app
@@ -44,9 +43,6 @@ const render = (store, shouldHydrate) => {
   info
     .then(() => {
       store.dispatch(fetchCurrentUser());
-      return loadableReady();
-    })
-    .then(() => {
       if (shouldHydrate) {
         ReactDOM.hydrate(<ClientApp store={store} />, document.getElementById('root'));
       } else {

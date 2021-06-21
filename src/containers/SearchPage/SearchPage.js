@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { array, bool, func, oneOf, object, shape, string } from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
@@ -14,10 +14,13 @@ import { parse, stringify } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { getListingsById } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
-import { SearchMap, ModalInMobile, Page } from '../../components';
+import { SearchMap, MapModalInMobile, Page } from '../../components';
 import { TopbarContainer } from '../../containers';
+import { Button } from '../../components';
 
-import { searchMapListings, setActiveListing } from './SearchPage.duck';
+// import { SearchbarContainer } from '../../containers';
+
+import { searchListings, searchMapListings, setActiveListing } from './SearchPage.duck';
 import {
   pickSearchParamsOnly,
   validURLParamsForExtendedData,
@@ -25,8 +28,12 @@ import {
   createSearchResultSchema,
 } from './SearchPage.helpers';
 import MainPanel from './MainPanel';
-import css from './SearchPage.module.css';
+import css from './SearchPage.css';
 
+// Pagination page size might need to be dynamic on responsive page layouts
+// Current design has max 3 columns 12 is divisible by 2 and 3
+// So, there's enough cards to fill all columns on full pagination pages
+const RESULT_PAGE_SIZE = 24;
 const MODAL_BREAKPOINT = 768; // Search is in modal on mobile layout
 const SEARCH_WITH_MAP_DEBOUNCE = 300; // Little bit of debounce before search is initiated.
 
@@ -157,6 +164,7 @@ export class SearchPageComponent extends Component {
 
     // N.B. openMobileMap button is sticky.
     // For some reason, stickyness doesn't work on Safari, if the element is <button>
+    //* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <Page
         scrollingDisabled={scrollingDisabled}
@@ -169,7 +177,20 @@ export class SearchPageComponent extends Component {
           currentPage="SearchPage"
           currentSearchParams={urlQueryParams}
         />
+        {/* 
+        <div id="menu" className={css.menu}>
+          <span className={css.menuText_active}>Reiseziele</span>
+          <span className={css.menuItemBorder} />
+          <span className={css.menuText}>Über uns</span>
+        </div> */}
+
         <div className={css.container}>
+          <div className={css.maploader}></div>
+          {/* <SearchbarContainer
+            className={topbarClasses}
+            currentPage="SearchPage"
+            currentSearchParams={urlQueryParams}
+          /> */}
           <MainPanel
             urlQueryParams={validQueryParams}
             listings={listings}
@@ -186,7 +207,7 @@ export class SearchPageComponent extends Component {
             showAsModalMaxWidth={MODAL_BREAKPOINT}
             history={history}
           />
-          <ModalInMobile
+          <MapModalInMobile
             className={css.mapPanel}
             id="SearchPage.map"
             isModalOpenOnMobile={this.state.isSearchMapOpenOnMobile}
@@ -212,10 +233,11 @@ export class SearchPageComponent extends Component {
                 />
               ) : null}
             </div>
-          </ModalInMobile>
+          </MapModalInMobile>
         </div>
       </Page>
     );
+    //* eslint-enable jsx-a11y/no-static-element-interactions */
   }
 }
 
@@ -301,11 +323,40 @@ const mapDispatchToProps = dispatch => ({
 // See: https://github.com/ReactTraining/react-router/issues/4671
 const SearchPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(SearchPageComponent);
+
+SearchPage.loadData = (params, search) => {
+  const queryParams = parse(search, {
+    latlng: ['origin'],
+    latlngBounds: ['bounds'],
+  });
+  const { page = 1, address, origin, ...rest } = queryParams;
+
+  console.log(queryParams);
+  const originMaybe = config.sortSearchByDistance && origin ? { origin } : {};
+  return searchListings({
+    ...rest,
+    ...originMaybe,
+    page,
+    perPage: RESULT_PAGE_SIZE,
+    include: ['author', 'images'],
+    'fields.listing': [
+      'title',
+      'geolocation',
+      'description',
+      'price',
+      'publicData.roomtype',
+      'publicData.category',
+      'publicData.city',
+      'publicData.country',
+      'publicData.amenities',
+    ],
+    // 'fields.user': ['profile.displayName', 'profile.abbreviatedName'],
+    'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
+    'limit.images': 1,
+  });
+};
 
 export default SearchPage;

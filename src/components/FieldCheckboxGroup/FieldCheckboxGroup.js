@@ -11,15 +11,48 @@ import React from 'react';
 import { arrayOf, bool, node, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { FieldArray } from 'react-final-form-arrays';
-import { FieldCheckbox, ValidationError } from '../../components';
+import { FieldCheckbox, ValidationError, FieldTextInput } from '../../components';
 
-import css from './FieldCheckboxGroup.module.css';
+import css from './FieldCheckboxGroup.css';
 
 const FieldCheckboxRenderer = props => {
-  const { className, rootClassName, label, twoColumns, id, fields, options, meta } = props;
+  const {
+    className,
+    rootClassName,
+    label,
+    twoColumns,
+    id,
+    fields,
+    options,
+    meta,
+    getValue,
+  } = props;
 
   const classes = classNames(rootClassName || css.root, className);
   const listClasses = twoColumns ? classNames(css.list, css.twoColumns) : css.list;
+
+  // const ischeked = name => {
+  //   const checking = fields.value.filter(it => {
+  //     return it === 'other';
+  //   });
+  //   if (name === 'other' && checking.length !== 0) return false;
+  //   else return true;
+  // };
+
+  // fields.value.map(value => {
+  //   console.log(
+  //     options.filter(item => {
+  //       return value === item.key;
+  //     })
+  //   );
+  //   if (
+  //     options.filter(item => {
+  //       return value === item.key;
+  //     }).length === 0
+  //   ) {
+  //     options.splice(options.length - 1, 0, { key: value, label: value });
+  //   }
+  // });
 
   return (
     <fieldset className={classes}>
@@ -35,6 +68,12 @@ const FieldCheckboxRenderer = props => {
                 label={option.label}
                 value={option.key}
               />
+              {/* <FieldTextInput
+                name={option.key}
+                type="textarea"
+                getValue={getValue.bind(this)}
+                hidden={ischeked(option.key)}
+              /> */}
             </li>
           );
         })}

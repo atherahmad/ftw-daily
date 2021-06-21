@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import css from './AddImages.module.css';
+import css from './AddImages.css';
 
 const RemoveImageButton = props => {
   const { className, rootClassName, onClick } = props;

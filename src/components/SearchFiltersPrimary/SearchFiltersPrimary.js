@@ -3,7 +3,7 @@ import { bool, func, node, number, string } from 'prop-types';
 import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 
-import css from './SearchFiltersPrimary.module.css';
+import css from './SearchFiltersPrimary.css';
 
 const SearchFiltersPrimaryComponent = props => {
   const {
@@ -42,7 +42,12 @@ const SearchFiltersPrimaryComponent = props => {
 
   return (
     <div className={classes}>
-      <div className={css.searchOptions}>
+      <div className={css.filters}>
+        {children}
+        {toggleSecondaryFiltersOpenButton}
+      </div>
+
+      {/* <div className={css.searchOptions}>
         {listingsAreLoaded ? (
           <div className={css.searchResultSummary}>
             <span className={css.resultsFound}>
@@ -54,24 +59,19 @@ const SearchFiltersPrimaryComponent = props => {
           </div>
         ) : null}
         {sortByComponent}
-      </div>
+      </div> */}
 
-      <div className={css.filters}>
-        {children}
-        {toggleSecondaryFiltersOpenButton}
-      </div>
-
-      {hasNoResult ? (
+      {/* {hasNoResult ? (
         <div className={css.noSearchResults}>
           <FormattedMessage id="SearchFiltersPrimary.noResults" />
         </div>
-      ) : null}
+      ) : null} */}
 
-      {searchInProgress ? (
+      {/* {searchInProgress ? (
         <div className={css.loadingResults}>
           <FormattedMessage id="SearchFiltersPrimary.loadingResults" />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

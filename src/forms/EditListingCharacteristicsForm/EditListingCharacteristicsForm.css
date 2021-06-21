@@ -1,0 +1,79 @@
+@import '../../marketplace.css';
+
+.root {
+  /* Expand to available space */
+  flex-grow: 1;
+
+  /* Dimensions */
+  width: 100%;
+  height: auto;
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+
+  @media (--viewportMedium) {
+    padding-top: 1px;
+  }
+}
+
+.description {
+  @apply --EditListingDescriptionForm_formMargins;
+  flex-shrink: 0;
+}
+
+.characteristics {
+  margin-bottom: 24px;
+
+  @media (--viewportMedium) {
+    margin-bottom: 32px;
+  }
+}
+
+.error {
+  color: var(--failColor);
+}
+
+.submitButton {
+  margin-top: auto;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+
+  @media (--viewportLarge) {
+    display: inline-block;
+    width: 241px;
+    margin-top: 100px;
+  }
+}
+
+.sectionTitle {
+  @apply --marketplaceDefaultFontStyles;
+  color: var(--marketplaceColor);
+  font-weight: 600;
+  margin-top: 0px;
+  padding-top: 5px;
+  padding-bottom: 1px;
+
+  @media (--viewportMedium) {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+  }
+}
+
+.tip {
+  @apply --marketplaceDefaultFontStyles;
+  color: var(--matterColorAnti);
+  margin-top: 0px;
+  margin-bottom: 12px;
+  padding-top: 5px;
+  padding-bottom: 1px;
+
+  @media (--viewportMedium) {
+    margin-top: 0px;
+    margin-bottom: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}

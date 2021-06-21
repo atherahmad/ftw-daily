@@ -34,16 +34,11 @@ const sanitizeText = str =>
 export const sanitizeUser = entity => {
   const { attributes, ...restEntity } = entity || {};
   const { profile, ...restAttributes } = attributes || {};
-  const { bio, displayName, abbreviatedName, publicData, metadata } = profile || {};
+  const { bio, displayName, abbreviatedName, publicData } = profile || {};
 
   const sanitizePublicData = publicData => {
     // TODO: If you add public data, you should probably sanitize it here.
     return publicData ? { publicData } : {};
-  };
-  const sanitizeMetadata = metadata => {
-    // TODO: If you add user-generated metadata through Integration API,
-    // you should probably sanitize it here.
-    return metadata ? { metadata } : {};
   };
 
   const profileMaybe = profile
@@ -53,7 +48,6 @@ export const sanitizeUser = entity => {
           displayName: sanitizeText(displayName),
           bio: sanitizeText(bio),
           ...sanitizePublicData(publicData),
-          ...sanitizeMetadata(metadata),
         },
       }
     : {};

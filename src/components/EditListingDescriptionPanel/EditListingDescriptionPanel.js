@@ -6,10 +6,18 @@ import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '../../components';
-import { EditListingDescriptionForm } from '../../forms';
+import { EditListingDescriptionForm, EditListingPricingForm } from '../../forms';
 import config from '../../config';
 
-import css from './EditListingDescriptionPanel.module.css';
+import css from './EditListingDescriptionPanel.css';
+
+import { ensureListing, ensureUser } from '../../util/data';
+
+import { types as sdkTypes } from '../../util/sdkLoader';
+const { Money } = sdkTypes;
+
+const CATEGORY_NAME = 'category';
+const LANGUAGES_NAME = 'languages';
 
 const EditListingDescriptionPanel = props => {
   const {
@@ -24,11 +32,13 @@ const EditListingDescriptionPanel = props => {
     panelUpdated,
     updateInProgress,
     errors,
+    currentUser,
+    isNewListingFlow,
   } = props;
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
-  const { description, title, publicData } = currentListing.attributes;
+  const { description, title, publicData, price } = currentListing.attributes;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -41,19 +51,64 @@ const EditListingDescriptionPanel = props => {
   );
 
   const categoryOptions = findOptionsForSelectFilter('category', config.custom.filters);
+  const roomtypeOptions = findOptionsForSelectFilter('roomtype', config.custom.filters);
+  // const accomodationtypeOptions = findOptionsForSelectFilter(
+  //   'accomodationtype',
+  //   config.custom.filters
+  // );
+
+  const projectInformationRaw1 = ensureUser(currentUser);
+  const projectInformation = projectInformationRaw1.attributes.profile.publicData;
+
+  const category = publicData && publicData.category;
+  const languages = publicData && publicData.languages;
+  const initialValues = {
+    price,
+    title,
+    category,
+    roomtype: publicData.roomtype,
+    // accomodationtype: publicData.accomodationtype,
+    languages,
+    otherLanguages: publicData.otherLanguages,
+    otherLanguages_de: publicData.otherLanguages_de,
+  };
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingDescriptionForm
+        isNewListingFlow={isNewListingFlow}
         className={css.form}
-        initialValues={{ title, description, category: publicData.category }}
+        name={CATEGORY_NAME}
+        languages={LANGUAGES_NAME}
+        initialValues={initialValues}
         saveActionMsg={submitButtonText}
+        className={css.form}
         onSubmit={values => {
-          const { title, description, category } = values;
+          const {
+            title,
+            roomtype,
+            // accomodationtype,
+            category = [],
+            price,
+            languages = [],
+            otherLanguages,
+            otherLanguages_de,
+          } = values;
           const updateValues = {
-            title: title.trim(),
-            description,
-            publicData: { category },
+            title: projectInformation.projectTitle + ' • ' + roomtype,
+            // title: title.trim(),
+
+            description: roomtype,
+            publicData: {
+              roomtype,
+
+              // accomodationtype,
+              category,
+              languages,
+              otherLanguages,
+              otherLanguages_de,
+            },
+            price,
           };
 
           onSubmit(updateValues);
@@ -65,7 +120,11 @@ const EditListingDescriptionPanel = props => {
         updateInProgress={updateInProgress}
         fetchErrors={errors}
         categories={categoryOptions}
+        roomtypes={roomtypeOptions}
+        // accomodationtypes={accomodationtypeOptions}
       />
+
+      {/* {priceForm} */}
     </div>
   );
 };

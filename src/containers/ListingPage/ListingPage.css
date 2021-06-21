@@ -1,0 +1,1339 @@
+@import '../../marketplace.css';
+
+.root {
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--matterColorNegative);
+  margin-bottom: 40px;
+}
+
+.pageRoot {
+  display: flex;
+  padding-bottom: 90px;
+  width: 100vw;
+  overflow: hidden;
+  padding: 20px;
+
+  @apply --marketplacePaperBackground;
+
+  @media (--viewportMedium) {
+    padding: 0px;
+  }
+  @media (--viewportLarge) {
+    padding-bottom: 0;
+  }
+}
+
+.loaderImage1 {
+  position: absolute;
+  left: 50vw;
+  margin-left: -70px;
+}
+
+.loaderImage2 {
+  position: absolute;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+  left: 50vw;
+  margin-left: -70px;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  margin: 24px;
+}
+
+.errorText {
+  color: var(--failColor);
+  margin: 24px;
+}
+
+.sectionImages {
+  @media (--viewportMedium) {
+    max-width: 1056px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    position: relative;
+  }
+
+  @media (--viewportLarge) {
+    max-width: 1128px;
+    padding: 0 36px;
+    margin: 0 auto 0;
+  }
+
+  @media (--viewportXLarge) {
+    max-width: 1056px;
+    padding: 0;
+  }
+}
+
+.threeToTwoWrapper {
+  /* Layout */
+  display: block;
+  width: 100%;
+  position: relative;
+
+  @media (--viewportMedium) {
+    padding: 0;
+  }
+
+  @media (--viewportLarge) {
+    /* padding: 36px 36px 0 36px; */
+  }
+}
+
+/* Firefox doesn't support image aspect ratio inside flexbox */
+.aspectWrapper {
+  position: relative;
+  /* allow positioning own listing action bar */
+  /* padding-bottom: 66.6667%; */
+  height: calc(0.63 * 100vw);
+  max-height: 50vh;
+  /* 3:2 Aspect Ratio */
+
+  /* Loading BG color */
+
+  /* Image carousel can be opened from the image, therefore we should show a pointer */
+  cursor: pointer;
+
+  @media (--viewportMedium) {
+    padding-bottom: 0;
+    height: calc(0.41 * 100vw);
+
+    /* No fixed aspect on desktop layouts */
+  }
+}
+
+.actionBar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  top: 13px;
+  left: 13px;
+  width: calc(100% - 26px);
+  color: var(--matterColorNegative);
+  background-color: var(--matterColor);
+  z-index: 1;
+  /* bring on top of mobile image */
+
+  /* Action bar prevents the image click events going to the parent and
+   should not show a pointer */
+  cursor: initial;
+
+  border-radius: var(--borderRadius);
+}
+
+.ownListingText {
+  @apply --marketplaceH4FontStyles;
+  margin: 14px 12px 11px 24px;
+
+  @media (--viewportMedium) {
+    margin: 25px 12px 22px 24px;
+  }
+}
+
+.ownListingTextPendingApproval {
+  color: var(--attentionColor);
+}
+
+.closedListingText {
+  @apply --marketplaceH4FontStyles;
+  margin: 14px 12px 11px 24px;
+  text-align: center;
+  width: 100%;
+
+  @media (--viewportMedium) {
+    margin: 25px 12px 22px 24px;
+  }
+}
+
+.editListingLink {
+  @apply --marketplaceH4FontStyles;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 14px 24px 11px 12px;
+  color: var(--matterColorNegative);
+
+  transition: var(--transitionStyleButton);
+
+  &:hover {
+    color: var(--matterColorLight);
+    text-decoration: none;
+  }
+
+  @media (--viewportMedium) {
+    margin: 0;
+    padding: 25px 24px 22px 12px;
+  }
+}
+
+.editIcon {
+  margin: -6px 7px 0 0;
+}
+
+.rootForImage {
+  /* Layout - image will take space defined by aspect ratio wrapper */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  float: left;
+
+  transition: var(--transitionStyleButton);
+  width: 100%;
+  border-radius: 10px;
+
+  @media (--viewportMedium) {
+    border-radius: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: static;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: 65%;
+    height: calc(0.39 * 100vw);
+    max-height: 450px;
+    object-fit: cover;
+
+    &:hover {
+      transform: scale(1.005);
+      box-shadow: var(--boxShadowListingCard);
+    }
+  }
+}
+
+.smallImages {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  justify-content: center;
+}
+
+.rootForImage1 {
+  /* Layout - image will take space defined by aspect ratio wrapper */
+  flex-grow: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding-left: 10px;
+  padding-bottom: 10px;
+
+  transition: var(--transitionStyleButton);
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+    position: static;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    height: calc(0.13 * 100vw);
+    max-height: 150px;
+    object-fit: cover;
+    border-top-right-radius: 20px;
+
+    &:hover {
+      transform: scale(1.005);
+      box-shadow: var(--boxShadowListingCard);
+    }
+  }
+}
+
+.rootForImage2 {
+  /* Layout - image will take space defined by aspect ratio wrapper */
+  position: absolute;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transition: var(--transitionStyleButton);
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+    position: static;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    height: calc(0.13 * 100vw);
+    max-height: 150px;
+
+    object-fit: cover;
+    border-radius: var(--borderRadius);
+
+    &:hover {
+      transform: scale(1.005);
+      box-shadow: var(--boxShadowListingCard);
+    }
+  }
+}
+
+.rootForImage3 {
+  /* Layout - image will take space defined by aspect ratio wrapper */
+  position: absolute;
+  opacity: 0.4;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  transition: var(--transitionStyleButton);
+  display: none;
+
+  @media (--viewportMedium) {
+    display: block;
+
+    position: static;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    height: calc(0.13 * 100vw);
+    max-height: 150px;
+
+    object-fit: cover;
+    border-bottom-right-radius: 20px;
+
+    &:hover {
+      transform: scale(1.005);
+      box-shadow: var(--boxShadowListingCard);
+    }
+  }
+}
+
+.photosButtonWrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  width: 100%;
+
+  @media (--viewportMedium) {
+    overflow: hidden;
+
+    padding-left: 10px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: static;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    height: calc(0.13 * 100vw);
+    max-height: 150px;
+    object-fit: cover;
+    border-bottom-right-radius: 20px;
+    transition: var(--transitionStyleButton);
+  }
+}
+
+.viewPhotos {
+  position: absolute;
+
+  bottom: 0;
+
+  right: 0;
+
+  @apply --marketplaceTinyFontStyles;
+  font-weight: var(--fontWeightMedium);
+
+  /* Position and dimensions */
+
+  margin: 0;
+  padding: 8px 13px 6px 13px;
+  z-index: 9;
+
+  /* Colors */
+  background-color: var(--marketplaceColor);
+  color: var(--matterColorLight);
+
+  /* Borders */
+  border: none;
+  border-radius: var(--borderRadius);
+
+  cursor: pointer;
+  transition: var(--transitionStyleButton);
+
+  &:hover {
+    background-color: var(--marketplaceColorDark);
+    color: var(--matterColorLight);
+  }
+
+  @media (--viewportMedium) {
+    margin: 0;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
+.carouselModalScrollLayer {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 1, 1, 0.92);
+}
+
+.carouselModalContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.contentContainer {
+  clear: both;
+
+  @media (--viewportMedium) {
+    max-width: 1056px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    position: relative;
+  }
+
+  @media (--viewportLarge) {
+    max-width: 1128px;
+    padding: 0 36px;
+    margin: 0 auto 0px;
+  }
+
+  @media (--viewportXLarge) {
+    max-width: 1056px;
+    padding: 0;
+  }
+}
+
+.topContent {
+  flex-basis: 100%;
+  margin-bottom: 23px;
+
+  @media (--viewportMedium) {
+    margin-top: 50px;
+    margin-bottom: 51px;
+    flex-shrink: 0;
+  }
+
+  @media (--viewportLarge) {
+    margin-top: 50px;
+    margin-bottom: 0px;
+    /* contentContainer's full width - (bookingColumn + two paddings + margin + border) */
+    /* max-width: calc(100% - 433px);
+    flex-basis: calc(100% - 433px); */
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+}
+
+.mainContent {
+  flex-basis: 100%;
+  margin-bottom: 23px;
+
+  @media (--viewportMedium) {
+    margin-top: 50px;
+    margin-bottom: 51px;
+    flex-shrink: 0;
+  }
+
+  @media (--viewportLarge) {
+    margin-top: 50px;
+    margin-bottom: 0px;
+    /* contentContainer's full width - (bookingColumn + two paddings + margin + border) */
+    max-width: calc(100% - 433px);
+    flex-basis: calc(100% - 433px);
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+}
+
+.bookingPanel {
+  width: 370px;
+
+  @media (--viewportLarge) {
+    display: block;
+    margin-top: 72px;
+    margin-left: 60px;
+    /* border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: var(--matterColorNegative); */
+
+    /* padding-left: 60px; */
+
+    /* The calendar needs 312px */
+    flex-basis: 312px;
+    flex-shrink: 0;
+  }
+}
+
+.contactPanel {
+  width: 100%;
+  /* margin-left: -30px; */
+
+  @media (--viewportLarge) {
+    display: block;
+
+    height: 96px;
+  }
+}
+
+.bookingInnerPanel {
+  clear: both;
+  background-color: white;
+  border-radius: var(--borderRadius);
+  padding: 20px;
+  /* margin-left: -50px; */
+  width: 100%;
+}
+
+.author {
+  float: left;
+  width: 100%;
+  @apply --marketplaceH4FontStyles;
+  margin-top: 7px;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--matterColor);
+  }
+}
+
+.authorNameLink {
+  color: var(--matterColor);
+}
+
+.contactWrapper {
+  display: none;
+
+  @media (--viewportMedium) {
+    display: inline;
+  }
+}
+
+.sectionAvatar {
+  /* Position (over the listing image)*/
+
+  position: relative;
+  top: 0;
+  float: right;
+
+  /* Flex would give too much width by default. */
+}
+
+.avatarMobile {
+  display: flex;
+
+  @media (--viewportMedium) {
+    display: none;
+    /* Hide the medium avatar from the bigger screens */
+  }
+}
+
+.avatarDesktop {
+  display: none;
+  /* Hide the large avatar from the smaller screens */
+
+  @media (--viewportMedium) {
+    display: flex;
+  }
+}
+
+.sectionHeading {
+  margin-bottom: -30px;
+  /* margin-top: 22px;
+  margin-bottom: 34px;
+
+  @media (--viewportMedium) {
+    display: flex;
+    margin-bottom: 31px;
+  } */
+}
+
+.desktopPriceContainer {
+  display: none;
+
+  @media (--viewportLarge) {
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    margin: 0 48px 0 0;
+    padding: 0;
+  }
+}
+
+.desktopPriceValue {
+  /* Font */
+  @apply --marketplaceModalTitleStyles;
+  color: var(--marketplaceColor);
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 1px;
+  }
+}
+
+.desktopPerUnit {
+  /* Font */
+  @apply --marketplaceH5FontStyles;
+  color: var(--matterColor);
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.heading {
+  margin-bottom: 33px;
+
+  @media (--viewportMedium) {
+    margin-bottom: 0;
+  }
+}
+
+.title {
+  /* Font */
+  @apply --marketplaceModalTitleCustomStyles;
+  color: var(--matterColor);
+  font-size: 24px;
+
+  /* Layout */
+  width: 100%;
+  margin: 50px 0 0 0px;
+  text-align: left;
+
+  @media (--viewportMedium) {
+    margin-bottom: 2px;
+    font-size: 30px;
+  }
+}
+
+.projectTeaser {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+.separator {
+  margin: 0 6px;
+}
+
+.contactLink {
+  @apply --marketplaceLinkStyles;
+  @apply --marketplaceH5FontStyles;
+  margin: 0;
+}
+
+.sectionDescription {
+  padding: 0 24px;
+  margin-top: 24px;
+  margin-bottom: 35px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+    margin-bottom: 36px;
+  }
+}
+
+.descriptionTitle {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+  /* color: var(--matterColorAnti); */
+
+  margin-top: 0;
+  margin-bottom: 13px;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: -20px;
+  }
+}
+
+.sectionFeatures {
+  padding: 0 24px;
+  margin-bottom: 32px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+    margin-bottom: 52px;
+  }
+}
+
+.SectionUsp {
+  margin-top: 10vh;
+}
+
+.featuresTitle {
+  /* Font */
+  @apply --marketplaceH1FontStyles;
+  /* color: var(--matterColorAnti); */
+  color: var(--marketplaceColor);
+
+  display: inline-block;
+  text-align: left;
+
+  font-size: 30px;
+  line-height: 36px;
+
+  margin-top: 0;
+  margin-bottom: 16px;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+}
+
+.featuresTitle_1 {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+  /* color: var(--matterColorAnti); */
+  color: #353535;
+
+  display: inline-block;
+  margin-left: 7px;
+
+  margin-top: 0;
+  margin-bottom: 16px;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+}
+
+.readMore {
+  top: 62px;
+  position: relative;
+  float: right;
+  padding-left: 150px;
+  @apply --marketplacePaperBackground;
+
+  background-image: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+  background-size: 400px 240px;
+  background-repeat: repeat;
+  /* background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)); */
+  /* background-image: url("IMAGE_URL") */
+  color: #1c7881;
+}
+
+.description {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 60px;
+  overflow: hidden;
+
+  /* Preserve newlines, but collapse other whitespace */
+  white-space: pre-line;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.sectionMap {
+  /* padding: 0 24px; */
+  margin-bottom: 35px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+.locationTitle {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+  color: var(--matterColorAnti);
+
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 28px;
+  }
+}
+
+.sectionReviews {
+  margin-bottom: 5px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+  }
+
+  @media (--viewportLarge) {
+    margin-bottom: 20px;
+  }
+}
+
+.reviewsHeading {
+  @apply --marketplaceH3FontStyles;
+  color: var(--matterColorAnti);
+
+  margin: 52px 0 20px 0;
+
+  @media (--viewportMedium) {
+    margin: 53px 0 27px 0;
+  }
+
+  @media (--viewportLarge) {
+    margin: 50px 0 26px 0;
+  }
+}
+
+.sectionHost {
+  position: relative;
+
+  margin-bottom: 5px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+  }
+
+  @media (--viewportLarge) {
+    margin-bottom: 3px;
+  }
+}
+
+.yourHostHeading {
+  @apply --marketplaceH3FontStyles;
+  color: var(--matterColorAnti);
+
+  margin: 54px 0 23px 0;
+
+  @media (--viewportMedium) {
+    margin: 53px 0 27px 0;
+  }
+
+  @media (--viewportLarge) {
+    margin: 53px 0 27px 0;
+  }
+}
+
+.enquiryModalContent {
+  flex-grow: 1;
+  display: flex;
+}
+
+.enquiryForm {
+  flex-grow: 1;
+  margin: 70px 0 100px 0;
+
+  @media (--viewportMedium) {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    margin: 0;
+  }
+}
+
+.enquirySubmitButtonWrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background-color: var(--matterColorLight);
+
+  @media (--viewportMedium) {
+    position: static;
+    padding: 0;
+    margin-top: auto;
+  }
+}
+
+.map {
+  /* Dimensions: Map takes all available space from viewport (excludes action button and section title) */
+  height: 50vh;
+  width: 100%;
+
+  /* Static map: dimensions are 640px */
+  max-width: 640px;
+  max-height: 640px;
+  background-color: #eee;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+
+  border-radius: var(--borderRadius);
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    height: 75vh;
+  }
+
+  @media (--viewportLarge) {
+    height: 417px;
+  }
+}
+
+.longWord {
+  /* fallback option */
+  word-break: break-all;
+  /* use break-word if available */
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.drawer {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  @apply --marketplacePaperBackground;
+  overflow: scroll;
+
+  @media (--viewportMedium) {
+    width: 700px;
+  }
+}
+
+.openButton {
+  z-index: 9;
+  @apply --marketplacePaperBackground;
+
+  position: relative;
+  margin-top: 21px;
+
+  width: 100%;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 50px;
+
+  /* transform: rotate(270deg); */
+
+  margin-left: 0em;
+  border: 1px solid var(--marketplaceColorSecond);
+  color: var(--marketplaceColorSecond);
+
+  &:hover {
+    background-color: var(--marketplaceColorSecond);
+  }
+}
+.openButton:hover .buttonText {
+  color: white;
+  fill: white;
+}
+
+.closeDrawerButton {
+  z-index: 99999;
+  position: fixed;
+  margin-left: 65vw;
+  margin-top: 40vh;
+}
+
+.SwipeButtonContainer {
+  position: fixed;
+  bottom: 15vh;
+  left: 30vw;
+}
+
+.SwipeButton {
+  margin-right: 20px;
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  float: left;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 100%;
+
+  &:hover,
+  &:focus {
+    box-shadow: var(--boxShadowButton);
+  }
+}
+
+.SwipeButton_disabled {
+  margin-right: 20px;
+  background-color: transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  float: left;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 100%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.arrows {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 10px;
+  height: 10px;
+  display: block;
+}
+
+.buttonText {
+  position: relative;
+  left: 0;
+  line-height: 30px;
+  margin-left: 0px;
+  text-align: center;
+  font-family: 'poppins';
+  color: var(--marketplaceColorSecond);
+  fill: var(--marketplaceColorSecond);
+}
+
+.lowerMenu {
+  position: relative;
+  z-index: 5;
+  /* padding-left:10px; */
+
+  width: 100%;
+  height: 52px;
+
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.lowerMenuText {
+  position: relative;
+  @apply --TopbarDesktop_linkHover;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0 12px 0 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  line-height: 20px;
+  text-decoration: none;
+
+  &:hover {
+    padding-bottom: 11px;
+  }
+}
+
+.active {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 11px;
+  line-height: 20px;
+  border-bottom: 2px solid var(--marketplaceColor);
+
+  text-decoration: none;
+  color: var(--marketplaceColor);
+}
+
+.backgroundContainer {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 55vw;
+  opacity: 1;
+  z-index: 0;
+  animation: backgroundstartanimation 1.5s;
+}
+
+@keyframes backgroundstartanimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.projectImageContainer {
+  height: 250px;
+  overflow: hidden;
+  @media (--viewportMedium) {
+    height: 350px;
+  }
+}
+
+.HeaderWrapper {
+  margin-top: 20px;
+  margin-left: 20px;
+
+  @media (--viewportMedium) {
+    margin-left: 100px;
+  }
+}
+
+.Header1 {
+  text-align: left;
+  font-size: 30px;
+  line-height: 1.5em;
+  margin-top: -25px;
+  margin-left: 0px;
+  width: 100%;
+  font-family: var(--fontFamilyTitle);
+  color: var(--marketplaceColor);
+  animation: headerstartanimation 0.5s;
+
+  @media (--viewportMedium) {
+    font-size: 34px;
+    margin-top: -10px;
+    width: 100%;
+  }
+}
+
+@keyframes headerstartanimation {
+  0% {
+    opacity: 0;
+    margin-left: 20vw;
+  }
+
+  100% {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
+
+.projectText {
+  animation: headerstartanimation 0.7s;
+
+  width: 90%;
+  padding-bottom: 50px;
+  padding-top: -15px;
+  margin-left: 5px;
+  font-size: 12px;
+
+  @media (--viewportMedium) {
+    width: 80%;
+    padding-bottom: 150px;
+    font-size: 16px;
+  }
+}
+
+.firstToggleActive {
+  display: block;
+  opacity: 1;
+}
+
+.firstToggle {
+  display: none;
+  opacity: 0;
+}
+
+.extras {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.contentWrappers {
+  margin-bottom: 40px;
+}
+
+.block {
+  background-color: aqua;
+  height: 800px;
+}
+
+.bubble_outer {
+  margin-top: 10vh;
+}
+.bubble {
+  width: auto;
+
+  color: var(--marketplaceColor);
+  @apply --marketplaceBodyFontStyles;
+  line-height: var(--PropertyGroup_lineHeight);
+  margin: 0;
+
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: var(--borderRadius);
+  margin-right: 10px;
+
+  display: inline-block;
+}
+
+.labelWrapper {
+  display: block;
+}
+
+.geoLabelWrapper {
+  display: inline-block;
+}
+
+.selectedLabel,
+.notSelectedLabel {
+  line-height: var(--PropertyGroup_lineHeight);
+  margin: 0;
+}
+
+.notSelectedLabel {
+  display: none;
+}
+
+.listings {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.listing {
+  width: 100%;
+
+  /* Single column in mobile */
+  margin-top: 34px;
+  &:first-of-type {
+    margin-top: 18px;
+  }
+
+  @media (--viewportMedium) {
+    /* Two columns in desktop */
+    width: calc(50% - 12px);
+    margin-bottom: 36px;
+
+    /* Horizontal space */
+    &:nth-of-type(odd) {
+      margin-right: 12px;
+    }
+    &:nth-of-type(even) {
+      margin-left: 12px;
+    }
+
+    /* Vertical space */
+    margin-top: 0;
+    &:nth-of-type(1),
+    &:nth-of-type(2) {
+      margin-top: 20px;
+    }
+  }
+}
+
+.heroButton {
+  @apply --marketplaceButtonStylesCustom;
+
+  z-index: 0;
+  opacity: 1;
+
+  /* box-shadow: 0px 4px 15px rgba(28, 129, 114, 0.4); */
+
+  position: relative;
+  margin-top: 3vh;
+  width: 90vw;
+  
+
+  @media (--viewportMedium) {
+    margin-top: 3vh;
+    position: relative;
+    width: auto;
+    /* margin: 20px; */
+  }
+}
+
+.heroButtonCTA {
+  
+  @apply --marketplacePaperBackground;
+  @apply --marketplaceButtonStyles;
+  background-color:transparent;
+  border: 1px solid var(--marketplaceColorSecond);
+  color:var(--marketplaceColorSecond) ;
+  z-index: 999;
+  /* box-shadow: 0px 4px 15px rgba(28, 129, 114, 0.4); */
+
+  animation-delay: 0.8s;
+  transform: scale(0.8);
+
+  display: block;
+  
+
+
+  /* filter: drop-shadow(0px 4px 15px rgba(28, 129, 114, 0.4));
+  -webkit-filter: drop-shadow(0px 4px 15px rgba(28, 129, 114, 0.4)); */
+
+  width: 150px;
+
+  @media (--viewportMedium) {
+    width: 300px;
+    
+    margin-left:calc(50vw - 180px)
+  }
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.center {
+  margin: auto;
+  height: 100%;
+}
+
+.closeButton {
+  float: right;
+  position: fixed;
+  display: flex;
+justify-content: flex-end;
+
+  padding-right: 4px;
+  width:350px;
+  height: 200px;
+  right:0;
+  top: 0px;
+  z-index: 999;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(195deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 32%, rgba(0,0,0,0) 100%);
+
+
+  @media (--viewportSmall) {
+    padding-right: 15px;
+    right:0;
+
+  }
+}
+
+.about {
+  
+  @apply --marketplaceH5FontStyles;
+  @apply --TopbarDesktop_label;
+}

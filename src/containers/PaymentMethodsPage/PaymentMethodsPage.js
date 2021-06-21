@@ -21,9 +21,9 @@ import {
 } from '../../components';
 import { TopbarContainer } from '../../containers';
 import { PaymentMethodsForm } from '../../forms';
-import { createStripeSetupIntent, stripeCustomer } from './PaymentMethodsPage.duck.js';
+import { createStripeSetupIntent, stripeCustomer, loadData } from './PaymentMethodsPage.duck.js';
 
-import css from './PaymentMethodsPage.module.css';
+import css from './PaymentMethodsPage.css';
 
 const PaymentMethodsPageComponent = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +46,11 @@ const PaymentMethodsPageComponent = props => {
     intl,
     stripeCustomerFetched,
   } = props;
+
+  const userVerification = ensureCurrentUser(currentUser);
+
+  const verification = ensureCurrentUser(userVerification.attributes.profile.protectedData);
+  const partner = verification.type;
 
   const getClientSecret = setupIntent => {
     return setupIntent && setupIntent.attributes ? setupIntent.attributes.clientSecret : null;
@@ -153,9 +158,9 @@ const PaymentMethodsPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="PaymentMethodsPage" />
+          <UserNav partner={partner} selectedPageName="PaymentMethodsPage" />
         </LayoutWrapperTopbar>
-        <LayoutWrapperAccountSettingsSideNav currentTab="PaymentMethodsPage" />
+        <LayoutWrapperAccountSettingsSideNav partner={partner} currentTab="PaymentMethodsPage" />
         <LayoutWrapperMain>
           <div className={css.content}>
             <h1 className={css.title}>
@@ -191,9 +196,7 @@ const PaymentMethodsPageComponent = props => {
             )}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );
@@ -261,11 +264,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const PaymentMethodsPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(PaymentMethodsPageComponent);
+
+PaymentMethodsPage.loadData = loadData;
 
 export default PaymentMethodsPage;

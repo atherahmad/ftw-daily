@@ -4,13 +4,11 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import classNames from 'classnames';
-import { isEmpty } from 'lodash';
-
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName } from '../../util/routes';
 import { apiBaseUrl } from '../../util/api';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import classNames from 'classnames';
 import config from '../../config';
 import { propTypes } from '../../util/types';
 import { ensureCurrentUser } from '../../util/data';
@@ -42,14 +40,17 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { sendVerificationEmail } from '../../ducks/user.duck';
 import { manageDisableScrolling } from '../../ducks/UI.duck';
 
-import css from './AuthenticationPage.module.css';
+import css from './AuthenticationPage.css';
 import { FacebookLogo, GoogleLogo } from './socialLoginLogos';
+
+import Background from '../../assets/mana_landscape.png';
 
 export class AuthenticationPageComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tosModalOpen: false,
+      type: 'traveler',
       authError: Cookies.get('st-autherror')
         ? JSON.parse(Cookies.get('st-autherror').replace('j:', ''))
         : null,
@@ -78,7 +79,7 @@ export class AuthenticationPageComponent extends Component {
       submitLogin,
       submitSignup,
       confirmError,
-      submitSingupWithIdp,
+      submitSinguoWithIdp,
       tab,
       sendVerificationEmailInProgress,
       sendVerificationEmailError,
@@ -170,15 +171,40 @@ export class AuthenticationPageComponent extends Component {
       },
     ];
 
+    setTimeout(() => {
+      if (window.location.pathname === '/signupHost') {
+        this.setState({
+          type: 'host',
+        });
+      }
+    }, 10);
+    const handleChange = event => {
+      this.setState({
+        type: event.target.value,
+      });
+    };
+
     const handleSubmitSignup = values => {
       const { fname, lname, ...rest } = values;
-      const params = { firstName: fname.trim(), lastName: lname.trim(), ...rest };
+      const params = {
+        type: this.state.type,
+        firstName: fname.trim(),
+        lastName: lname.trim(),
+        ...rest,
+      };
       submitSignup(params);
+      this.props.history.push('/profile-settings');
+    };
+
+    const handleSubmitLogin = params => {
+      submitLogin(params);
+
+      this.props.history.push('/profile-settings');
     };
 
     const handleSubmitConfirm = values => {
       const { idpToken, email, firstName, lastName, idpId } = this.state.authInfo;
-      const { email: newEmail, firstName: newFirstName, lastName: newLastName, ...rest } = values;
+      const { email: newEmail, firstName: newFirstName, lastName: newLastName } = values;
 
       // Pass email, fistName or lastName to Flex API only if user has edited them
       // sand they can't be fetched directly from idp provider (e.g. Facebook)
@@ -189,14 +215,10 @@ export class AuthenticationPageComponent extends Component {
         ...(newLastName !== lastName && { lastName: newLastName }),
       };
 
-      // If the confirm form has any additional values, pass them forward as user's protected data
-      const protectedData = !isEmpty(rest) ? { ...rest } : null;
-
-      submitSingupWithIdp({
+      submitSinguoWithIdp({
         idpToken,
         idpId,
         ...authParams,
-        ...(!!protectedData && { protectedData }),
       });
     };
 
@@ -218,6 +240,7 @@ export class AuthenticationPageComponent extends Component {
 
       return { baseUrl, fromParam, defaultReturnParam, defaultConfirmParam };
     };
+
     const authWithFacebook = () => {
       const defaultRoutes = getDefaultRoutes();
       const { baseUrl, fromParam, defaultReturnParam, defaultConfirmParam } = defaultRoutes;
@@ -306,18 +329,22 @@ export class AuthenticationPageComponent extends Component {
       <div className={css.content}>
         <LinkTabNavHorizontal className={css.tabs} tabs={tabs} />
         {loginOrSignupError}
-
         {isLogin ? (
-          <LoginForm className={css.loginForm} onSubmit={submitLogin} inProgress={authInProgress} />
+          <LoginForm
+            className={css.form}
+            onSubmit={handleSubmitLogin}
+            inProgress={authInProgress}
+          />
         ) : (
           <SignupForm
-            className={css.signupForm}
+            className={css.form}
             onSubmit={handleSubmitSignup}
             inProgress={authInProgress}
             onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
+            handleChange={handleChange}
+            type={this.state.type}
           />
         )}
-
         {socialLoginButtonsMaybe}
       </div>
     );
@@ -406,6 +433,8 @@ export class AuthenticationPageComponent extends Component {
           </LayoutWrapperTopbar>
           <LayoutWrapperMain className={css.layoutWrapperMain}>
             <div className={css.root}>
+              {/* <img src={Background}></img> */}
+
               {showEmailVerification ? emailVerificationContent : formContent}
             </div>
             <Modal
@@ -423,9 +452,7 @@ export class AuthenticationPageComponent extends Component {
               </div>
             </Modal>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
+          <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );
@@ -487,8 +514,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   submitLogin: ({ email, password }) => dispatch(login(email, password)),
+  submitSinguoWithIdp: params => dispatch(signupWithIdp(params)),
   submitSignup: params => dispatch(signup(params)),
-  submitSingupWithIdp: params => dispatch(signupWithIdp(params)),
   onResendVerificationEmail: () => dispatch(sendVerificationEmail()),
   onManageDisableScrolling: (componentId, disableScrolling) =>
     dispatch(manageDisableScrolling(componentId, disableScrolling)),

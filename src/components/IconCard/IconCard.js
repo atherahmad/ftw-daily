@@ -2,7 +2,7 @@ import React from 'react';
 import { string } from 'prop-types';
 import classNames from 'classnames';
 
-import css from './IconCard.module.css';
+import css from './IconCard.css';
 
 const BRAND_AMEX = 'amex';
 const BRAND_DINERS = 'diners';

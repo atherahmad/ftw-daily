@@ -23,7 +23,7 @@ const i18n = {
 // NOTE: If this is set to true add parameter 'origin' to every location in default-location-searches.js
 // Without the 'origin' parameter, search will not work correctly
 // NOTE: Keyword search and ordering search results by distance can't be used at the same time. You can turn keyword
-// search off by removing keyword filter config from filters array in marketplace-custom-config.js
+// search off by changing the keywordFilterConfig parameter active to false in marketplace-custom-config.js
 const sortSearchByDistance = false;
 
 // API supports custom processes to be used in booking process.
@@ -64,10 +64,7 @@ const sdkClientId = process.env.REACT_APP_SHARETRIBE_SDK_CLIENT_ID;
 const sdkBaseUrl = process.env.REACT_APP_SHARETRIBE_SDK_BASE_URL;
 const sdkTransitVerbose = process.env.REACT_APP_SHARETRIBE_SDK_TRANSIT_VERBOSE === 'true';
 
-// Marketplace currency.
-// It should match one of the currencies listed in currency-config.js
-const currencyConf = process.env.REACT_APP_SHARETRIBE_MARKETPLACE_CURRENCY;
-const currency = currencyConf ? currencyConf.toUpperCase() : currencyConf;
+const currency = process.env.REACT_APP_SHARETRIBE_MARKETPLACE_CURRENCY;
 
 // Currency formatting options.
 // See: https://github.com/yahoo/react-intl/wiki/API#formatnumber
@@ -93,7 +90,7 @@ const streetAddress = 'Bulevardi 14';
 const canonicalRootURL = process.env.REACT_APP_CANONICAL_ROOT_URL;
 
 // Site title is needed in meta tags (bots and social media sharing reads those)
-const siteTitle = 'Saunatime';
+const siteTitle = 'Socialbnb';
 
 // Twitter handle is needed in meta tags (twitter:site). Start it with '@' character
 const siteTwitterHandle = '@sharetribe';

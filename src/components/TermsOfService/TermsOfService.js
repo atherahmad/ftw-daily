@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from './TermsOfService.module.css';
+import css from './TermsOfService.css';
+import { FormattedMessage } from 'react-intl';
 
 const TermsOfService = props => {
   const { rootClassName, className } = props;
@@ -11,51 +12,213 @@ const TermsOfService = props => {
   // prettier-ignore
   return (
     <div className={classes}>
-      <p className={css.lastUpdated}>Last updated: October 30, 2017</p>
-
+      {/* <p className={css.lastUpdated}>Last updated: October 30, 2017</p> */}
       <p>
-        Thank you for using Saunatime! Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <FormattedMessage id="Terms.p1" />
       </p>
-
-      <h2>1 Lorem ipsum dolor sit amet</h2>
+      <h2><FormattedMessage id="Terms.head0" /></h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <FormattedMessage id="Terms.p0-1" /><br/><br/>
+        <FormattedMessage id="Terms.p0-2" />
       </p>
+      <ol>
+        <li>
+          <h2><FormattedMessage id="Terms.head1" /></h2>
+          <p>
+            <ul>
+            {
+              Array.from({ length: 7 }, (_, index) => index + 1).map((term, index) => {
+                return (<li key={index}>
+                  <FormattedMessage  id={"Terms.p1-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
 
-      <h2>2 Sed ut perspiciatis unde</h2>
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-        aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-        voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-        consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-        dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-        exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-        consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-        molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-      </p>
+        <li>
+          <h2><FormattedMessage id="Terms.head2" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 3 }, (_, index) => index + 1).map((term, index) => {
+                return (<li>
+                  <FormattedMessage key={index} id={"Terms.p2-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
 
-      <h2>3 At vero eos et accusamus</h2>
-      <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
-        est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
-        libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-        maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut
-        et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-        sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
-        doloribus asperiores repellat
-      </p>
+        <li>
+          <h2><FormattedMessage id="Terms.head3" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 7 }, (_, index) => index + 1).map((term, index) => {
+                if(term===4){
+                  return (<li key={index}>
+                    <FormattedMessage  id={"Terms.p3-" + term} /><br /><br />
+                    <FormattedMessage  id={"Terms.p3-" + term+".1"} /><br /><br />
+                    <FormattedMessage  id={"Terms.p3-" + term+".2"} /><br /><br />
+                  </li>
+                  )
+                }
+                return (<li key={index}>
+                  <FormattedMessage  id={"Terms.p3-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head4" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 3 }, (_, index) => index + 1).map((term, index) => {
+                return (<li key={index} >
+                  <FormattedMessage key={index} id={"Terms.p4-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head5" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 2 }, (_, index) => index + 1).map((term, index) => {
+                return (
+                <li key={index}>
+                  <FormattedMessage  id={"Terms.p5-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head6" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 2 }, (_, index) => index + 1).map((term, index) => {
+                return (<li  key={index}>
+                  <FormattedMessage  id={"Terms.p6-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head7" /></h2>
+          <p>
+            <FormattedMessage id="Terms.p7-1" />
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head8" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 6 }, (_, index) => index + 1).map((term, index) => {
+                return (<li  key={index}>
+                  <FormattedMessage  id={"Terms.p8-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head9" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 4 }, (_, index) => index + 1).map((term, index) => {
+                return (<li key={index}>
+                  <FormattedMessage key={index} id={"Terms.p9-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head10" /></h2>
+          <p>
+            <FormattedMessage id="Terms.p10" />
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head11" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 3 }, (_, index) => index + 1).map((term, index) => {
+                return (<li key={index}>
+                  <FormattedMessage key={index} id={"Terms.p11-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head12" /></h2>
+          <p>
+            <FormattedMessage id="Terms.p12" />
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head14" /></h2>
+          <p>
+            <FormattedMessage id="Terms.p13" />
+          </p>
+        </li>
+
+        <li>
+          <h2><FormattedMessage id="Terms.head13" /></h2>
+          <p>
+            <ul>
+          {
+              Array.from({ length: 2 }, (_, index) => index + 1).map((term, index) => {
+                return (<li key={index}>
+                  <FormattedMessage key={index} id={"Terms.p14-" + term} /><br /><br />
+                </li>
+                )
+              })
+            }
+            </ul>
+          </p>
+        </li>
+      </ol>
     </div>
   );
 };

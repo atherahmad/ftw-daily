@@ -2,7 +2,6 @@
 
 exports[`LandingPage matches snapshot 1`] = `
 <Page
-  className="root"
   contentType="website"
   description="LandingPage.schemaDescription"
   facebookImages={
@@ -51,11 +50,9 @@ exports[`LandingPage matches snapshot 1`] = `
       className={null}
       rootClassName={null}
     >
-      <div
-        className="heroContainer"
-      >
+      <div>
         <SectionHero
-          className="hero"
+          className={null}
           history={
             Object {
               "push": [Function],
@@ -69,27 +66,17 @@ exports[`LandingPage matches snapshot 1`] = `
           rootClassName={null}
         />
       </div>
-      <ul
-        className="sections"
-      >
-        <li
-          className="section"
-        >
-          <div
-            className="sectionContentFirstChild"
-          >
+      <ul>
+        <li>
+          <div>
             <SectionLocations
               className={null}
               rootClassName={null}
             />
           </div>
         </li>
-        <li
-          className="section"
-        >
-          <div
-            className="sectionContent"
-          >
+        <li>
+          <div>
             <SectionHowItWorks
               className={null}
               rootClassName={null}

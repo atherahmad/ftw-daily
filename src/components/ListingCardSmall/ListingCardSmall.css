@@ -1,0 +1,142 @@
+@import '../../marketplace.css';
+
+.root {
+  /* Layout */
+  display: flex;
+  flex-direction: row;
+  border-radius: 11px;
+  overflow: hidden;
+
+  box-shadow: var(--boxShadowListingCard);
+  transition: 0.2s;
+
+  /* Remove link's hover effect */
+  &:hover {
+    text-decoration: none;
+
+    transform: scale(1.02);
+  }
+}
+
+.info {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0px 0px 10px;
+  width: 100%;
+}
+
+.location {
+  font-size: 14px;
+  /* line-height: 32px; */
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #353535;
+
+  @media (--viewportMedium) {
+  }
+}
+
+.price_wrapper {
+  margin-top: auto;
+
+  margin-right: 20px;
+}
+.price {
+  /* Layout */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  margin-right: 18px; */
+  position: relative;
+  float: right;
+  right: 0;
+  justify-content: flex-end;
+}
+
+.priceValue {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.perUnit {
+  /* Font */
+  @apply --marketplaceTinyFontStyles;
+  color: var(--matterColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+.info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.mainInfo {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.title {
+  /* Font */
+  @apply --marketplaceH3FontStyles;
+  color: var(--marketplaceColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  font-size: 18px;
+
+  @media (--viewportMedium) {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+}
+
+.authorInfo {
+  /* Font */
+  @apply --marketplaceTinyFontStyles;
+  color: var(--matterColor);
+
+  /* Remove default margins from font */
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.longWord {
+  /* fallback option */
+  word-break: break-all;
+  /* use break-word if available */
+  word-break: break-word;
+  hyphens: auto;
+}

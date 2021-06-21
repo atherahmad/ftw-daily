@@ -22,7 +22,7 @@ import { PasswordResetForm } from '../../forms';
 import { TopbarContainer } from '../../containers';
 
 import { resetPassword } from './PasswordResetPage.duck';
-import css from './PasswordResetPage.module.css';
+import css from './PasswordResetPage.css';
 
 const parseUrlParams = location => {
   const params = parse(location.search);
@@ -129,9 +129,7 @@ export class PasswordResetPageComponent extends Component {
           <LayoutWrapperMain className={css.layoutWrapperMain}>
             <div className={css.root}>{content}</div>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
+          <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );
@@ -180,10 +178,7 @@ const mapDispatchToProps = dispatch => ({
 // See: https://github.com/ReactTraining/react-router/issues/4671
 const PasswordResetPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(PasswordResetPageComponent);
 

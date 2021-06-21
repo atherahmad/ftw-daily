@@ -20,6 +20,7 @@ const FilterComponent = props => {
     getHandleChangedValueFn,
     ...rest
   } = props;
+
   const { id, type, queryParamNames, label, config } = filterConfig;
   const { liveEdit, showAsPopup } = rest;
 

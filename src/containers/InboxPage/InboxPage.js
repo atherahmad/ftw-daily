@@ -38,7 +38,8 @@ import {
 import { TopbarContainer, NotFoundPage } from '../../containers';
 import config from '../../config';
 
-import css from './InboxPage.module.css';
+import { loadData } from './InboxPage.duck';
+import css from './InboxPage.css';
 
 const formatDate = (intl, date) => {
   return {
@@ -194,11 +195,14 @@ BookingInfoMaybe.propTypes = {
 
 export const InboxItem = props => {
   const { unitType, type, tx, intl, stateData } = props;
+
   const { customer, provider } = tx;
   const isOrder = type === 'order';
 
   const otherUser = isOrder ? provider : customer;
   const otherUserDisplayName = <UserDisplayName user={otherUser} intl={intl} />;
+
+  const otherUserProjectName = <UserDisplayName user={otherUser} intl={intl} />;
   const isOtherUserBanned = otherUser.attributes.banned;
 
   const isSaleNotification = !isOrder && txIsRequested(tx);
@@ -224,6 +228,9 @@ export const InboxItem = props => {
           <div className={classNames(css.itemUsername, stateData.nameClassName)}>
             {otherUserDisplayName}
           </div>
+          {/* <div className={classNames(css.itemUsername, stateData.nameClassName)}>
+            {otherUserProjectName}
+          </div> */}
           <BookingInfoMaybe
             bookingClassName={stateData.bookingClassName}
             intl={intl}
@@ -268,8 +275,15 @@ export const InboxPageComponent = props => {
     scrollingDisabled,
     transactions,
   } = props;
+
   const { tab } = params;
   const ensuredCurrentUser = ensureCurrentUser(currentUser);
+
+  const host_traveler = ensureCurrentUser(ensuredCurrentUser.attributes.profile.protectedData);
+
+  // console.log(tab);
+
+  // const { tab } = host_traveler.type === 'host' ? 'sales' : 'orders';
 
   const validTab = tab === 'orders' || tab === 'sales';
   if (!validTab) {
@@ -370,7 +384,7 @@ export const InboxPageComponent = props => {
           <h1 className={css.title}>
             <FormattedMessage id="InboxPage.title" />
           </h1>
-          {nav}
+          {/* {nav} */}
         </LayoutWrapperSideNav>
         <LayoutWrapperMain>
           {error}
@@ -386,9 +400,7 @@ export const InboxPageComponent = props => {
           </ul>
           {pagingLinks}
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );
@@ -440,5 +452,7 @@ const InboxPage = compose(
   connect(mapStateToProps),
   injectIntl
 )(InboxPageComponent);
+
+InboxPage.loadData = loadData;
 
 export default InboxPage;

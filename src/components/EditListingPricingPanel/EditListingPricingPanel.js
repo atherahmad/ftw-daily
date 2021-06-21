@@ -9,7 +9,7 @@ import { ensureOwnListing } from '../../util/data';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import config from '../../config';
 
-import css from './EditListingPricingPanel.module.css';
+import css from './EditListingPricingPanel.css';
 
 const { Money } = sdkTypes;
 

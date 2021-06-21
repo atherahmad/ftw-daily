@@ -68,7 +68,7 @@ export const maxLength = (message, maximumLength) => value => {
 };
 
 export const nonEmptyArray = message => value => {
-  return value && Array.isArray(value) && value.length > 0 ? VALID : message;
+  return value && Array.isArray(value) && value.length > 3 ? VALID : message;
 };
 
 export const autocompleteSearchRequired = message => value => {
@@ -152,6 +152,16 @@ export const validBusinessURL = message => value => {
   const isExampleDotCom = !!value.match(/^(https?:\/\/example\.com|example\.com)/);
   const isLocalhost = !!value.match(/^(https?:\/\/localhost($|:|\/)|localhost($|:|\/))/);
   return invalidCharacters || invalidProtocol || isExampleDotCom || isLocalhost ? message : VALID;
+};
+
+const URL_RE = /https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
+export const validURL = message => value => {
+  if (value) {
+    return URL_RE.test(value) ? VALID : message;
+  }
+
+  return VALID;
 };
 
 export const validSsnLast4 = message => value => {

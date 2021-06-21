@@ -1,0 +1,249 @@
+@import '../../marketplace.css';
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 20px;
+  /* @apply --marketplacePaperBackground; */
+  z-index: 0;
+  overflow: hidden;
+
+  @media (--viewportMedium) {
+    margin-top: 150px;
+  }
+  @media (--viewportMLarge) {
+    margin-top: 100px;
+  }
+}
+
+.listingCards {
+  padding: 0 24px 96px 24px;
+
+  @media (--viewportMedium) {
+    /* display: flex; */
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  @media (--viewportLarge) {
+    padding: 0 36px 96px 36px;
+  }
+}
+
+.listingCard {
+  height: auto;
+  min-height: 200px;
+  margin-bottom: 24px;
+  flex-basis: 100%;
+
+  @media (--viewportMedium) {
+    height: 20vh;
+  }
+  @media (--viewportMLarge) {
+    height: 20vh;
+  }
+
+  @media (--viewportLarge) {
+    /**
+      * resultPanelWidthRatio = 0.625 aka 62.5%
+
+      resultPanel: 62.5vw from 1024px = 640px
+      panelPaddings: - 2*36px = 72px
+
+      columnCount: 2
+      guttersBetweenColumns: 24px
+
+      (resultPanel - (panelPaddings + guttersBetweenColumns)) / columnCount = listingCardWidth
+      ergo => listingCardWidth: 272px
+
+    * flex-basis: calc((100%/columnCount) - (guttersBetweenColumns / columnCount))
+    */
+    /* flex-basis: calc(50% - 12px); */
+    margin-right: 0px;
+  }
+
+  @media (--viewportXLarge) {
+    /**
+     * resultPanelWidthRatio = 0.625 aka 62.5%
+
+      resultPanel: 62.5vw from 1920px = 1200px
+      panelPaddings: - 2*36px = 72px
+
+      columnCount: 3
+      guttersBetweenColumns: 2*24px = 48px
+
+      (resultPanel - (panelPaddings + guttersBetweenColumns)) / columnCount = listingCardWidth
+      ergo => listingCardWidth: 360px
+
+     * flex-basis: calc((100%/columnCount) - (guttersBetweenColumns / columnCount))
+     */
+
+    flex-basis: calc(33.33% - 16px);
+    margin-right: 0px;
+  }
+}
+
+/**
+ * Remove margin-right from listingCards on the last column
+ * This is a special case in the world of breakpoints. Nth-of-type effects every nth item.
+ * Here we take margin-right away, but we don't want it affect the next column breakpoint.
+ */
+
+.listingCard:nth-of-type(2n) {
+  @media screen and (min-width: 1024px) and (max-width: 1920px) {
+    margin-right: 0;
+  }
+}
+
+.listingCard:nth-of-type(3n) {
+  @media (--viewportXLarge) {
+    margin-right: 0;
+  }
+}
+
+.pagination {
+  /* margin-top: auto; pushes pagination to the end of the page. */
+  margin-top: auto;
+  background-color: var(--matterColorLight);
+  padding: 0 24px;
+
+  @media (--viewportLarge) {
+    padding: 0 36px;
+  }
+}
+
+.searchOptions {
+  margin: 50px;
+  /* margin-left: 50px; */
+
+  display: none;
+
+  /* justify-content: flex-end; */
+  @media (--viewportMedium) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+.resultsFound {
+  white-space: nowrap;
+}
+
+.searchResultSummary {
+  @apply --marketplaceH4FontStyles;
+  line-height: 20px;
+  margin-top: 10px;
+  margin-bottom: 11px;
+  margin-left: 0px;
+  margin-right: 24px;
+}
+
+.noSearchResults {
+  position: absolute;
+  @apply --marketplaceH4FontStyles;
+
+  /* Reserves 48px of vertical space */
+  line-height: 20px;
+  margin-top: 166px;
+  margin-bottom: 12px;
+  margin-left: 24px;
+
+  /* parent uses flexbox: this defines minimum width for translated text "noResults" */
+  flex-basis: 100%;
+  flex-shrink: 0;
+  margin-left: 50px;
+}
+
+.cards_slider {
+  overflow: visible;
+  white-space: nowrap;
+
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  left: 0;
+}
+
+.card {
+  float: left !important;
+  text-align: left;
+
+  width: 100%;
+  max-width: 100% !important;
+  position: relative;
+  display: inline-block;
+  left: 0;
+  clear: both;
+  margin-right: 50px;
+  float: none !important;
+  transition: transform 0s ease-in-out;
+  vertical-align: top;
+}
+
+.btn:active {
+  -webkit-transform: translateY(1px);
+  transform: translateY(1px);
+}
+
+.slider__controls {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  margin-top: 80px;
+  right: 0px;
+  /* @apply --marketplacePaperBackground;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: absolute;
+  
+  width: 140px;
+
+  z-index: 0; */
+  @media (--viewportMLarge) {
+    width: 120px;
+    margin-top: 70px;
+    right: 30px;
+  }
+}
+
+.slider__controls .btn {
+  @apply --marketplacePaperBackground;
+
+  z-index: 999;
+  --size: 3rem;
+  -webkit-box-align: center;
+  align-items: center;
+  border: 1.5px solid var(--marketplaceColorSecond);
+  border-radius: 100%;
+  display: -webkit-box;
+  display: flex;
+  height: var(--size);
+  padding: 0;
+  width: var(--size);
+  margin-right: -20px;
+  margin-left: -20px;
+}
+
+.slider__controls .btn:hover {
+  /* border-color: var(--color-focus); */
+  @apply --marketplacePaperBackground;
+  background-color: var(--marketplaceColorSecond);
+}
+
+.slider__controls .btn:focus {
+  /* border-color: var(--color-focus); */
+  outline: none;
+}
+
+.arrows {
+  fill: var(--marketplaceColorSecond) !important;
+}
+.btn:hover .arrows {
+  fill: white !important;
+}

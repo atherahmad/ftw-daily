@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { types as sdkTypes } from '../../util/sdkLoader';
 import { REVIEW_TYPE_OF_PROVIDER, REVIEW_TYPE_OF_CUSTOMER, propTypes } from '../../util/types';
 import { ensureCurrentUser, ensureUser } from '../../util/data';
 import { withViewport } from '../../util/contextHelpers';
@@ -24,10 +25,12 @@ import {
   ButtonTabNavHorizontal,
 } from '../../components';
 import { TopbarContainer, NotFoundPage } from '../../containers';
+import { loadData } from './ProfilePage.duck';
 import config from '../../config';
 
-import css from './ProfilePage.module.css';
+import css from './ProfilePage.css';
 
+const { UUID } = sdkTypes;
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
 export class ProfilePageComponent extends Component {
@@ -68,6 +71,7 @@ export class ProfilePageComponent extends Component {
       viewport,
       intl,
     } = this.props;
+
     const ensuredCurrentUser = ensureCurrentUser(currentUser);
     const profileUser = ensureUser(user);
     const isCurrentUser =
@@ -89,18 +93,18 @@ export class ProfilePageComponent extends Component {
       </NamedLink>
     ) : null;
 
-    const asideContent = (
-      <div className={css.asideContent}>
-        <AvatarLarge className={css.avatar} user={user} disableProfileLink />
-        <h1 className={css.mobileHeading}>
-          {displayName ? (
-            <FormattedMessage id="ProfilePage.mobileHeading" values={{ name: displayName }} />
-          ) : null}
-        </h1>
-        {editLinkMobile}
-        {editLinkDesktop}
-      </div>
-    );
+    // const asideContent = (
+    //   <div className={css.asideContent}>
+    //     <AvatarLarge className={css.avatar} user={user} disableProfileLink />
+    //     <h1 className={css.mobileHeading}>
+    //       {displayName ? (
+    //         <FormattedMessage id="ProfilePage.mobileHeading" values={{ name: displayName }} />
+    //       ) : null}
+    //     </h1>
+    //     {editLinkMobile}
+    //     {editLinkDesktop}
+    //   </div>
+    // );
 
     const listingsContainerClasses = classNames(css.listingsContainer, {
       [css.withBioMissingAbove]: !hasBio,
@@ -183,7 +187,7 @@ export class ProfilePageComponent extends Component {
         <h1 className={css.desktopHeading}>
           <FormattedMessage id="ProfilePage.desktopHeading" values={{ name: displayName }} />
         </h1>
-        {hasBio ? <p className={css.bio}>{bio}</p> : null}
+        {/* {hasBio ? <p className={css.bio}>{bio}</p> : null} */}
         {hasListings ? (
           <div className={listingsContainerClasses}>
             <h2 className={css.listingsTitle}>
@@ -201,7 +205,7 @@ export class ProfilePageComponent extends Component {
             </ul>
           </div>
         ) : null}
-        {isMobileLayout ? mobileReviews : desktopReviews}
+        {/* {isMobileLayout ? mobileReviews : desktopReviews} */}
       </div>
     );
 
@@ -243,11 +247,9 @@ export class ProfilePageComponent extends Component {
           <LayoutWrapperTopbar>
             <TopbarContainer currentPage="ProfilePage" />
           </LayoutWrapperTopbar>
-          <LayoutWrapperSideNav className={css.aside}>{asideContent}</LayoutWrapperSideNav>
+          <LayoutWrapperSideNav className={css.aside}>{/* {asideContent} */}</LayoutWrapperSideNav>
           <LayoutWrapperMain>{content}</LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
+          <LayoutWrapperFooter>{/* <Footer /> */}</LayoutWrapperFooter>
         </LayoutSideNavigation>
       </Page>
     );
@@ -294,14 +296,16 @@ const mapStateToProps = state => {
     userListingRefs,
     reviews,
     queryReviewsError,
+    // user,
   } = state.ProfilePage;
-  const userMatches = getMarketplaceEntities(state, [{ type: 'user', id: userId }]);
-  const user = userMatches.length === 1 ? userMatches[0] : null;
+  // const userMatches = getMarketplaceEntities(state, [{ type: 'user', id: userId }]);
+  // const user = userMatches.length === 1 ? userMatches[0] : null;
   const listings = getMarketplaceEntities(state, userListingRefs);
+
   return {
     scrollingDisabled: isScrollingDisabled(state),
     currentUser,
-    user,
+    // user,
     userShowError,
     queryListingsError,
     listings,
@@ -315,5 +319,10 @@ const ProfilePage = compose(
   withViewport,
   injectIntl
 )(ProfilePageComponent);
+
+ProfilePage.loadData = params => {
+  const id = new UUID(params.id);
+  return loadData(id);
+};
 
 export default ProfilePage;

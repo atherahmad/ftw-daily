@@ -10,7 +10,7 @@ import * as validators from '../../util/validators';
 import { formatMoney } from '../../util/currency';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { Button, Form, FieldCurrencyInput } from '../../components';
-import css from './EditListingPricingForm.module.css';
+import css from './EditListingPricingForm.css';
 
 const { Money } = sdkTypes;
 

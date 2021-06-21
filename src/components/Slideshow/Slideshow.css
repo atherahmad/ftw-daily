@@ -1,0 +1,50 @@
+@import '../../marketplace.css';
+
+.slide_container {
+  margin-right: 0;
+  right: 0vw;
+  position: absolute;
+  z-index: 0;
+  margin-left: 0vw;
+  width: 100vw;
+  top: 0vh;
+}
+
+@keyframes startanimation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.each_fade {
+  display: flex;
+  position: absolute;
+  right: 0;
+  width: 150%;
+}
+
+/* .each_slide>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 300px;
+  position: absolute;
+} */
+
+.each_fade .image_container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.each_fade .image_container img {
+  width: 100%;
+}

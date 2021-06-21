@@ -7,7 +7,13 @@ import classNames from 'classnames';
 import * as validators from '../../util/validators';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
 
-import css from './SignupForm.module.css';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import css from './SignupForm.css';
 
 const KEY_CODE_ENTER = 13;
 
@@ -24,6 +30,8 @@ const SignupFormComponent = props => (
         invalid,
         intl,
         onOpenTermsOfService,
+        handleChange,
+        type,
       } = fieldRenderProps;
 
       // email
@@ -132,6 +140,29 @@ const SignupFormComponent = props => (
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           <div>
+            {/* <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="gender"
+                name="gender1"
+                value={type}
+                onChange={handleChange}
+                style={{ flexDirection: 'row', display: 'none' }}
+              >
+                <FormControlLabel
+                  value="traveler"
+                  control={<Radio style={{ color: '#1c7881' }} />}
+                  label="Reisende/Reisender"
+                  style={{ float: 'left' }}
+                />
+                <FormControlLabel
+                  value="host"
+                  control={<Radio style={{ color: '#1c7881' }} />}
+                  label="GastgeberIn"
+                  style={{ float: 'left' }}
+                />
+              </RadioGroup>
+            </FormControl> */}
+
             <FieldTextInput
               type="email"
               id={formId ? `${formId}.email` : 'email'}

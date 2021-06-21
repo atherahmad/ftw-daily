@@ -14,7 +14,7 @@ import { propTypes } from '../../util/types';
 import { ValidationError } from '../../components';
 
 import DateRangeInput from './DateRangeInput';
-import css from './FieldDateRangeInput.module.css';
+import css from './FieldDateRangeInput.css';
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
@@ -132,7 +132,7 @@ class FieldDateRangeInputComponent extends Component {
     };
     const classes = classNames(rootClassName || css.fieldRoot, className);
     const errorClasses = classNames({ [css.mobileMargins]: useMobileMargins });
-
+    // console.log(inputProps);
     return (
       <div className={classes}>
         {label}

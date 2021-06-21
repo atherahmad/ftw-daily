@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
 
@@ -17,9 +17,14 @@ import configureStore from './store';
 import routeConfiguration from './routeConfiguration';
 import Routes from './Routes';
 import config from './config';
+import publicIp from 'public-ip';
+import ipLocation from 'iplocation';
+import Observer from 'fontfaceobserver';
 
 // Flex template application uses English translations as default.
-import defaultMessages from './translations/en.json';
+import defaultMessages from './translations/de.json';
+
+import defaultMessagesEN from './translations/en.json';
 
 // If you want to change the language, change the imports to match the wanted locale:
 //   1) Change the language in the config.js file!
@@ -38,11 +43,15 @@ import defaultMessages from './translations/en.json';
 
 // Step 3:
 // If you are using a non-english locale, point `messagesInLocale` to correct .json file
-import messagesInLocale from './translations/fr.json';
+import messagesInLocale from './translations/en.json';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 // If translation key is missing from `messagesInLocale` (e.g. fr.json),
 // corresponding key will be added to messages from `defaultMessages` (en.json)
 // to prevent missing translation key errors.
+
 const addMissingTranslations = (sourceLangTranslations, targetLangTranslations) => {
   const sourceKeys = Object.keys(sourceLangTranslations);
   const targetKeys = Object.keys(targetLangTranslations);
@@ -56,11 +65,41 @@ const addMissingTranslations = (sourceLangTranslations, targetLangTranslations) 
   return missingKeys.reduce(addMissingTranslation, targetLangTranslations);
 };
 
-const isDefaultLanguageInUse = config.locale === 'en';
+//If a new user starts using the site the language is determined using his IP address,
+//which is then used to find out if he is inside or outside germany and the language is set accordingly
+const getClientIP = async () => await publicIp.v4({ fallbackUrls: ['https://ifconfig.co/ip'] });
+const getCurrentLocation = async () => {
+  await getClientIP().then(ip => {
+    ipLocation(ip).then(loc => {
+      // console.log(loc.country.name + 'is the location');
+      if (!cookies.get('language')) {
+        console.log('no prefrence');
+        if (loc.country.name === 'Germany') {
+          //console.log('finally DEU');
+          cookies.set('language', 'de', {
+            maxAge: 60 * 60 * 24 * 90,
+          });
+          window.location.reload();
+        } else {
+          cookies.set('language', 'en', {
+            maxAge: 60 * 60 * 24 * 90,
+          });
+          window.location.reload();
+        }
+        window.location.reload();
+      } else {
+        console.log('prefrence ' + cookies.get('language'));
+      }
+    });
+  });
+};
 
-const messages = isDefaultLanguageInUse
-  ? defaultMessages
-  : addMissingTranslations(defaultMessages, messagesInLocale);
+const isDefaultLanguageInUse = config.locale === 'de';
+
+const messages = cookies.get('language') === 'en' ? defaultMessagesEN : defaultMessages;
+// const messages = isDefaultLanguageInUse
+//   ? defaultMessages
+//   : addMissingTranslations(defaultMessages, messagesInLocale);
 
 const isTestEnv = process.env.NODE_ENV === 'test';
 
@@ -73,7 +112,7 @@ const setupLocale = () => {
   if (isTestEnv) {
     // Use english as a default locale in tests
     // This affects app.test.js and app.node.test.js tests
-    config.locale = 'en';
+    config.locale = 'de';
     return;
   }
 
@@ -85,6 +124,19 @@ const setupLocale = () => {
 export const ClientApp = props => {
   const { store } = props;
   setupLocale();
+
+  useEffect(() => {
+    //document.documentElement.className += ' GT-inactive';
+    const GTFont = new Observer('GT Super Display Bold', {});
+
+    //GTFont.load().then(function() {
+    //document.documentElement.classList.remove('GT-inactive');
+    //document.documentElement.classList.add('GT-active');
+    //sessionStorage.foutFontsLoaded = true;
+    //});
+    //import('./font');
+  }, []);
+
   return (
     <IntlProvider locale={config.locale} messages={localeMessages} textComponent="span">
       <Provider store={store}>
@@ -131,7 +183,7 @@ ServerApp.propTypes = { url: string.isRequired, context: any.isRequired, store: 
  *  - {String} body: Rendered application body of the given route
  *  - {Object} head: Application head metadata from react-helmet
  */
-export const renderApp = (url, serverContext, preloadedState, collectChunks) => {
+export const renderApp = (url, serverContext, preloadedState) => {
   // Don't pass an SDK instance since we're only rendering the
   // component tree with the preloaded store state and components
   // shouldn't do any SDK calls in the (server) rendering lifecycle.
@@ -139,13 +191,9 @@ export const renderApp = (url, serverContext, preloadedState, collectChunks) => 
 
   const helmetContext = {};
 
-  // When rendering the app on server, we wrap the app with webExtractor.collectChunks
-  // This is needed to figure out correct chunks/scripts to be included to server-rendered page.
-  // https://loadable-components.com/docs/server-side-rendering/#3-setup-chunkextractor-server-side
-  const WithChunks = collectChunks(
+  const body = ReactDOMServer.renderToString(
     <ServerApp url={url} context={serverContext} helmetContext={helmetContext} store={store} />
   );
-  const body = ReactDOMServer.renderToString(WithChunks);
   const { helmet: head } = helmetContext;
   return { head, body };
 };

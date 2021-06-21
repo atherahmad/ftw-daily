@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import classNames from 'classnames';
 import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
+import classNames from 'classnames';
 import routeConfiguration from '../../routeConfiguration';
 import {
   LINE_ITEM_NIGHT,
@@ -22,7 +22,7 @@ import {
   LISTING_PAGE_PARAM_TYPE_EDIT,
   createSlug,
 } from '../../util/urlHelpers';
-import { createResourceLocatorString, findRouteByRouteName } from '../../util/routes';
+import { createResourceLocatorString } from '../../util/routes';
 import config from '../../config';
 import {
   InlineTextButton,
@@ -37,7 +37,7 @@ import {
 
 import MenuIcon from './MenuIcon';
 import Overlay from './Overlay';
-import css from './ManageListingCard.module.css';
+import css from './ManageListingCard.css';
 
 // Menu content needs the same padding
 const MENU_CONTENT_OFFSET = -12;
@@ -129,7 +129,29 @@ export const ManageListingCardComponent = props => {
   const currentListing = ensureOwnListing(listing);
   const id = currentListing.id.uuid;
   const { title = '', price, state } = currentListing.attributes;
-  const slug = createSlug(title);
+
+  const projectTitle = title.split(' • ')[0];
+
+  const projectRoomtypeRaw = title.split(' • ')[1];
+
+  const ProjectRoomtype =
+    projectRoomtypeRaw === 'singlebedroom' ? (
+      <FormattedMessage id="roomtypes.singlebedroom" />
+    ) : projectRoomtypeRaw === 'twobedroom' ? (
+      <FormattedMessage id="roomtypes.twobedroom" />
+    ) : projectRoomtypeRaw === 'doublebedroom' ? (
+      <FormattedMessage id="roomtypes.doublebedroom" />
+    ) : projectRoomtypeRaw === 'shared_bedroom' ? (
+      <FormattedMessage id="roomtypes.shared_bedroom" />
+    ) : projectRoomtypeRaw === 'entire_accomodation' ? (
+      <FormattedMessage id="roomtypes.entire_accomodation" />
+    ) : projectRoomtypeRaw === 'camping' ? (
+      <FormattedMessage id="roomtypes.camping" />
+    ) : null;
+
+  const titleNew = projectTitle;
+
+  const slug = createSlug(titleNew);
   const isPendingApproval = state === LISTING_STATE_PENDING_APPROVAL;
   const isClosed = state === LISTING_STATE_CLOSED;
   const isDraft = state === LISTING_STATE_DRAFT;
@@ -145,15 +167,6 @@ export const ManageListingCardComponent = props => {
   const hasError = hasOpeningError || hasClosingError;
   const thisListingInProgress =
     actionsInProgressListingId && actionsInProgressListingId.uuid === id;
-
-  const onOverListingLink = () => {
-    // Enforce preloading of ListingPage (loadable component)
-    const { component: Page } = findRouteByRouteName('ListingPage', routeConfiguration());
-    // Loadable Component has a "preload" function.
-    if (Page.preload) {
-      Page.preload();
-    }
-  };
 
   const titleClasses = classNames(css.title, {
     [css.titlePending]: isPendingApproval,
@@ -188,15 +201,16 @@ export const ManageListingCardComponent = props => {
           //
           // NOTE: It might be better to absolute-position those buttons over a card-links.
           // (So, that they have no parent-child relationship - like '<a>bla<a>blaa</a></a>')
-          history.push(createListingURL(routeConfiguration(), listing));
+          // history.push(createListingURL(routeConfiguration(), listing));
+          if (!isMenuOpen) {
+            history.push(createListingURL(routeConfiguration(), listing));
+          }
         }}
-        onMouseOver={onOverListingLink}
-        onTouchStart={onOverListingLink}
       >
         <div className={css.aspectWrapper}>
           <ResponsiveImage
             rootClassName={css.rootForImage}
-            alt={title}
+            alt={titleNew}
             image={firstImage}
             variants={['landscape-crop', 'landscape-crop2x']}
             sizes={renderSizes}
@@ -228,6 +242,26 @@ export const ManageListingCardComponent = props => {
                 </div>
               </MenuLabel>
               <MenuContent rootClassName={css.menuContent}>
+                <MenuItem key="edit-listing">
+                  <InlineTextButton
+                    rootClassName={`${menuItemClasses} ${css.menuLinkItem}`}
+                    onClick={() => {
+                      history.push(`/l/${slug}/${id}/${editListingLinkType}/description`);
+                    }}
+                  >
+                    <FormattedMessage id="ManageListingCard.editListing" />
+                  </InlineTextButton>
+                </MenuItem>
+                <MenuItem key="edit-listing-availability">
+                  <InlineTextButton
+                    rootClassName={`${menuItemClasses} ${css.menuLinkItem}`}
+                    onClick={() => {
+                      history.push(`/l/${slug}/${id}/${editListingLinkType}/availability`);
+                    }}
+                  >
+                    <FormattedMessage id="ManageListingCard.manageAvailability" />
+                  </InlineTextButton>
+                </MenuItem>
                 <MenuItem key="close-listing">
                   <InlineTextButton
                     rootClassName={menuItemClasses}
@@ -253,7 +287,7 @@ export const ManageListingCardComponent = props => {
             <Overlay
               message={intl.formatMessage(
                 { id: 'ManageListingCard.draftOverlayText' },
-                { listingTitle: title }
+                { listingTitle: ProjectRoomtype }
               )}
             >
               <NamedLink
@@ -270,7 +304,7 @@ export const ManageListingCardComponent = props => {
           <Overlay
             message={intl.formatMessage(
               { id: 'ManageListingCard.closedListing' },
-              { listingTitle: title }
+              { listingTitle: ProjectRoomtype }
             )}
           >
             <button
@@ -292,7 +326,7 @@ export const ManageListingCardComponent = props => {
           <Overlay
             message={intl.formatMessage(
               { id: 'ManageListingCard.pendingApproval' },
-              { listingTitle: title }
+              { listingTitle: ProjectRoomtype }
             )}
           />
         ) : null}
@@ -333,12 +367,13 @@ export const ManageListingCardComponent = props => {
                 history.push(createListingURL(routeConfiguration(), listing));
               }}
             >
-              {formatTitle(title, MAX_LENGTH_FOR_WORDS_IN_TITLE)}
+              {ProjectRoomtype}
+              {/* {formatTitle(titleNew, MAX_LENGTH_FOR_WORDS_IN_TITLE)} */}
             </InlineTextButton>
           </div>
         </div>
 
-        <div className={css.manageLinks}>
+        {/* <div className={css.manageLinks}>
           <NamedLink
             className={css.manageLink}
             name="EditListingPage"
@@ -360,7 +395,7 @@ export const ManageListingCardComponent = props => {
               </NamedLink>
             </React.Fragment>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -399,7 +434,4 @@ ManageListingCardComponent.propTypes = {
   }).isRequired,
 };
 
-export default compose(
-  withRouter,
-  injectIntl
-)(ManageListingCardComponent);
+export default compose(withRouter, injectIntl)(ManageListingCardComponent);

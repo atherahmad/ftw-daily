@@ -33,7 +33,10 @@ export const typeHandlers = [
 ];
 
 const serialize = data => {
-  return transit.write(data, { typeHandlers, verbose: config.sdk.transitVerbose });
+  return transit.write(data, {
+    typeHandlers,
+    verbose: config.sdk.transitVerbose,
+  });
 };
 
 const deserialize = str => {
@@ -50,25 +53,28 @@ const post = (path, body) => {
     },
     body: serialize(body),
   };
-  return window.fetch(url, options).then(res => {
-    const contentTypeHeader = res.headers.get('Content-Type');
-    const contentType = contentTypeHeader ? contentTypeHeader.split(';')[0] : null;
-
-    if (res.status >= 400) {
-      return res.json().then(data => {
-        let e = new Error();
-        e = Object.assign(e, data);
-
+  return window
+    .fetch(url, options)
+    .then(res => {
+      if (res.status >= 400) {
+        const e = new Error('Local API request failed');
+        e.apiResponse = res;
         throw e;
-      });
-    }
-    if (contentType === 'application/transit+json') {
-      return res.text().then(deserialize);
-    } else if (contentType === 'application/json') {
-      return res.json();
-    }
-    return res.text();
-  });
+      }
+      return res;
+    })
+    .then(res => {
+      const contentTypeHeader = res.headers.get('Content-Type');
+      const contentType = contentTypeHeader
+        ? contentTypeHeader.split(';')[0]
+        : null;
+      if (contentType === 'application/transit+json') {
+        return res.text().then(deserialize);
+      } else if (contentType === 'application/json') {
+        return res.json();
+      }
+      return res.text();
+    });
 };
 
 // Fetch transaction line items from the local API endpoint.
@@ -109,9 +115,12 @@ export const transitionPrivileged = body => {
 // we will show option to create a new user with idp.
 // For that user needs to confirm data fetched from the idp.
 // After the confirmation, this endpoint is called to create a new user with confirmed data.
-//
 // See `server/api/auth/createUserWithIdp.js` to see what data should
 // be sent in the body.
 export const createUserWithIdp = body => {
   return post('/api/auth/create-user-with-idp', body);
+};
+
+export const sendMail = body => {
+  return post('/api/send-email', body);
 };

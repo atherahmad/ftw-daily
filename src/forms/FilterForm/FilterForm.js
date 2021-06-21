@@ -6,7 +6,7 @@ import arrayMutators from 'final-form-arrays';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 
 import { Form } from '../../components';
-import css from './FilterForm.module.css';
+import css from './FilterForm.css';
 
 const FilterFormComponent = props => {
   const { liveEdit, onChange, onSubmit, onCancel, onClear, ...rest } = props;
@@ -52,7 +52,7 @@ const FilterFormComponent = props => {
           onCancel();
         };
 
-        const clear = intl.formatMessage({ id: 'FilterForm.clear' });
+        const clear = intl.formatMessage({ id: 'SearchFiltersSecondary.resetAll' });
         const cancel = intl.formatMessage({ id: 'FilterForm.cancel' });
         const submit = intl.formatMessage({ id: 'FilterForm.submit' });
 

@@ -18,13 +18,10 @@ exports[`SearchPageComponent matches snapshot 1`] = `
   title="SearchPage.schemaTitle"
 >
   <withRouter(Connect(TopbarContainerComponent))
-    className="topbar"
     currentPage="SearchPage"
     currentSearchParams={Object {}}
   />
-  <div
-    className="container"
-  >
+  <div>
     <MainPanel
       className={null}
       filterConfig={
@@ -202,16 +199,13 @@ exports[`SearchPageComponent matches snapshot 1`] = `
       urlQueryParams={Object {}}
     />
     <withViewport(ModalInMobileComponent)
-      className="mapPanel"
       id="SearchPage.map"
       isModalOpenOnMobile={false}
       onClose={[Function]}
       onManageDisableScrolling={[Function]}
       showAsModalMaxWidth={768}
     >
-      <div
-        className="mapWrapper"
-      >
+      <div>
         <withRouter(SearchMapComponent)
           activeListingId={null}
           isSearchMapOpenOnMobile={false}
@@ -223,7 +217,6 @@ exports[`SearchPageComponent matches snapshot 1`] = `
           }
           onCloseAsModal={[Function]}
           onMapMoveEnd={[Function]}
-          reusableContainerClassName="map"
         />
       </div>
     </withViewport(ModalInMobileComponent)>

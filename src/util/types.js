@@ -64,7 +64,7 @@ propTypes.route = shape({
   path: string.isRequired,
   exact: bool,
   strict: bool,
-  component: oneOfType([object, func]).isRequired,
+  component: func.isRequired,
   loadData: func,
 });
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { InlineTextButton, NamedLink } from '../../components';
 
-import css from './TabNavHorizontal.module.css';
+import css from './TabNavHorizontal.css';
 
 export const LIGHT_SKIN = 'light';
 export const DARK_SKIN = 'dark';
@@ -12,6 +12,7 @@ const { arrayOf, bool, func, node, object, oneOf, string, shape } = PropTypes;
 
 const Tab = props => {
   const { className, disabled, text, selected, onClick, linkProps, isDark } = props;
+
   const darkSkinClasses = isDark
     ? classNames(css.tabContentDarkSkin, {
         [css.selectedTabContentDarkSkin]: selected,

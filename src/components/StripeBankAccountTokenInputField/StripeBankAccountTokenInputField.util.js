@@ -38,10 +38,10 @@ export const BANK_ACCOUNT_INPUTS = [
   TRANSIT_NUMBER,
   INSTITUTION_NUMBER,
   CLEARING_CODE,
-  BANK_NAME,
-  BANK_CODE,
   BRANCH_NAME,
   BRANCH_CODE,
+  BANK_NAME,
+  BANK_CODE,
   SORT_CODE,
   ROUTING_NUMBER,
   ACCOUNT_OWNER_NAME,
@@ -165,9 +165,6 @@ export const mapInputsToStripeAccountKeys = (country, values) => {
   switch (country) {
     case 'AT':
     case 'BE':
-    case 'BG':
-    case 'CY':
-    case 'CZ':
     case 'DK':
     case 'EE':
     case 'FI':
@@ -179,11 +176,9 @@ export const mapInputsToStripeAccountKeys = (country, values) => {
     case 'LV':
     case 'LT':
     case 'LU':
-    case 'MT':
     case 'NL':
     case 'PL':
     case 'PT':
-    case 'RO':
     case 'SK':
     case 'SI':
     case 'ES':

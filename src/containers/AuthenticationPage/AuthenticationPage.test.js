@@ -9,7 +9,9 @@ describe('AuthenticationPageComponent', () => {
   // We need to overwrite social login client ids before running the test
   // to make sure it's same in local environment and in CI
   beforeEach(() => {
-    process.env = Object.assign(process.env, { REACT_APP_FACEBOOK_APP_ID: '' });
+    process.env = Object.assign(process.env, {
+      REACT_APP_FACEBOOK_APP_ID: '',
+    });
     process.env = Object.assign(process.env, { REACT_APP_GOOGLE_CLIENT_ID: '' });
   });
 
@@ -105,7 +107,7 @@ describe('AuthenticationPageComponent with Google and Facebook login', () => {
 
   it('matches snapshot', () => {
     const props = {
-      history: { push: noop },
+      history: { push: '/BecomeHostPage' },
       location: { state: { from: '/protected' } },
       tab: 'login',
       isAuthenticated: false,

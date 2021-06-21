@@ -7,7 +7,7 @@ import { obfuscatedCoordinates } from '../../util/maps';
 import { Map } from '../../components';
 import config from '../../config';
 
-import css from './ListingPage.module.css';
+import css from './ListingPage.css';
 
 class SectionMapMaybe extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class SectionMapMaybe extends Component {
     }
 
     const address = publicData && publicData.location ? publicData.location.address : '';
+
     const classes = classNames(rootClassName || css.sectionMap, className);
     const cacheKey = listingId ? `${listingId.uuid}_${geolocation.lat}_${geolocation.lng}` : null;
 
@@ -33,10 +34,10 @@ class SectionMapMaybe extends Component {
 
     return (
       <div className={classes}>
-        <h2 className={css.locationTitle}>
+        <h2 className={css.featuresTitle}>
           <FormattedMessage id="ListingPage.locationTitle" />
         </h2>
-        {this.state.isStatic ? (
+        {/* {this.state.isStatic ? (
           <button
             className={css.map}
             onClick={() => {
@@ -47,7 +48,9 @@ class SectionMapMaybe extends Component {
           </button>
         ) : (
           <div className={css.map}>{map}</div>
-        )}
+        )} */}
+
+        <div className={css.map}>{map}</div>
       </div>
     );
   }
